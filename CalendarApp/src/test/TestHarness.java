@@ -24,6 +24,6 @@ public class TestHarness {
         SampleTest sampleTest = new SampleTest();
         totalErrorCount = totalErrorCount + sampleTest.run();
         System.out.println("TestHarness encountered: " + totalErrorCount +
-                "total errors.");    
+                " total errors.");    
     }
 }
