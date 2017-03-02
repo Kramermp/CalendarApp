@@ -45,7 +45,7 @@ public class UserController {
 		try {
 			serializedData.addUser(name, username, password);
 			additionSuccessful = true;
-		} catch (UserAlreadyExistsEception err) {
+		} catch (UserAlreadyExistsException err) {
 			System.out.println(err.getMessage());
 		    additionSuccessful = false;    
 		}
