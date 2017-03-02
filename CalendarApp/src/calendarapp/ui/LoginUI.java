@@ -183,7 +183,7 @@ public class LoginUI extends JFrame {
 	
 	private void registerBtnAction() {
 		System.out.println("Requesting parentController to createRegisterNewUserWindow()");
-		parentController.createNewUserWindow();
+		parentController.createUserUI();
 		
 	}
 	
