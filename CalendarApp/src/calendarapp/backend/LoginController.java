@@ -50,7 +50,7 @@ public class LoginController {
 				loginUI.dispose();
 				User activeUser = new User(username, password);
 				//This Controller will be the program.
-				//new NavigationController(dataController, activeUser);
+				new NavigationController(activeUser);
 			} else { // (!isValid)
 				System.out.println("The credentials were not validated.");
 			}
