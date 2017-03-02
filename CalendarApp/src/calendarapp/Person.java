@@ -5,12 +5,18 @@
  */
 package calendarapp;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Faust
  */
-public abstract class Person {
+public abstract class Person implements Serializable {
     private Name name;
+    
+    public Name getName() {
+	return this.name;
+    }
     
     /**
      *  This constructor populates creates the person object and populates their
@@ -32,5 +38,16 @@ public abstract class Person {
      */
     public Person(Name name) {
 	this.name = name;
+    }
+    public Person() {
+        this.name = new Name();
+    }
+    /**
+     * This method is used to convert a person object to a String. It will
+     * return the name method to string. lastName, firstName middleInitial
+     * @return 
+     */
+    public String toString() {
+	return this.name.toString();
     }
 }

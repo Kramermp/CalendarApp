@@ -1,11 +1,13 @@
 
 package calendarapp;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Faust
  */
-public class Name implements Comparable {
+public class Name implements Comparable, Serializable {
     public static final Name TEST_NAME = new Name("", "TEST", "", "USER", "");
     private String title = "";
     //Maybe add nickname field?
@@ -14,6 +16,10 @@ public class Name implements Comparable {
     private String middleName = "";
     private String lastName = "";
     private String suffix = "";
+
+    public Name() {
+        
+    }
     
     public Name(String title, String firstName, String middleName, 
             String lastName, String suffix) {
