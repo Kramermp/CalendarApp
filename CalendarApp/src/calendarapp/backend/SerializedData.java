@@ -48,7 +48,7 @@ public class SerializedData implements Serializable {
 	public SerializedData(UserList userList) {
 		System.out.println("Creating SerializedData(UserList).");
 		this.userList = userList;
-		System.out.println("Finished creating SerializedData();")
+		System.out.println("Finished creating SerializedData()");
 	}
 	// Similar to contructor that takes UserList.
 	public void setUserList(UserList userList) {
