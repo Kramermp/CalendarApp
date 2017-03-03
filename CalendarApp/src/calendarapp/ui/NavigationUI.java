@@ -52,7 +52,8 @@ public class NavigationUI extends JFrame {
 		System.out.println("Creating the NavigationUI window.");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Dimension windowSize = new Dimension(375, 667);
-		this.setPreferredSize(windowSize);
+		//this.setPreferredSize(windowSize);
+		this.setExtendedState(MAXIMIZED_BOTH);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		this.pack();
 		this.setLocation((screenSize.width/2) - this.getWidth()/2, 
