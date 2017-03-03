@@ -63,6 +63,7 @@ public class UserUI extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Dimension windowSize = new Dimension(375, 667);
         this.setPreferredSize(windowSize);
+	this.setTitle("Calendar");
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         this.pack();
         this.setLocation((screenSize.width/2) - this.getWidth()/2, 
