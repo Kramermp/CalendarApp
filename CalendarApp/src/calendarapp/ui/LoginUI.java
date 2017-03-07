@@ -133,10 +133,8 @@ public class LoginUI extends JFrame {
 		c.anchor = GridBagConstraints.NORTH;
 		c.gridx = 0;
 		c.gridwidth = 2;
-		c.gridy = 6;
-		
-		this.add(errorMessage, c);
-		
+		c.gridy = 6;	
+		this.add(errorMessage, c);	
 
 		cancelBtn = new JButton("Cancel");
 		cancelBtn.addActionListener(new CancelBtnListener());
@@ -171,11 +169,7 @@ public class LoginUI extends JFrame {
 		c.weightx = 1;
 		c.gridy = 7;
 		c.weighty = .75;
-		this.add(registerBtn, c);
-		
-		
-		
-		
+		this.add(registerBtn, c);	
 	}
 	/*
 		In the Section below this are the actual methods that this class will
@@ -234,12 +228,9 @@ public class LoginUI extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent ae) {
-			System.out.println("The Submit Button has been pressed.");
-			
-			LoginUI.this.submitCredentials();
-			
-		}
-		
+			System.out.println("The Submit Button has been pressed.");			
+			LoginUI.this.submitCredentials();		
+		}	
 	}
 	
 	private class RegisterBtnListener implements ActionListener {
@@ -248,8 +239,7 @@ public class LoginUI extends JFrame {
 		public void actionPerformed(ActionEvent ae) {
 			System.out.println("The Register Button was pressed.");
 			LoginUI.this.registerBtnAction();
-		}
-		
+		}	
 	}
 	private class UsernameTxtFldListener implements ActionListener {
 
@@ -257,7 +247,6 @@ public class LoginUI extends JFrame {
 		public void actionPerformed(ActionEvent ae) {
 			LoginUI.this.passwordFld.requestFocus();
 		}
-		
 	}
 	private class PasswordFldListener implements ActionListener {
 
@@ -267,7 +256,5 @@ public class LoginUI extends JFrame {
 					+ " input.");
 			LoginUI.this.submitCredentials();
 		}
-
-		
 	}
 }
