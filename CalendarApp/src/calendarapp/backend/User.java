@@ -4,6 +4,8 @@ import calendarapp.Name;
 import calendarapp.Person;
 import java.io.Serializable;
 import java.util.Arrays;
+import org.jasypt.util.password.StrongPasswordEncryptor;
+
 
 /**
  *
@@ -12,10 +14,13 @@ import java.util.Arrays;
  * @since .1
  *
  */
+
 public class User extends Person implements Serializable {
 	//Will need a contactList and eventList at some point
+	private static StrongPasswordEncryptor encryptor 
+			= new StrongPasswordEncryptor();
 	private String username;
-	private char[] password;
+	private String password;
 	
 	/**
 	 * This constructor takes a name object and uses it to build the super
@@ -28,13 +33,13 @@ public class User extends Person implements Serializable {
 	public User(Name name, String username, char[] password) {
 		super(name);
 		this.username = username;
-		this.password = password;
+		this.password = encryptor.encryptPassword(Arrays.toString(password));
 	}
 	
 	public User(String username, char[] password) {
 		super();
 		this.username = username;
-		this.password = password;
+		this.password = encryptor.encryptPassword(Arrays.toString(password));
 	}
 
 	public User(){
@@ -67,7 +72,7 @@ public class User extends Person implements Serializable {
 	public void setPassword(String username, char[] originalPassword,
 		char[] newPassword) {
 		if(authenticate(username, originalPassword)) 
-			this.password = newPassword;
+			this.password = encryptor.encryptPassword(Arrays.toString(newPassword));
 		else 
 			System.out.println("Invalid credentials");
 	
@@ -80,16 +85,18 @@ public class User extends Person implements Serializable {
 	 * @param password
 	 * @return 
 	 */
-	protected boolean authenticate(String username, char[]password) {
-	return (this.username.equals(username) && 
-				Arrays.equals(this.password, password));
+	protected boolean authenticate(String username, char[] password) {
+		if (this.username.equals(username)) {
+			return encryptor.checkPassword(Arrays.toString(password), this.password);
+		} 
+		return false;
 	}
 	
 	public String getUsername() {
 		return this.username;
 	}
 
-	protected char[] getPassword() { 
+	protected String getPassword() { 
 		return this.password;
 	}
 }
