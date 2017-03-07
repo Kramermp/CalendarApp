@@ -53,6 +53,7 @@ public class LoginController {
 				new NavigationController(activeUser);
 			} else { // (!isValid)
 				System.out.println("The credentials were not validated.");
+				loginUI.failedLoginAttempt();
 			}
 		}
 		System.out.println("Finished executing validateCredentials().");

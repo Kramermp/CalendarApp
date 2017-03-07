@@ -6,6 +6,7 @@
 package calendarapp.ui;
 
 import calendarapp.backend.LoginController;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -19,6 +20,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.JPanel;
+
 
 /*
 			This class will provide a nice UI for the User that will then
@@ -36,6 +39,7 @@ public class LoginUI extends JFrame {
 	private JLabel passwordLbl;
 	private JTextField usernameTxtFld;
 	private JPasswordField passwordFld;
+	private JPanel errorMessage;
 	private JButton submitBtn;
 	private JButton cancelBtn;
 	private JButton registerBtn;
@@ -116,7 +120,25 @@ public class LoginUI extends JFrame {
 		c.gridy = 5;
 		this.add(passwordFld, c);
 		
-		 cancelBtn = new JButton("Cancel");
+		errorMessage = new JPanel();
+		//errorMessage.setBackground( new Color(0,0,0));
+		JLabel errorText = new JLabel("The Username or Password was"
+			+ " incorrect.");
+		errorText.setForeground(Color.red);
+		errorMessage.add(errorText);
+		errorMessage.setEnabled(false);
+		errorMessage.setVisible(false);
+		c = new GridBagConstraints();
+		c.insets = fieldInset;
+		c.anchor = GridBagConstraints.NORTH;
+		c.gridx = 0;
+		c.gridwidth = 2;
+		c.gridy = 6;
+		
+		this.add(errorMessage, c);
+		
+
+		cancelBtn = new JButton("Cancel");
 		cancelBtn.addActionListener(new CancelBtnListener());
 		c = new GridBagConstraints();
 		c.insets = new Insets(150, 10, 0, 5);
@@ -154,7 +176,6 @@ public class LoginUI extends JFrame {
 		
 		
 		
-		
 	}
 	/*
 		In the Section below this are the actual methods that this class will
@@ -181,10 +202,20 @@ public class LoginUI extends JFrame {
 		parentController.validateCredentials(username, password);
 	}
 	
+	/**
+	 *  This method displays a message that the login was unsuccessful.
+	 *  <p>
+	 * 
+	 */
+	public void failedLoginAttempt() {
+		errorMessage.setEnabled(true);
+		errorMessage.setVisible(true);
+	}
+	
 	private void registerBtnAction() {
-		System.out.println("Requesting parentController to createRegisterNewUserWindow()");
+		System.out.println("Requesting parentController to" 
+			+ " createRegisterNewUserWindow()");
 		parentController.createUserUI();
-		
 	}
 	
 	// Below this point are the Private Inner Classes that this UI uses
@@ -196,8 +227,7 @@ public class LoginUI extends JFrame {
 			System.out.println("The Cancel Button has been pressed.");
 			System.out.println("The System will now exit.");
 			System.exit(0);
-		}
-		
+		}	
 	}
 	
 	private class SubmitBtnListener implements ActionListener{
