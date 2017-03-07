@@ -3,6 +3,7 @@ package calendarapp.backend;
 import calendarapp.backend.User;
 import calendarapp.Name;
 import calendarapp.backend.UserList;
+import java.awt.Color;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -28,6 +29,7 @@ import java.util.logging.Logger;
 
 public class SerializedData implements Serializable {
 	private UserList userList;
+	private ColorPalette colorPalette;
 	
 	public SerializedData() {
 		System.out.println("Creating SerializedData.");
@@ -37,6 +39,9 @@ public class SerializedData implements Serializable {
 		 */	
 		if (userList == null) {
 			userList = new UserList();
+		}
+		if(colorPalette == null) {
+			colorPalette = new ColorPalette();
 		}
 		System.out.println("Finished creating SerializedData.");
 	}
@@ -105,5 +110,17 @@ public class SerializedData implements Serializable {
 	public void addUser(Name name, String requestedUsername, char[] password) 
 			throws UserAlreadyExistsException {
 		userList.addUser(requestedUsername, password);
+	}
+
+	public Color getBackgroundColor() {
+		return colorPalette.getBackgroundColor();
+	}
+	
+	public Color getDefaultFontColor() {
+		return colorPalette.getDefaultFontColor();
+	}
+	
+	public Color getAlertFontColor() {
+		return colorPalette.getAlertFontColor();
 	}
 }

@@ -2,6 +2,7 @@ package calendarapp.backend;
 
 import javax.swing.JFrame;
 import calendarapp.ui.LoginUI;
+import java.awt.Color;
 
 /**
  * This class LoginController is the controlls the Login process. It creates
@@ -69,5 +70,17 @@ public class LoginController {
 		System.out.println("LoginController received request for"
 				+ " createNewUserWindow");
 	    new UserController();
-	}	
+	}
+	
+	public Color getBackgroundColor() {
+		return serializedData.getBackgroundColor();
+	}
+
+	public Color getDefaultFontColor() {
+		return serializedData.getDefaultFontColor();
+	}
+	
+	public Color getAlertFontColor() {
+		return serializedData.getAlertFontColor();
+	}
 }

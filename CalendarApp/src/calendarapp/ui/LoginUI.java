@@ -21,6 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 
 /*
@@ -44,9 +45,16 @@ public class LoginUI extends JFrame {
 	private JButton cancelBtn;
 	private JButton registerBtn;
 	
+	private Color backgroundColor;
+	private Color defaultFontColor = Color.red;
+	private Color alertFontColor;
+	
 	public LoginUI(LoginController parentController) {
 		System.out.println("Creating LoginUI.");
 		this.parentController = parentController;
+		this.backgroundColor = parentController.getBackgroundColor();
+		this.defaultFontColor = parentController.getDefaultFontColor();
+		this.alertFontColor = parentController.getAlertFontColor();
 		createWindow();
 		addComponents();
 		System.out.println("Finished creating LoginUI.");
@@ -55,9 +63,11 @@ public class LoginUI extends JFrame {
 	private void createWindow() {	
 		System.out.println("Creating the LoginUI window.");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setUndecorated(true);
 		Dimension windowSize = new Dimension(375, 667);
 		this.setPreferredSize(windowSize);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		this.setBackground(backgroundColor);
 		this.pack();
 		this.setLocation((screenSize.width/2) - this.getWidth()/2, 
 				screenSize.height/2 - this.getHeight()/2);
@@ -65,6 +75,7 @@ public class LoginUI extends JFrame {
 	}
 	
 	private void addComponents() {
+		this.getContentPane().setBackground(backgroundColor);
 		/*
 			This method will add the components to the window and actually
 			create the things needed for users to interact with the program
@@ -81,6 +92,7 @@ public class LoginUI extends JFrame {
 		Insets fieldInset = new Insets(5, 0, 0, 0);
 		
 		usernameLbl = new JLabel("USERNAME");
+		usernameLbl.setForeground(defaultFontColor);
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = labelInset;
 		c.anchor = GridBagConstraints.SOUTH;
@@ -92,6 +104,7 @@ public class LoginUI extends JFrame {
 		
 		// mpk5206 is one of the accept usernames
 		usernameTxtFld = new JTextField("Test User 1", 25);
+		styleJTextField(usernameTxtFld);
 		//FIXME: The userNameTxtFld should begin empty
 		usernameTxtFld.addActionListener(new UsernameTxtFldListener());
 		c = new GridBagConstraints();
@@ -102,6 +115,7 @@ public class LoginUI extends JFrame {
 		this.add(usernameTxtFld, c);
 		
 		passwordLbl = new JLabel("PASSWORD");
+		passwordLbl.setForeground(defaultFontColor);
 		c = new GridBagConstraints();
 		c.insets = labelInset;
 		c.gridx = 0;
@@ -111,6 +125,7 @@ public class LoginUI extends JFrame {
 		
 		//password is the password of the mpk5206 account
 		passwordFld = new JPasswordField("password", 25);
+		styleJTextField(passwordFld);
 		//FIXME: passwordFld should begin empty
 		passwordFld.addActionListener(new PasswordFldListener());
 		c = new GridBagConstraints();
@@ -124,10 +139,11 @@ public class LoginUI extends JFrame {
 		//errorMessage.setBackground( new Color(0,0,0));
 		JLabel errorText = new JLabel("The Username or Password was"
 			+ " incorrect.");
-		errorText.setForeground(Color.red);
+		errorText.setForeground(alertFontColor);
 		errorMessage.add(errorText);
 		errorMessage.setEnabled(false);
 		errorMessage.setVisible(false);
+		errorMessage.setBackground(backgroundColor);
 		c = new GridBagConstraints();
 		c.insets = fieldInset;
 		c.anchor = GridBagConstraints.NORTH;
@@ -256,5 +272,13 @@ public class LoginUI extends JFrame {
 					+ " input.");
 			LoginUI.this.submitCredentials();
 		}
+	}
+	/**
+	 * This method takes a JTextField and Styles it.
+	 * @param field 
+	 */
+	private void styleJTextField(JTextField field) {		
+		field.setHorizontalAlignment(JTextField.CENTER);
+		field.setForeground(defaultFontColor);
 	}
 }
