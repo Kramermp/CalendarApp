@@ -1,10 +1,12 @@
 package calendarapp;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Faust
  */
-public class Address extends Location {
+public class Address extends Location implements Serializable {
     private String addressLine1 = "";
     private String addressLine2 = "";
     private String addressLine3 = "";

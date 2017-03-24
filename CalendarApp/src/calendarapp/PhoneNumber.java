@@ -5,10 +5,12 @@
  */
 package calendarapp;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Faust
  */
-class PhoneNumber {
+class PhoneNumber implements Serializable {
     
 }

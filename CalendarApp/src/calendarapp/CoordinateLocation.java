@@ -1,10 +1,12 @@
 package calendarapp;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Faust
  */
-public class CoordinateLocation extends Location {
+public class CoordinateLocation extends Location implements Serializable {
 
     private double longitude = 0.00;
     private double latitude = 0.00;

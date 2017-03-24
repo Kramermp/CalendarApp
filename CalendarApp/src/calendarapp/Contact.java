@@ -5,13 +5,14 @@
  */
 package calendarapp;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author Faust
  */
-public class Contact extends Person implements Comparable {
+public class Contact extends Person implements Comparable, Serializable {
     private ArrayList<String> emails = new ArrayList<String>();
     private ArrayList<String> phoneNumbers = new ArrayList<String>();
     

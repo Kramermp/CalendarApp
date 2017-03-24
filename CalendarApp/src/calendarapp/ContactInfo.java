@@ -5,13 +5,14 @@
  */
 package calendarapp;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author Faust
  */
-class ContactInfo {
+class ContactInfo implements Serializable {
     private Name name;
     private ArrayList<PhoneNumber> phoneNumbers;
     private ArrayList<Location> address;

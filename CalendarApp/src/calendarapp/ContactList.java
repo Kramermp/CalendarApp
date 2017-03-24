@@ -5,6 +5,7 @@
  */
 package calendarapp;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -16,7 +17,7 @@ import java.util.ListIterator;
  *
  * @author Faust
  */
-public class ContactList implements Sortable {
+public class ContactList implements Sortable, Serializable {
     private static final int INSERTIONSORT_THRESHOLD = 7;
     private ArrayList<Contact> listOfContacts;
     

@@ -1,10 +1,12 @@
 package calendarapp;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Faust
  */
-public abstract class Location {
+public abstract class Location implements Serializable {
     private static int lastID = 0;
     private int locationID = -1; //Set to -1 to test for failures to define
     private String name = "";
