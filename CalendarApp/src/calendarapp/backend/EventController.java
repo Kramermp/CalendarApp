@@ -18,26 +18,54 @@ public class EventController {
 	private NavigationController parentController;
 	private EventUI eventUI;
 	private Event sourceEvent;
+	private User activeUser;
     
-    public EventController (NavigationController parentController) {
+    public EventController (NavigationController parentController, 
+			User activeUser) {
     	System.out.println("Creating EventController.");
     	this.parentController = parentController;
+		this.activeUser = activeUser;
     	this.eventUI = new EventUI(this, sourceEvent);
     	this.eventUI.setVisible(true);
     	System.out.println("Finished creating EventController.");
     }
 
     public EventController(NavigationController parentController, 
-    	Event sourceEvent) {
+			User activeUser, Event sourceEvent) {
+		System.out.println("Creating the Eventcontroller.");
     	this.parentController = parentController;
-    	this.sourceEvent = sourceEvent; 
-   	this.eventUI = new EventUI(this, sourceEvent);
+    	this.sourceEvent = sourceEvent;
+		this.activeUser = activeUser;
+		this.eventUI = new EventUI(this, sourceEvent);
     	this.eventUI.setVisible(true);
-
+		System.out.println("Finished creating the EventController.");
     }
-    
+    public void submitEvent() {
+		if(sourceEvent == null) {
+			//Create new event
+			Event newEvent = new Event();
+			newEvent.setEventName(eventUI.getEventName());
+			newEvent.setEventTag(eventUI.getEventTag());
+			newEvent.setEventContactList(eventUI.getEventContacts());
+			newEvent.setEventStartDate(eventUI.getEventStartDate());
+			newEvent.setEventEndDate(eventUI.getEventEndDate());
+			newEvent.setEventLocation(eventUI.getEventLocation());
+			System.out.println();
+			activeUser.addEvent(newEvent);
+			disposeEventUI();
+		} else {
+			sourceEvent.setEventName(eventUI.getEventName());
+			sourceEvent.setEventTag(eventUI.getEventTag());
+			sourceEvent.setEventContactList(eventUI.getEventContacts());
+			sourceEvent.setEventStartDate(eventUI.getEventStartDate());
+			sourceEvent.setEventEndDate(eventUI.getEventEndDate());
+			sourceEvent.setEventLocation(eventUI.getEventLocation());
+			disposeEventUI();
+		}
+	}
     public void disposeEventUI() {
         System.out.println("EventController disposing EventUI.");
+		System.out.println(activeUser.getEventList().size());
         eventUI.dispose();
         parentController.disposeEventController();
     }
