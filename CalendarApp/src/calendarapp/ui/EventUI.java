@@ -7,6 +7,7 @@ package calendarapp.ui;
 
 import calendarapp.Event;
 import calendarapp.backend.EventController;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -15,6 +16,7 @@ import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -55,44 +57,44 @@ public class EventUI extends JFrame {
 		this.pack();
 		this.setLocation((screenSize.width/2) - this.getWidth()/2, 
 				screenSize.height/2 - this.getHeight()/2);
-                this.addWindowListener(new WindowListener() {
-				    @Override
-				    public void windowOpened(WindowEvent we) {
-				        //Do Nothing
-				    }
+		this.addWindowListener(new WindowListener() {
+			@Override
+			public void windowOpened(WindowEvent we) {
+				//Do Nothing
+			}
 
-				    @Override
-				    public void windowClosing(WindowEvent we) {
-				       System.out.println("EventUI Window Closed.");
-				        EventUI.this.parentController.disposeEventUI();
-				    }
+			@Override
+			public void windowClosing(WindowEvent we) {
+				System.out.println("EventUI Window Closed.");
+				EventUI.this.parentController.disposeEventUI();
+			}
 
-				    @Override
-				    public void windowClosed(WindowEvent we) {
-				        System.out.println("EventUI Window Closed.");
-				        EventUI.this.parentController.disposeEventUI();
-				    }
+			@Override
+			public void windowClosed(WindowEvent we) {
+					System.out.println("EventUI Window Closed.");
+					EventUI.this.parentController.disposeEventUI();
+			}
 
-				    @Override
-				    public void windowIconified(WindowEvent we) {
-				        //Do Nothing
-				    }
+			@Override
+			public void windowIconified(WindowEvent we) {
+				//Do Nothing
+			}
 
-				    @Override
-				    public void windowDeiconified(WindowEvent we) {
-				        //Do Nothing
-				    }
+			@Override
+			public void windowDeiconified(WindowEvent we) {
+				//Do Nothing
+			}
 
-				    @Override
-				    public void windowActivated(WindowEvent we) {
-				        //Do Nothing
-				    }
+			@Override
+			public void windowActivated(WindowEvent we) {
+				//Do Nothing
+			}
 
-				    @Override
-				    public void windowDeactivated(WindowEvent we) {
-				        //Do Nothing
-				    }
-				});
+			@Override
+			public void windowDeactivated(WindowEvent we) {
+				//Do Nothing
+			}
+		});
 		System.out.println("Finished creating the EventUI window.");
 	}
 
@@ -100,8 +102,10 @@ public class EventUI extends JFrame {
 		this.setLayout(new GridBagLayout( ));
 		GridBagConstraints c = new GridBagConstraints( );
 		JTextField eventTxtFld = new JTextField("Event Name");
+		eventTxtFld.setHorizontalAlignment(JTextField.CENTER);
 		c.insets = new Insets(10, 10, 10, 10);
 		c.anchor = GridBagConstraints.SOUTH;
+		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx = .75;
 		c.gridx = 0;
 		c.gridwidth = 6;
@@ -109,14 +113,17 @@ public class EventUI extends JFrame {
 		c.weighty = .1;
 		this.add(eventTxtFld, c);
 
-		JTextField eventTagTxtField = new JTextField("Event Tag");
+		JTextField eventTagTxtFld = new JTextField("Event Tag");
+		eventTagTxtFld.setHorizontalAlignment(JTextField.CENTER);
 		c = new GridBagConstraints();
 		c.anchor = GridBagConstraints.CENTER;
 		c.insets = new Insets(10, 10, 10, 10);
-		c.gridwidth = 2;
-		c.gridx = 1;
+		c.gridwidth = 6;
+		c.weightx = 1;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
 		c.gridy = 1;
-		this.add(eventTagTxtField, c);
+		this.add(eventTagTxtFld, c);
 
 		JLabel startLbl = new JLabel("Start Time: ");
 		c = new GridBagConstraints();
@@ -125,14 +132,14 @@ public class EventUI extends JFrame {
 		c.gridy = 2;
 		this.add(startLbl, c);
 
-		JPanel startTimeArea = new JPanel();
+		JPanel startTimeArea = new DateTimePicker();
 		configureStartTimeArea(startTimeArea);
 		c = new GridBagConstraints();
 		c.gridx = 1;
 		c.weightx =.5;
 		c.gridy =2;
+		c.weighty = .5;
 		c.fill = GridBagConstraints.BOTH;
-
 		this.add(startTimeArea, c);
 
 		JLabel endLbl = new JLabel("End Time: ");
@@ -140,28 +147,28 @@ public class EventUI extends JFrame {
 		c.anchor = GridBagConstraints.EAST;
 		c.gridx = 0;
 		c.gridy = 3;
-		this.add(endLbl, c);
-
-		// gridx = 2 will be empty and be the space between columns
-                JPanel blankSpace = new JPanel();
-                blankSpace.setBackground(Color.BLACK);
-                c = new GridBagConstraints();
-                c.gridx = 2;
-                c.weightx = .25;
-                c.gridy = 2;
-                c.gridheight = 2;
-                c.fill = GridBagConstraints.BOTH;
-                this.add(blankSpace, c);
-                
-		JPanel endTimeArea = new JPanel();
+		this.add(endLbl, c);	
+								
+		JPanel endTimeArea = new DateTimePicker();
 		configureEndTimeArea(endTimeArea);
 		c = new GridBagConstraints();
 		c.gridx = 1;
 		c.weightx = .5;
 		c.gridy = 3;
+		c.weighty = .5;
 		c.fill = GridBagConstraints.BOTH;
-
 		this.add(endTimeArea, c);
+		
+		// gridx = 2 will be empty and be the space between columns
+		JPanel blankSpace = new JPanel();
+		blankSpace.setBackground(Color.BLACK);
+		c = new GridBagConstraints();
+		c.gridx = 2;
+		c.weightx = .25;
+		c.gridy = 2;
+		c.gridheight = 2;
+		c.fill = GridBagConstraints.BOTH;
+		this.add(blankSpace, c);
 		
 		JLabel locationLbl = new JLabel("Location: ");  
 		c = new GridBagConstraints();
@@ -170,8 +177,8 @@ public class EventUI extends JFrame {
 		c.gridy = 2;
 		this.add(locationLbl, c);
 		
-		JPanel locationArea = new JPanel();
-		configureLocationArea(locationArea);
+		JPanel locationArea = new LocationPicker ();
+		configureLocationArea(locationArea); //I'm no longer sure these configure statements are necessary
 		c = new GridBagConstraints();
 		c.gridx = 4;
 		c.weightx = .5;
@@ -186,7 +193,7 @@ public class EventUI extends JFrame {
 		c.gridy = 3;
 		this.add(contactsLbl, c);
 		
-		JPanel contactArea = new JPanel();
+		JPanel contactArea = new ContactPicker();
 		configureContactArea(contactArea);
 		c = new GridBagConstraints();
 		c.gridx = 4;
@@ -222,6 +229,7 @@ public class EventUI extends JFrame {
 
 	}
 	private void configureStartTimeArea (JPanel startTimeArea) {
+		//This Area is odd consider using other means to get the user's time
 		System.out.println("Configuring the startTimeArea");
 		startTimeArea.setBackground(Color.RED);
 		//This area should add what ever components we decide to handle
@@ -257,55 +265,69 @@ public class EventUI extends JFrame {
 		//This should be used to configure the descriptionArea
 		descriptionArea.setLayout(new GridBagLayout());
 		descriptionArea.setBackground(Color.GREEN);
-                JPanel topBuffer = new JPanel();
-		GridBagConstraints c = new GridBagConstraints();
-                c.gridx = 0;
-                c.gridwidth = 3;
-                c.weightx = 1;
-                c.gridy = 0;
-                c.weighty = .15;
-                descriptionArea.add(topBuffer, c);
-                
-                JPanel leftBuffer = new JPanel();
-		c = new GridBagConstraints();
-                c.gridx = 0;
-                c.weightx = .1;
-                c.gridy = 1;
-                descriptionArea.add(leftBuffer, c);                
-                
-		JTextArea descriptionTxtFld = new JTextArea();
+		JPanel topBuffer = new JPanel();
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.gridx = 0;
+		gbc.gridwidth = 3;
+		gbc.weightx = .99;
+		gbc.gridy = 0;
+		gbc.weighty = .15;
+		gbc.fill = GridBagConstraints.BOTH;
+		descriptionArea.add(topBuffer, gbc);
+				
+		JPanel leftBuffer = new JPanel();
+		gbc = new GridBagConstraints();
+		gbc.gridx = 0;
+		gbc.weightx = .1;
+		gbc.gridy = 1;
+		gbc.fill = GridBagConstraints.BOTH;
+		descriptionArea.add(leftBuffer, gbc);                
+								
+		
+		JPanel container = new JPanel();
+        JTextArea descriptionTxtFld = new JTextArea();
 		descriptionTxtFld.setLineWrap(true);
 		descriptionTxtFld.setWrapStyleWord(true);
 		JScrollPane descriptionPane = new JScrollPane(descriptionTxtFld);
-		c.gridx = 1;
-                c.weightx = .75;
-		c.gridy = 1;
-                c.weighty = .75;
-		c.fill = GridBagConstraints.BOTH;
-                descriptionPane.setBackground(Color.yellow);
-		descriptionArea.add(descriptionPane, c);
-                
-                JPanel rightBuffer = new JPanel();
-		c = new GridBagConstraints();
-                c.gridx = 2;
-                c.weightx = .1;
-                c.gridy = 1;
-                descriptionArea.add(rightBuffer, c);
-                
-                JPanel bottomBuffer = new JPanel();
-		c = new GridBagConstraints();
-                c.gridx = 0;
-                c.gridwidth = 3;
-                c.weightx = 1;
-                c.gridy = 2;
-                c.weighty = .15;
-                descriptionArea.add(bottomBuffer, c);
+		descriptionPane.setPreferredSize( new Dimension(0, 0));
+        container.setLayout(new GridBagLayout());
+        gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.weightx = 1;
+        gbc.weighty = 1;
+		container.add(descriptionPane, gbc);
+        container.setBackground(Color.RED);
+		gbc = new GridBagConstraints();
+		gbc.gridx = 1;
+		gbc.weightx = .99;
+		gbc.gridy = 1;
+		gbc.weighty = .99;
+		gbc.fill = GridBagConstraints.BOTH;
+		descriptionArea.add(container, gbc);
+								
+		JPanel rightBuffer = new JPanel();
+		gbc = new GridBagConstraints();
+		gbc.gridx = 2;
+		gbc.weightx = .1;
+		gbc.gridy = 1;
+		gbc.fill = GridBagConstraints.BOTH;
+		descriptionArea.add(rightBuffer, gbc);
+				
+		JPanel bottomBuffer = new JPanel();
+		gbc = new GridBagConstraints();
+		gbc.gridx = 0;
+		gbc.gridwidth = 3;
+		gbc.weightx = .99;
+		gbc.gridy = 2;
+		gbc.weighty = .15;
+		gbc.fill = GridBagConstraints.BOTH;
+		descriptionArea.add(bottomBuffer, gbc);
 	}
 	
 	private void populateFields ( ) {
 
 	}
 
-    
-        
+		
+				
 }
