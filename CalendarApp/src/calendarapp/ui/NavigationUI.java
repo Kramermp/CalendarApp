@@ -33,6 +33,8 @@ import javax.swing.JTextField;
 /**
  *
  * @author Michael Kramer <mpk5206 @ psu.edu>
+ * @version .1
+ * @since .1
  */
 public class NavigationUI extends JFrame {
 	private NavigationController parentController;
@@ -85,12 +87,22 @@ public class NavigationUI extends JFrame {
 		JMenu eventMenu = new JMenu("Events");
 		eventMenu.setMnemonic(KeyEvent.VK_E);
 		JMenuItem createEventBtn = new JMenuItem("Create a New Event");
+				createEventBtn.addActionListener(new ActionListener ( ) {
+					@Override
+					public void actionPerformed(ActionEvent ae) {
+						NavigationUI.this.parentController.requestEventUI();
+					}
+				});
 		eventMenu.add(createEventBtn);
 		createEventBtn.setMnemonic(KeyEvent.VK_N);	
 		JMenuItem editEventBtn = new JMenuItem("Edit an Existing Event");
+			// Need to create some way to specify which we want edited
+			// probablly sometype of list view
 		editEventBtn.setMnemonic(KeyEvent.VK_E);
 		eventMenu.add(editEventBtn);
 		JMenuItem removeEventBtn = new JMenuItem("Delete an Existing Event");
+			// Nee to create some way to specify which we want to delete
+			//Probably sometype of lsit view
 		removeEventBtn.setMnemonic(KeyEvent.VK_D);
 		eventMenu.add(removeEventBtn);
 
