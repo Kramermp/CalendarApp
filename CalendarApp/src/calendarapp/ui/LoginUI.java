@@ -63,7 +63,7 @@ public class LoginUI extends JFrame {
 	private void createWindow() {	
 		System.out.println("Creating the LoginUI window.");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setUndecorated(true);
+		//this.setUndecorated(true);
 		Dimension windowSize = new Dimension(375, 667);
 		this.setPreferredSize(windowSize);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
