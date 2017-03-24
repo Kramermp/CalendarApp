@@ -19,7 +19,7 @@ public class NavigationController {
 	private EventController eventController;
 	private User activeUser;
 
-	public NavigationController(User activerUser) {
+	public NavigationController(User activeUser) {
 		System.out.println("Creating NavigationController.");
 		dataController = SerializedDataController.getSerializedDataController();
 		this.activeUser = activeUser;
@@ -35,7 +35,7 @@ public class NavigationController {
 	 */
 	public void requestEventUI( ) {
 		if(this.eventController == null) {
-			this.eventController = new EventController(this);
+			this.eventController = new EventController(this, activeUser);
 		} else {
 			System.out.println("There is already an existing eventController.");
 		}
@@ -43,7 +43,8 @@ public class NavigationController {
 
 	public void requestEventUI(Event sourceEvent) {
 		if(this.eventController == null) {
-			this.eventController = new EventController(this, sourceEvent);
+			this.eventController = new EventController(this, activeUser,
+					sourceEvent);
 		} else {
 			System.out.println("There is already an existing eventController.");
 		}
