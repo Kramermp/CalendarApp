@@ -1,8 +1,10 @@
 package calendarapp.backend;
 
+import calendarapp.Event;
 import calendarapp.Name;
 import calendarapp.Person;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import org.jasypt.util.password.StrongPasswordEncryptor;
 
@@ -21,6 +23,7 @@ public class User extends Person implements Serializable {
 			= new StrongPasswordEncryptor();
 	private String username;
 	private String password;
+	private ArrayList<Event> eventList;
 	
 	/**
 	 * This constructor takes a name object and uses it to build the super
@@ -34,17 +37,20 @@ public class User extends Person implements Serializable {
 		super(name);
 		this.username = username;
 		this.password = encryptor.encryptPassword(Arrays.toString(password));
+		this.eventList = new ArrayList<Event>();
 	}
 	
 	public User(String username, char[] password) {
 		super();
 		this.username = username;
 		this.password = encryptor.encryptPassword(Arrays.toString(password));
+		this.eventList = new ArrayList<Event>();
 	}
 
 	public User(){
 		super();
 		this.username = "";
+		this.eventList = new ArrayList<Event>();
 	}
 
 
@@ -92,11 +98,19 @@ public class User extends Person implements Serializable {
 		return false;
 	}
 	
+	public void addEvent(Event event) {
+		this.eventList.add(event);
+	}
+	
 	public String getUsername() {
 		return this.username;
 	}
 
 	protected String getPassword() { 
 		return this.password;
+	}
+	
+	public ArrayList<Event> getEventList() {
+		return this.eventList;
 	}
 }
