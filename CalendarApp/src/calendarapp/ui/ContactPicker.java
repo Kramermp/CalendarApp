@@ -5,6 +5,8 @@
  */
 package calendarapp.ui;
 
+import calendarapp.Contact;
+import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -16,9 +18,19 @@ import javax.swing.JTextField;
  * @since .1
  */
 public class ContactPicker extends JPanel {
+	private ArrayList<Contact> selectedContacts;
 	
 	public ContactPicker() {
+		this.selectedContacts = new ArrayList<Contact>();
 		this.add(new JTextField("Contact Picker"));
+	}
+	
+	public ContactPicker(ArrayList<Contact> contacts) {
+		this.selectedContacts = contacts;
+	}
+
+	public ArrayList<Contact> getContacts() {
+		return this.selectedContacts;
 	}
 	
 }

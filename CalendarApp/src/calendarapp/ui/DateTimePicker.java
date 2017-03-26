@@ -5,6 +5,7 @@
  */
 package calendarapp.ui;
 
+import java.util.Date;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -17,8 +18,18 @@ import javax.swing.JTextField;
  * @version .1
  */
 public class DateTimePicker extends JPanel {
-	
-	public DateTimePicker( ) {
+	private Date selectedDate;
+	public DateTimePicker(long nanoTime) {
+		this.selectedDate = new Date(nanoTime);
 		this.add(new JTextField("DateTimePicker"));
+		
+	}
+
+	public Date getDate() {
+		return selectedDate;
+	}
+	
+	public void setDate(Date date) {
+		this.selectedDate = date;
 	}
 }

@@ -5,7 +5,9 @@
  */
 package calendarapp.ui;
 
+import calendarapp.Contact;
 import calendarapp.Event;
+import calendarapp.Location;
 import calendarapp.backend.EventController;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -14,8 +16,13 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.ArrayList;
+import java.util.Date;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -33,6 +40,12 @@ import javax.swing.JTextField;
 public class EventUI extends JFrame {
 	private EventController parentController;
 	private Event sourceEvent;
+	private JTextField eventNameTxtFld;
+	private JTextField eventTagTxtFld;
+	private DateTimePicker startTimeArea;
+	private DateTimePicker endTimeArea;
+	private ContactPicker contactArea;
+	private LocationPicker locationArea;
 
 	public EventUI(EventController parentController, Event sourceEvent) {
 		System.out.println("Creating EventUI.");
@@ -101,8 +114,8 @@ public class EventUI extends JFrame {
 	private void addComponents ( ) {
 		this.setLayout(new GridBagLayout( ));
 		GridBagConstraints c = new GridBagConstraints( );
-		JTextField eventTxtFld = new JTextField("Event Name");
-		eventTxtFld.setHorizontalAlignment(JTextField.CENTER);
+		eventNameTxtFld = new JTextField("Event Name");
+		eventNameTxtFld.setHorizontalAlignment(JTextField.CENTER);
 		c.insets = new Insets(10, 10, 10, 10);
 		c.anchor = GridBagConstraints.SOUTH;
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -111,9 +124,9 @@ public class EventUI extends JFrame {
 		c.gridwidth = 6;
 		c.gridy = 0;
 		c.weighty = .1;
-		this.add(eventTxtFld, c);
+		this.add(eventNameTxtFld, c);
 
-		JTextField eventTagTxtFld = new JTextField("Event Tag");
+		eventTagTxtFld = new JTextField("Event Tag");
 		eventTagTxtFld.setHorizontalAlignment(JTextField.CENTER);
 		c = new GridBagConstraints();
 		c.anchor = GridBagConstraints.CENTER;
@@ -131,8 +144,7 @@ public class EventUI extends JFrame {
 		c.anchor = GridBagConstraints.EAST;
 		c.gridy = 2;
 		this.add(startLbl, c);
-
-		JPanel startTimeArea = new DateTimePicker();
+		startTimeArea = new DateTimePicker(System.nanoTime());
 		configureStartTimeArea(startTimeArea);
 		c = new GridBagConstraints();
 		c.gridx = 1;
@@ -149,7 +161,7 @@ public class EventUI extends JFrame {
 		c.gridy = 3;
 		this.add(endLbl, c);	
 								
-		JPanel endTimeArea = new DateTimePicker();
+		endTimeArea = new DateTimePicker(System.nanoTime());
 		configureEndTimeArea(endTimeArea);
 		c = new GridBagConstraints();
 		c.gridx = 1;
@@ -177,7 +189,7 @@ public class EventUI extends JFrame {
 		c.gridy = 2;
 		this.add(locationLbl, c);
 		
-		JPanel locationArea = new LocationPicker ();
+		locationArea = new LocationPicker ();
 		configureLocationArea(locationArea); //I'm no longer sure these configure statements are necessary
 		c = new GridBagConstraints();
 		c.gridx = 4;
@@ -193,7 +205,7 @@ public class EventUI extends JFrame {
 		c.gridy = 3;
 		this.add(contactsLbl, c);
 		
-		JPanel contactArea = new ContactPicker();
+		contactArea = new ContactPicker();
 		configureContactArea(contactArea);
 		c = new GridBagConstraints();
 		c.gridx = 4;
@@ -246,12 +258,50 @@ public class EventUI extends JFrame {
 	private void configureButtonArea (JPanel buttonArea) {
 		//This should contain the buttons Add, Save, etc;
 		buttonArea.setBackground(Color.RED);
+		JButton cancelBtn = new JButton("Cancel");
+		cancelBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent ae) {
+				System.out.println("Cancel Button triggered");
+				EventUI.this.parentController.disposeEventUI();
+			}		
+		});
+		buttonArea.add(cancelBtn);
+		JButton saveBtn = new JButton("Save");
+		saveBtn.addActionListener(new ActionListener () {
+			@Override
+			public void actionPerformed(ActionEvent ae) {
+				System.out.println("Save Button triggered");
+				EventUI.this.submitEvent();
+			}
+			
+		});;
+		buttonArea.add(saveBtn);
+		if(sourceEvent != null) {
+			JButton deleteBtn = new JButton("Delete");
+			deleteBtn.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent ae) {
+					System.out.println("Delete Button Triggered");
+				}
+				
+			});
+			buttonArea.add(deleteBtn);
+		}
+	}
+	private void submitEvent() {
+		if(validateInput().isEmpty()) {
+			System.out.println("The Event Entered was valid.");
+			parentController.submitEvent();
+		} else {
+			System.out.println("The Event Entered was not valid.");
+		}
 	}
 	
 	private void configureLocationArea(JPanel locationArea) {
 		locationArea.setBackground(Color.CYAN);
 		//This area should be filledd with whatever we decide to configure
-		//location with     
+		//location with
 	}
 	
 	private void configureContactArea(JPanel contactArea) {
@@ -325,9 +375,47 @@ public class EventUI extends JFrame {
 	}
 	
 	private void populateFields ( ) {
-
+		
 	}
 
-		
-				
+	private ArrayList<String> validateInput() {
+		ArrayList<String> errorMessages = new ArrayList<String>();
+		if (this.eventNameTxtFld.getText() == null)
+			errorMessages.add("The event name is not valid.");
+		if (this.eventTagTxtFld.getText() == null)
+			errorMessages.add("The event tag is not valid.");
+		if(this.startTimeArea.getDate() == null)
+			errorMessages.add("The start time is not valid.");
+		if(this.endTimeArea.getDate() == null)
+			errorMessages.add("The end time is not valid.");
+		if(this.contactArea.getContacts() == null)
+			errorMessages.add("The associated contact list was not valid.");
+		if(this.locationArea.getLocation() == null)
+			errorMessages.add("The associated location was not valid.");
+		return errorMessages;
+	}
+	
+	public String getEventName() {
+		return this.eventNameTxtFld.getText();
+	}
+	
+	public String getEventTag() {
+		return this.eventTagTxtFld.getText();
+	}
+	
+	public Date getEventStartDate() {
+		return this.startTimeArea.getDate();
+	}
+	
+	public Date getEventEndDate() {
+		return this.endTimeArea.getDate();
+	}
+	
+	public Location getEventLocation() {
+		return this.locationArea.getSelectedLocation();
+	}
+	
+	public ArrayList<Contact> getEventContacts () {
+		return this.contactArea.getContacts();
+	}
 }
