@@ -23,7 +23,8 @@ public class NavigationController {
 		System.out.println("Creating NavigationController.");
 		dataController = SerializedDataController.getSerializedDataController();
 		this.activeUser = activeUser;
-		System.out.println("This user has " + this.activeUser.getEventList().size());
+		System.out.println("This user has " + this.activeUser.getEventList().size()
+			+ " events");
 		System.out.println("This user is " + this.activeUser.getUsername());
 		serializedData = dataController.getSerializedData();
 		navigationUI = new NavigationUI(this);
