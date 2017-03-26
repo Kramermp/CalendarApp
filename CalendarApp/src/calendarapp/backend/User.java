@@ -118,4 +118,21 @@ public class User extends Person implements Serializable {
 		User testUser = (User) obj;
 		return (testUser.getUsername().equals(this.getUsername()));
 	}
+        
+        public ArrayList<String> getLocationList(){
+            ArrayList<String> testLocations = new ArrayList<String>();
+            testLocations.add("State College, PA");
+            testLocations.add("Lewistown, PA");
+            testLocations.add("New York, NY");
+            testLocations.add("Harrisburg, PA");
+            testLocations.add("Philladelphia, PA");
+            testLocations.add("Pittsburgh, PA");
+            testLocations.add("Scranton, PA");
+            testLocations.add("San Fransisco, CA");
+            testLocations.add("Dallas, TX");
+            testLocations.add("Orlando, FL");
+            testLocations.add("Baltimore, MD");
+            testLocations.add("Columbus, OH");
+            return testLocations;
+        }
 }
