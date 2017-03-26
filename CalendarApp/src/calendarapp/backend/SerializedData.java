@@ -1,5 +1,6 @@
 package calendarapp.backend;
 
+import calendarapp.Event;
 import calendarapp.backend.User;
 import calendarapp.Name;
 import calendarapp.backend.UserList;
@@ -122,5 +123,9 @@ public class SerializedData implements Serializable {
 	
 	public Color getAlertFontColor() {
 		return colorPalette.getAlertFontColor();
+	}
+	
+	public User getUser(String username) {
+		return userList.getUser(username);
 	}
 }
