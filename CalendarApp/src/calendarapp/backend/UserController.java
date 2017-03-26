@@ -28,7 +28,7 @@ public class UserController {
 	/**
 	 * Creates and controls a UserUI using the user provided.
 	 *
-	 * @param user, the User'se who's data should be loaded into the form.
+	 * @param user, the User who's data should be loaded into the form.
 	 */
 	public UserController(User user) {
 		System.out.println("Creating UserController.");
