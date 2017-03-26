@@ -259,32 +259,22 @@ public class EventUI extends JFrame {
 		//This should contain the buttons Add, Save, etc;
 		buttonArea.setBackground(Color.RED);
 		JButton cancelBtn = new JButton("Cancel");
-		cancelBtn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent ae) {
-				System.out.println("Cancel Button triggered");
-				EventUI.this.parentController.disposeEventUI();
-			}		
+		cancelBtn.addActionListener((ActionEvent ae) -> {
+			System.out.println("Cancel Button triggered");
+			EventUI.this.parentController.disposeEventUI();		
 		});
 		buttonArea.add(cancelBtn);
 		JButton saveBtn = new JButton("Save");
-		saveBtn.addActionListener(new ActionListener () {
-			@Override
-			public void actionPerformed(ActionEvent ae) {
-				System.out.println("Save Button triggered");
-				EventUI.this.submitEvent();
-			}
-			
-		});;
+		saveBtn.addActionListener((ActionEvent ae) -> {
+			System.out.println("Save Button triggered");
+			EventUI.this.submitEvent();
+		});
 		buttonArea.add(saveBtn);
 		if(sourceEvent != null) {
 			JButton deleteBtn = new JButton("Delete");
-			deleteBtn.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent ae) {
-					System.out.println("Delete Button Triggered");
-				}
-				
+			deleteBtn.addActionListener((ActionEvent ae) -> {
+				System.out.println("Delete Button Triggered");
+				//Fixme: Make this delete the active event
 			});
 			buttonArea.add(deleteBtn);
 		}
