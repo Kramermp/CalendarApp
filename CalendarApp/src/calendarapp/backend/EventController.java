@@ -16,6 +16,7 @@ import calendarapp.ui.EventUI;
  */
 public class EventController {
 	private NavigationController parentController;
+	private SerializedDataController dataController;
 	private EventUI eventUI;
 	private Event sourceEvent;
 	private User activeUser;
@@ -24,6 +25,7 @@ public class EventController {
 			User activeUser) {
     	System.out.println("Creating EventController.");
     	this.parentController = parentController;
+		this.dataController = SerializedDataController.getSerializedDataController();
 		this.activeUser = activeUser;
     	this.eventUI = new EventUI(this, sourceEvent);
     	this.eventUI.setVisible(true);
@@ -59,8 +61,7 @@ public class EventController {
 			sourceEvent.setEventEndDate(eventUI.getEventEndDate());
 			sourceEvent.setEventLocation(eventUI.getEventLocation());
 		}
-		System.out.println("Herer");
-		parentController.writeData();
+		dataController.writeTheSerializedData();
 		disposeEventUI();
 	}
     public void disposeEventUI() {
