@@ -73,7 +73,7 @@ public class SerializedDataController {
 	}
 
 	//Will write the active serialized data to disk.
-	private void writeTheSerializedData() {
+	public void writeTheSerializedData() {
 		System.out.println("Executing writeTheSerializedData().");
 		FileOutputStream fos = null;
 		ObjectOutputStream out = null;
@@ -81,9 +81,12 @@ public class SerializedDataController {
 			fos = new FileOutputStream(filepath);
 			out = new ObjectOutputStream(fos);
 			out.writeObject(theSerializedData);
+			out.flush();
 			out.close();
 		} catch(IOException ex) {
 			ex.printStackTrace();
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
 		}
 	}
 

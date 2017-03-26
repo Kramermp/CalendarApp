@@ -50,9 +50,7 @@ public class EventController {
 			newEvent.setEventStartDate(eventUI.getEventStartDate());
 			newEvent.setEventEndDate(eventUI.getEventEndDate());
 			newEvent.setEventLocation(eventUI.getEventLocation());
-			System.out.println();
 			activeUser.addEvent(newEvent);
-			disposeEventUI();
 		} else {
 			sourceEvent.setEventName(eventUI.getEventName());
 			sourceEvent.setEventTag(eventUI.getEventTag());
@@ -60,8 +58,10 @@ public class EventController {
 			sourceEvent.setEventStartDate(eventUI.getEventStartDate());
 			sourceEvent.setEventEndDate(eventUI.getEventEndDate());
 			sourceEvent.setEventLocation(eventUI.getEventLocation());
-			disposeEventUI();
 		}
+		System.out.println("Herer");
+		parentController.writeData();
+		disposeEventUI();
 	}
     public void disposeEventUI() {
         System.out.println("EventController disposing EventUI.");

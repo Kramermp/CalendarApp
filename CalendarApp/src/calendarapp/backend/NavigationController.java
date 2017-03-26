@@ -23,6 +23,8 @@ public class NavigationController {
 		System.out.println("Creating NavigationController.");
 		dataController = SerializedDataController.getSerializedDataController();
 		this.activeUser = activeUser;
+		System.out.println("This user has " + this.activeUser.getEventList().size());
+		System.out.println("This user is " + this.activeUser.getUsername());
 		serializedData = dataController.getSerializedData();
 		navigationUI = new NavigationUI(this);
 		navigationUI.setVisible(true);
@@ -54,6 +56,9 @@ public class NavigationController {
 			System.out.println("NavigationController disposing eventController.");
 			this.eventController = null;
 		}
-	
-	
+
+	public void writeData() {
+		System.out.println("NavigationController writeData()");
+		dataController.writeTheSerializedData();
+	}
 }
