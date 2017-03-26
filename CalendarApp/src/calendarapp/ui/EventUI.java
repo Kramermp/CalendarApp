@@ -144,7 +144,7 @@ public class EventUI extends JFrame {
 		c.anchor = GridBagConstraints.EAST;
 		c.gridy = 2;
 		this.add(startLbl, c);
-		startTimeArea = new DateTimePicker(System.nanoTime());
+		startTimeArea = new DateTimePicker(System.currentTimeMillis());
 		configureStartTimeArea(startTimeArea);
 		c = new GridBagConstraints();
 		c.gridx = 1;
@@ -161,7 +161,7 @@ public class EventUI extends JFrame {
 		c.gridy = 3;
 		this.add(endLbl, c);	
 								
-		endTimeArea = new DateTimePicker(System.nanoTime());
+		endTimeArea = new DateTimePicker(System.currentTimeMillis());
 		configureEndTimeArea(endTimeArea);
 		c = new GridBagConstraints();
 		c.gridx = 1;
