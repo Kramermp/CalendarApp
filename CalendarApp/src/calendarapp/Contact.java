@@ -17,23 +17,23 @@ public class Contact extends Person implements Comparable, Serializable {
     private ArrayList<String> phoneNumbers = new ArrayList<String>();
     
     public Name getName() {
-	return super.getName();
+		return super.getName();
     }
     public Contact(Name name) {
-	super(name);
+		super(name);
     }
     
     @Override
     public int compareTo(Object object) {
-	return this.toString().toLowerCase().compareTo(object.toString().toLowerCase());
+		return this.toString().toLowerCase().compareTo(object.toString().toLowerCase());
     }
 
     public int compareBy(String fieldName, Contact contact) {
-	switch (fieldName) {
-	    case "firstName":
-		return this.getName().getFullName(false).compareTo(contact.getName().getFullName(false));
-	    default:
-		return this.getName().getFirstName().compareTo(contact.getName().getFirstName());
-	}
+		switch (fieldName) {
+			case "firstName":
+				return this.getName().getFullName(false).compareTo(contact.getName().getFullName(false));
+			default:
+				return this.getName().getFirstName().compareTo(contact.getName().getFirstName());
+		}
     }
 }

@@ -1,6 +1,7 @@
 package calendarapp.backend;
 
 import calendarapp.Event;
+import calendarapp.ui.EventTableModel;
 import javax.swing.JFrame;
 import calendarapp.ui.NavigationUI;
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ public class NavigationController {
 	private EventController eventController;
 	private User activeUser;
 	private JTable eventTable;
+	private PickerController pickerController;
 
 	public NavigationController(User activeUser) {
 		System.out.println("Creating NavigationController.");
@@ -54,8 +56,7 @@ public class NavigationController {
 		} else {
 			System.out.println("There is already an existing eventController.");
 		}
-	}
-		
+	}	
 		public void disposeEventController() {
 			System.out.println("NavigationController disposing eventController.");
 			this.eventController = null;
@@ -91,5 +92,24 @@ public class NavigationController {
 
 	public void updateTable() {
 		navigationUI.updateTable();
+	}
+
+	public void requestPickerUI(int pickerCode, int editCode) {
+		if(pickerController == null) {
+			pickerController = new PickerController(this, activeUser, 
+					pickerCode, editCode);
+		} else {
+			System.out.println("There is already a pickerController.");
+		}
+	}
+	
+	public void disposePickerController() {
+		System.out.println("The Navigation Controller is disposing of the"
+				+ " pickerController.");
+		this.pickerController = null;
+	}
+
+	public EventTableModel getTableModel() {
+		return new EventTableModel(activeUser);
 	}
 }

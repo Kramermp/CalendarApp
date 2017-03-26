@@ -6,6 +6,7 @@
 package calendarapp.ui;
 
 import calendarapp.backend.NavigationController;
+import calendarapp.backend.PickerController;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -52,7 +53,7 @@ public class NavigationUI extends JFrame {
 	private JPanel leftArea;
 	private JTable eventTable;
 	private JScrollPane tablePane;
-	private Model model;
+	private EventTableModel model;
 	
 	public NavigationUI(NavigationController parentController) {
 		System.out.println("Creating NavigationUI.");
@@ -166,6 +167,9 @@ public class NavigationUI extends JFrame {
 			// Need to create some way to specify which we want edited
 			// probablly sometype of list view
 		editEventBtn.setMnemonic(KeyEvent.VK_E);
+		editEventBtn.addActionListener((ActionEvent ae) -> { 
+			NavigationUI.this.parentController.requestPickerUI(PickerController.EVENT, PickerController.EDIT);
+		});
 		eventMenu.add(editEventBtn);
 		JMenuItem removeEventBtn = new JMenuItem("Delete an Existing Event");
 			// Nee to create some way to specify which we want to delete
@@ -226,47 +230,11 @@ public class NavigationUI extends JFrame {
 	}
 	
 	private void buildEventTable() {
-		Object[][] data = parentController.getTableData();
-		String[] columnNames = {"Event Name", "Start Time", "EndTime"};
-		model = new Model(columnNames, data);
-		
+		model = parentController.getTableModel();
 		eventTable = new JTable(model);
 	}
 
 	public void updateTable() {
 		model.setData();
-	}
-	
-	private class Model extends AbstractTableModel {
-		private String[] columnNames;
-		private Object[][] data;
-		
-		private Model(String[] columnNames, Object[][] data) {
-			this.columnNames = columnNames;
-			this.data = data;
-		}
-
-		@Override
-		public int getRowCount() {
-			return data.length;
-		}
-
-		@Override
-		public int getColumnCount() {
-			return columnNames.length;
-		}
-
-		@Override
-		public Object getValueAt(int i, int i1) {
-			return data[i][i1];
-		}
-		
-		public void setData() {
-			System.out.println("setting data");
-			this.data = NavigationUI.this.parentController.getTableData();
-			this.fireTableDataChanged();
-		}
-	
-	
 	}
 }

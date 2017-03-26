@@ -20,7 +20,15 @@ public class Event implements Serializable {
 	private Date eventEndDate = new Date();
 	private ArrayList<Contact> eventContactList = new ArrayList<Contact>();
 	private Location eventLocation;
-
+	
+	public Event () {
+		
+	}
+	public Event (Object[] eventData) {
+		this.eventName = String.valueOf(eventData[0]);
+//		this.eventStartDate = (Date) eventData[1];
+//		this.eventEndDate = (Date) eventData[2];
+	}
 	/**
 	 * @return the eventName
 	 */
@@ -103,5 +111,12 @@ public class Event implements Serializable {
 	 */
 	public void setEventLocation(Location eventLocation) {
 		this.eventLocation = eventLocation;
+	}
+	
+	public boolean equals(Object obj) {
+		Event otherEvent = (Event) obj;
+		return this.getEventName().equals(otherEvent.getEventName()) &&
+				this.eventStartDate.equals(otherEvent.getEventStartDate()) &&
+				this.eventEndDate.equals(otherEvent.getEventEndDate());
 	}
 }
