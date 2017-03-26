@@ -6,6 +6,7 @@
 package calendarapp.ui;
 
 import calendarapp.backend.NavigationController;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -21,8 +22,15 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableModel;
 
 /*
 			This class will provide a nice UI for the User that will then
@@ -39,6 +47,12 @@ import javax.swing.JTextField;
 public class NavigationUI extends JFrame {
 	private NavigationController parentController;
 	private JMenuBar menuBar;
+	private JPanel topArea;
+	private JPanel rightArea;
+	private JPanel leftArea;
+	private JTable eventTable;
+	private JScrollPane tablePane;
+	private Model model;
 	
 	public NavigationUI(NavigationController parentController) {
 		System.out.println("Creating NavigationUI.");
@@ -65,13 +79,45 @@ public class NavigationUI extends JFrame {
 		menuBar = new JMenuBar();
 		buildMenuBar();
 		this.setJMenuBar(menuBar);
+		this.setLayout(new GridBagLayout());
+		topArea = new JPanel();
+		topArea.setBackground(Color.MAGENTA);
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridwidth = 2;
+		c.weightx = 1;
+		c.gridy =0;
+		c.weighty = .15;
+		c.fill = GridBagConstraints.BOTH;
+		this.add(topArea, c);
+		
+		leftArea = new JPanel();
+		leftArea.setBackground(Color.yellow);
+		c = new GridBagConstraints();
+		c.gridx = 0;
+		c.weightx = .2;
+		c.gridy = 1;
+		c.weighty = .85;
+		c.fill = GridBagConstraints.BOTH;
+		this.add(leftArea, c);
+		
+		
+		rightArea = new JPanel();
+		rightArea.setBackground(Color.red);
+		buildRightArea(rightArea);
+		c = new GridBagConstraints();
+		c.gridx = 1;
+		c.weightx = .8;
+		c.gridy =1;
+		c.weighty = .85;
+		c.fill = GridBagConstraints.BOTH;
+		this.add(rightArea, c);
 	}
 
 	private void buildMenuBar() {
 		buildFileMenu();
 		buildEditMenu();
 		buildViewMenu();
-
 	}
 
 	private void buildFileMenu() {
@@ -170,5 +216,57 @@ public class NavigationUI extends JFrame {
 		viewMenu.setMnemonic(KeyEvent.VK_V);
 		//Populate View Menu
 		menuBar.add(viewMenu);
+	}
+	
+	private void buildRightArea(JPanel rightArea) {
+		System.out.println("Building rightArea");
+		buildEventTable();
+		tablePane = new JScrollPane(eventTable);
+		rightArea.add(tablePane);
+	}
+	
+	private void buildEventTable() {
+		Object[][] data = parentController.getTableData();
+		String[] columnNames = {"Event Name", "Start Time", "EndTime"};
+		model = new Model(columnNames, data);
+		
+		eventTable = new JTable(model);
+	}
+
+	public void updateTable() {
+		model.setData();
+	}
+	
+	private class Model extends AbstractTableModel {
+		private String[] columnNames;
+		private Object[][] data;
+		
+		private Model(String[] columnNames, Object[][] data) {
+			this.columnNames = columnNames;
+			this.data = data;
+		}
+
+		@Override
+		public int getRowCount() {
+			return data.length;
+		}
+
+		@Override
+		public int getColumnCount() {
+			return columnNames.length;
+		}
+
+		@Override
+		public Object getValueAt(int i, int i1) {
+			return data[i][i1];
+		}
+		
+		public void setData() {
+			System.out.println("setting data");
+			this.data = NavigationUI.this.parentController.getTableData();
+			this.fireTableDataChanged();
+		}
+	
+	
 	}
 }

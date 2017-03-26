@@ -62,6 +62,7 @@ public class EventController {
 			sourceEvent.setEventLocation(eventUI.getEventLocation());
 		}
 		dataController.writeTheSerializedData();
+		parentController.updateTable();
 		disposeEventUI();
 	}
     public void disposeEventUI() {
@@ -70,4 +71,8 @@ public class EventController {
         eventUI.dispose();
         parentController.disposeEventController();
     }
+
+	public void updateTable() {
+		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	}
 }

@@ -3,6 +3,8 @@ package calendarapp.backend;
 import calendarapp.Event;
 import javax.swing.JFrame;
 import calendarapp.ui.NavigationUI;
+import java.util.ArrayList;
+import javax.swing.JTable;
 
 /**
  *
@@ -18,6 +20,7 @@ public class NavigationController {
 	private NavigationUI navigationUI;
 	private EventController eventController;
 	private User activeUser;
+	private JTable eventTable;
 
 	public NavigationController(User activeUser) {
 		System.out.println("Creating NavigationController.");
@@ -63,6 +66,18 @@ public class NavigationController {
 		dataController.writeTheSerializedData();
 	}
 	
+	public Object[][] getTableData() {
+		ArrayList<Event> eventList = activeUser.getEventList();
+		int eventCount = activeUser.getEventList().size();
+		Object[][] data = new Object[eventCount][3];
+		for(int i =0; i < eventCount; i++) {
+			data[i][0] = eventList.get(i).getEventName();
+			data[i][1] = eventList.get(i).getEventStartDate();
+			data[i][2] = eventList.get(i).getEventEndDate();
+		}
+		return data;
+	}
+	
 	public void logout () {
 		System.out.println("NavigationController Logging out.");
 		navigationUI.dispose();
@@ -72,5 +87,9 @@ public class NavigationController {
 	public void exit() {
 		System.out.println("NavigationController exiting.");
 		System.exit(0);
+	}
+
+	public void updateTable() {
+		navigationUI.updateTable();
 	}
 }
