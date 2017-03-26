@@ -49,7 +49,7 @@ public class LoginController {
 			if (isValid) {
 				System.out.println("The User credentials were valid.");
 				loginUI.dispose();
-				User activeUser = new User(username, password);
+				User activeUser = serializedData.getUser(username);
 				//This Controller will be the program.
 				new NavigationController(activeUser);
 			} else { // (!isValid)
