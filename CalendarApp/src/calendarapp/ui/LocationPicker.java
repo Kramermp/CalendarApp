@@ -42,7 +42,7 @@ import javax.swing.JTextField;
 public class LocationPicker extends JPanel {
 	private Location selectedLocation;
         private JTextField LocationNameTxtFld;
-        
+        private String selectedLocationString;
         
 	
 	public LocationPicker () {
@@ -90,7 +90,7 @@ public class LocationPicker extends JPanel {
             for (int i = 0; i < locationList.size(); i++) {
                 b.gridx = i;
                 b.gridy = i;
-                panel.add(new JButton("" + (i + 1) + ": " + locationList.get(i)), b);
+                panel.add(createButton("" + (i + 1) + ": " + locationList.get(i)), b);
             }
             
             JScrollPane scrollPane = new JScrollPane(panel);
@@ -110,6 +110,28 @@ public class LocationPicker extends JPanel {
             this.add(scrollPane, sp);
 
             
-            
         }
+        
+        public JButton createButton(String name){
+            JButton button = new JButton(name);
+            class ClickListener implements ActionListener{
+
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    StringBuilder sb = new StringBuilder(button.getText());
+                    sb.delete(0, 3);
+                    String location = sb.toString();
+                    
+                    System.out.println("Location Set to: " + location);
+                    setLocation(location);
+                }
+            }
+            ActionListener listener = new ClickListener();
+            button.addActionListener(listener);
+            return button;
+        }
+        
+        public void setLocation(String location){
+            selectedLocationString = location;
+        } 
 }
