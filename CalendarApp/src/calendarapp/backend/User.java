@@ -113,4 +113,9 @@ public class User extends Person implements Serializable {
 	public ArrayList<Event> getEventList() {
 		return this.eventList;
 	}
+	
+	public boolean equals(Object obj) {
+		User testUser = (User) obj;
+		return (testUser.getUsername().equals(this.getUsername()));
+	}
 }
