@@ -8,6 +8,7 @@ package calendarapp.ui;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -27,6 +28,8 @@ public class DateTimePicker extends JPanel {
         private JTextField dayTxtField, monthTxtField, yearTxtField, hoursTxtField, minTxtField;
         private JLabel timeLbl;
         private JRadioButton radAMField, radPMField;
+        int day, month, year, hours, min;
+        String ampm = null;
         
 	public DateTimePicker(long nanoTime) {
 		this.selectedDate = new Date(nanoTime);
@@ -34,22 +37,56 @@ public class DateTimePicker extends JPanel {
 	}
 
 	public Date getDate() {
-            int day = Integer.parseInt(this.dayTxtField.getText());
-            int month = Integer.parseInt(this.monthTxtField.getText());
-            int year = Integer.parseInt(this.yearTxtField.getText());
-            int hours = Integer.parseInt(this.hoursTxtField.getText());
-            int minutes = Integer.parseInt(this.minTxtField.getText());
-            String ampm;
+            ArrayList<String> errorMessages = new ArrayList<String>();
+            if (this.dayTxtField.getText() == null){
+                errorMessages.add("Invalid day");
+            }
+            else{
+                day = Integer.parseInt(this.dayTxtField.getText());
+            }
+            
+            if (this.monthTxtField.getText() == null){
+                errorMessages.add("Invalid month");
+            }
+            else{
+                month = Integer.parseInt(this.monthTxtField.getText());
+            }
+            
+            if (this.yearTxtField.getText() == null){
+                errorMessages.add("Invalid year");
+            }
+            else{
+                year = Integer.parseInt(this.yearTxtField.getText());
+            }
+            
+            if (this.hoursTxtField.getText() == null){
+                errorMessages.add("Invalid hours value");
+            }
+            else{
+                int hours = Integer.parseInt(this.hoursTxtField.getText());
+            }
+            
+            if (this.minTxtField.getText() == null){
+                errorMessages.add("Invalid minutes value");
+            }
+            else{
+                min = Integer.parseInt(this.minTxtField.getText());
+            }
             if(radAMField.isSelected())
                 ampm = "AM";
             else if(radPMField.isSelected())
                 ampm = "PM";
             else
-                ampm = "Error";
+                errorMessages.add("Choose AM or PM");
+            
             if (ampm == "PM"){
                 hours += 12;
             }
-            selectedDate = new Date(year, month, day, hours, minutes);
+            if(errorMessages.size() > 0){
+                System.out.println(errorMessages);
+                return null;
+            }
+            selectedDate = new Date(year, month, day, hours, min);
             return selectedDate;
 	}
 	
