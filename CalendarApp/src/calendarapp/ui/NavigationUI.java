@@ -69,7 +69,7 @@ public class NavigationUI extends JFrame {
 
 	private void buildMenuBar() {
 		buildFileMenu();
-		//buildEditMenu();
+		buildEditMenu();
 		buildViewMenu();
 
 	}
@@ -77,22 +77,43 @@ public class NavigationUI extends JFrame {
 	private void buildFileMenu() {
 		JMenu fileMenu = new JMenu("File");
 		fileMenu.setMnemonic(KeyEvent.VK_F); //Sets F as shortcut key
-		buildEventMenu(fileMenu);
-		buildContactMenu(fileMenu);
+		JMenuItem logoutBtn = new JMenuItem("Logout");
+		logoutBtn.setMnemonic(KeyEvent.VK_L);
+		logoutBtn.addActionListener((ActionEvent ar) -> { 
+			System.out.println("logoutBtn Triggered.");
+			parentController.logout();
+		});
+		JMenuItem exitBtn = new JMenuItem("Exit");
+		exitBtn.setMnemonic(KeyEvent.VK_E);
+		exitBtn.addActionListener((ActionEvent ae) -> {
+			System.out.println("exitBtn triggered.");
+			parentController.exit();
+		});
+		fileMenu.add(logoutBtn);
+		fileMenu.add(exitBtn);
 		menuBar.add(fileMenu);
 	}
 
-	private void buildEventMenu(JMenu fileMenu) {
+	private void buildEditMenu() {
+		//Not Sure what to pute here for now now will keep it commented out
+		//this is commented out inthe build MenuBar section
+		JMenu editMenu = new JMenu("Edit");
+		editMenu.setMnemonic(KeyEvent.VK_E);
+		buildEventMenu(editMenu);
+		buildContactMenu(editMenu);
+		buildLocationMenu(editMenu);
+		//Populate Edit Menu
+		menuBar.add(editMenu);
+	}
+	
+	private void buildEventMenu(JMenu parentMenu) {
 		//Build Event Menu
 		JMenu eventMenu = new JMenu("Events");
 		eventMenu.setMnemonic(KeyEvent.VK_E);
 		JMenuItem createEventBtn = new JMenuItem("Create a New Event");
-				createEventBtn.addActionListener(new ActionListener ( ) {
-					@Override
-					public void actionPerformed(ActionEvent ae) {
-						NavigationUI.this.parentController.requestEventUI();
-					}
-				});
+				createEventBtn.addActionListener((ActionEvent ae) -> {
+					NavigationUI.this.parentController.requestEventUI();
+		});
 		eventMenu.add(createEventBtn);
 		createEventBtn.setMnemonic(KeyEvent.VK_N);	
 		JMenuItem editEventBtn = new JMenuItem("Edit an Existing Event");
@@ -106,11 +127,12 @@ public class NavigationUI extends JFrame {
 		removeEventBtn.setMnemonic(KeyEvent.VK_D);
 		eventMenu.add(removeEventBtn);
 
-		fileMenu.add(eventMenu);
+		parentMenu.add(eventMenu);
 	}
 
-	private void buildContactMenu(JMenu fileMenu) {
+	private void buildContactMenu(JMenu parentMenu) {
 		//Build Contact Menu
+		//TODO: Build the functionality
 		JMenu contactMenu = new JMenu("Contacts");
 		contactMenu.setMnemonic(KeyEvent.VK_C);
 		JMenuItem createContactBtn = new JMenuItem("Create a New Contact");
@@ -119,20 +141,28 @@ public class NavigationUI extends JFrame {
 		JMenuItem editContactBtn = new JMenuItem("Edit an Existing Contact");
 		editContactBtn.setMnemonic(KeyEvent.VK_E);
 		contactMenu.add(editContactBtn);
-		JMenuItem removeContactBtn = new JMenuItem("Remove an Existing Contact");
+		JMenuItem removeContactBtn = new JMenuItem("Delete a Contact");
 		removeContactBtn.setMnemonic(KeyEvent.VK_D);
 		contactMenu.add(removeContactBtn);
 
-		fileMenu.add(contactMenu);
+		parentMenu.add(contactMenu);
 	}
+	
+	private void buildLocationMenu(JMenu parentMenu) {
+		//TODO: Build Functionality
+		JMenu locationMenu= new JMenu("Locations");
+		locationMenu.setMnemonic(KeyEvent.VK_L);
+		JMenuItem createContactBtn = new JMenuItem("Create a New Location");
+		createContactBtn.setMnemonic(KeyEvent.VK_N);
+		locationMenu.add(createContactBtn);
+		JMenuItem editContactBtn = new JMenuItem("Edit an Existing Location");
+		editContactBtn.setMnemonic(KeyEvent.VK_E);
+		locationMenu.add(editContactBtn);
+		JMenuItem removeContactBtn = new JMenuItem("Delete a Location");
+		removeContactBtn.setMnemonic(KeyEvent.VK_D);
+		locationMenu.add(removeContactBtn);
 
-	private void buildEditMenu() {
-		//Not Sure what to pute here for now now will keep it commented out
-		//this is commented out inthe build MenuBar section
-		JMenu editMenu = new JMenu("Edit");
-		editMenu.setMnemonic(KeyEvent.VK_E);
-		//Populate Edit Menu
-		menuBar.add(editMenu);
+		parentMenu.add(locationMenu);
 	}
 
 	private void buildViewMenu() {

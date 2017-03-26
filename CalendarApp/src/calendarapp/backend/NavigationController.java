@@ -59,7 +59,18 @@ public class NavigationController {
 		}
 
 	public void writeData() {
-		System.out.println("NavigationController writeData()");
+		System.out.println("NavigationController writeData().");
 		dataController.writeTheSerializedData();
+	}
+	
+	public void logout () {
+		System.out.println("NavigationController Logging out.");
+		navigationUI.dispose();
+		new LoginController();
+	}
+	
+	public void exit() {
+		System.out.println("NavigationController exiting.");
+		System.exit(0);
 	}
 }
