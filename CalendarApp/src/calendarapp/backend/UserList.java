@@ -1,5 +1,6 @@
 package calendarapp.backend;
 
+import calendarapp.Event;
 import calendarapp.Name;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -101,6 +102,16 @@ public class UserList implements Serializable {
 			}
 		}
 		return true;
+	}
+	
+	public User getUser(String username) {
+		for(int i = 0; i < userList.size(); i++) {
+			if(userList.get(i).getUsername().equals(username)) {
+				System.out.println("Found a matching user!");
+				return userList.get(i);
+			}
+		}
+		return null; //Fixme: Should throw some type of exception or something
 	}
 }
 
