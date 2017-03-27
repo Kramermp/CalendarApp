@@ -64,7 +64,7 @@ public class LocationPicker extends JPanel {
             LocationNameTxtFld = new JTextField("Location Picker");
             LocationNameTxtFld.setHorizontalAlignment(JTextField.CENTER);
             
-            c.insets = new Insets(10, 600, 10, 600);
+            //c.insets = new Insets(10, 600, 10, 60);
             c.anchor = GridBagConstraints.NORTH;
             c.fill = GridBagConstraints.HORIZONTAL;
             c.weightx = .50;
@@ -77,7 +77,7 @@ public class LocationPicker extends JPanel {
             User testUser = new User();
             ArrayList<String> locationList = testUser.getLocationList();
             
-            JPanel panel = new JPanel();
+            JPanel panel = new JPanel(new GridBagLayout());
             GridBagConstraints b = new GridBagConstraints( );
             b.insets = new Insets(10, 10, 10, 10);
             b.anchor = GridBagConstraints.NORTH;
@@ -88,7 +88,7 @@ public class LocationPicker extends JPanel {
             
             
             for (int i = 0; i < locationList.size(); i++) {
-                b.gridx = i;
+                b.gridx = 0;
                 b.gridy = i;
                 panel.add(createButton("" + (i + 1) + ": " + locationList.get(i)), b);
             }
@@ -107,9 +107,7 @@ public class LocationPicker extends JPanel {
             sp.gridy = 0;
             sp.weighty = .1;
             
-            this.add(scrollPane, sp);
-
-            
+            this.add(scrollPane, sp);     
         }
         
         public JButton createButton(String name){
