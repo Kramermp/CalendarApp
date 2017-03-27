@@ -8,6 +8,7 @@ package calendarapp.ui;
 import calendarapp.Event;
 import calendarapp.backend.User;
 import java.util.ArrayList;
+import java.util.Calendar;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -32,14 +33,23 @@ public class EventTableModel extends AbstractTableModel {
 			if(eventList.get(i) == null)
 				System.out.println(i);
 			tempData[i][0] = eventList.get(i).getEventName();
-			tempData[i][1] = eventList.get(i).getEventStartDate();
-			tempData[i][2] = eventList.get(i).getEventEndDate();
+			tempData[i][1] = getDate(eventList.get(i).getEventStartDate());
+			tempData[i][2] = getDate(eventList.get(i).getEventEndDate());
 		}
 		return tempData;
 	}
 	@Override
 	public int getRowCount() {
 		return data.length;
+	}
+	
+	public String getDate(Calendar calendar) {
+		//FIXME: make this less ugly maybe
+		String dateString = "";
+		dateString = dateString + calendar.get(Calendar.MONTH) + "-";
+		dateString = dateString + calendar.get(Calendar.DAY_OF_MONTH) + "-";
+		dateString = dateString + String.valueOf(calendar.get(Calendar.YEAR));
+		return dateString;
 	}
 
 	@Override
@@ -54,7 +64,7 @@ public class EventTableModel extends AbstractTableModel {
 
 	public void setData() {
 		System.out.println("setting data");
-
+		this.data = getEventTableData();
 		this.fireTableDataChanged();
 	}
 }

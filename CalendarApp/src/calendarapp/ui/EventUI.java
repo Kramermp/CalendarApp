@@ -21,6 +21,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -393,11 +394,11 @@ public class EventUI extends JFrame {
 		return this.eventTagTxtFld.getText();
 	}
 	
-	public Date getEventStartDate() {
+	public Calendar getEventStartDate() {
 		return this.startTimeArea.getDate();
 	}
 	
-	public Date getEventEndDate() {
+	public Calendar getEventEndDate() {
 		return this.endTimeArea.getDate();
 	}
 	

@@ -7,7 +7,8 @@ package calendarapp;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 /**
  *
@@ -16,8 +17,8 @@ import java.util.Date;
 public class Event implements Serializable {
     private String eventName = "";
 	private String eventTag = "";
-	private Date eventStartDate = new Date();
-	private Date eventEndDate = new Date();
+	private Calendar eventStartDate = new GregorianCalendar();
+	private Calendar eventEndDate = new GregorianCalendar();
 	private ArrayList<Contact> eventContactList = new ArrayList<Contact>();
 	private Location eventLocation;
 	
@@ -60,28 +61,28 @@ public class Event implements Serializable {
 	/**
 	 * @return the eventStartDate
 	 */
-	public Date getEventStartDate() {
+	public Calendar getEventStartDate() {
 		return eventStartDate;
 	}
 
 	/**
 	 * @param eventStartDate the eventStartDate to set
 	 */
-	public void setEventStartDate(Date eventStartDate) {
+	public void setEventStartDate(Calendar eventStartDate) {
 		this.eventStartDate = eventStartDate;
 	}
 
 	/**
 	 * @return the eventEndDate
 	 */
-	public Date getEventEndDate() {
+	public Calendar getEventEndDate() {
 		return eventEndDate;
 	}
 
 	/**
 	 * @param eventEndDate the eventEndDate to set
 	 */
-	public void setEventEndDate(Date eventEndDate) {
+	public void setEventEndDate(Calendar eventEndDate) {
 		this.eventEndDate = eventEndDate;
 	}
 

@@ -236,5 +236,6 @@ public class NavigationUI extends JFrame {
 
 	public void updateTable() {
 		model.setData();
+		model.fireTableDataChanged();
 	}
 }
