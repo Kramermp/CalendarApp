@@ -58,21 +58,10 @@ public class LocationPicker extends JPanel {
             return this.selectedLocation;
 	}
 	public void createComponents(){
-            this.setLayout(new GridBagLayout( ));
+            this.setLayout(new BorderLayout());
             GridBagConstraints c = new GridBagConstraints( );
             
-            LocationNameTxtFld = new JTextField("Location Picker");
-            LocationNameTxtFld.setHorizontalAlignment(JTextField.CENTER);
-            
             //c.insets = new Insets(10, 600, 10, 60);
-            c.anchor = GridBagConstraints.NORTH;
-            c.fill = GridBagConstraints.HORIZONTAL;
-            c.weightx = .50;
-            c.gridx = 0;
-            c.gridwidth = 1;
-            c.gridy = 0;
-            c.weighty = .1;
-            this.add(LocationNameTxtFld, c);
             
             User testUser = new User();
             ArrayList<String> locationList = testUser.getLocationList();
@@ -94,20 +83,18 @@ public class LocationPicker extends JPanel {
             }
             
             JScrollPane scrollPane = new JScrollPane(panel);
+			scrollPane.setPreferredSize(new Dimension(0,0));
             scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
             scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
             
-            GridBagConstraints sp = new GridBagConstraints();
-            sp.insets = new Insets(50, 50, 50, 50);
-            sp.anchor = GridBagConstraints.CENTER;
-            sp.fill = GridBagConstraints.BOTH;
-            sp.weightx = .50;
-            sp.gridx = 0;
-            sp.gridwidth = 1;
-            sp.gridy = 0;
-            sp.weighty = .1;
-            
-            this.add(scrollPane, sp);     
+//            GridBagConstraints sp = new GridBagConstraints();
+//            sp.insets = new Insets(50, 50, 50, 50);
+//            sp.anchor = GridBagConstraints.CENTER;
+//            sp.fill = GridBagConstraints.BOTH;
+//            sp.gridx = 0;
+//            sp.gridwidth = 1;
+//            sp.gridy = 0;
+            this.add(scrollPane, BorderLayout.CENTER);     
         }
         
         public JButton createButton(String name){
