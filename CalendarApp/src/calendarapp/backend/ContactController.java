@@ -40,6 +40,12 @@ public class ContactController {
 	public boolean hasUI() {
 		return contactUI != null;
 	}
+	
+	public void submit() {
+		parentController.getActiveUser().addContact(contactUI.getContact());
+		parentController.writeData();
+		parentController.disposeContactController();
+	}
 
 	void disposeUI() {
 		contactUI.dispose();

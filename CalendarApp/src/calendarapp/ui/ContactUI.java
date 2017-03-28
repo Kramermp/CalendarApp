@@ -5,12 +5,19 @@
  */
 package calendarapp.ui;
 
+import calendarapp.Contact;
 import calendarapp.backend.ContactController;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  *
@@ -40,12 +47,48 @@ public class ContactUI extends JFrame {
 	
 	private void addComponents() {
 		//This method will add the components to the JFramer
+		JTextField firstNameTxtFld = new JTextField("First Name");
+		JTextField lastNameTxtFld = new JTextField("Last Name");
+		JPanel buttonArea = new JPanel();
+		configureButtonArea(buttonArea);
+		add(buttonArea);
+	}
+	
+	private void configureButtonArea(JPanel buttonArea) {
+		buttonArea.setLayout(new GridBagLayout());
+		JButton cancelBtn = new JButton("Cancel");
+		cancelBtn.addActionListener((ActionEvent ae) -> {
+			System.out.println("CancelBtn triggered.");
+			ContactUI.this.dispose();
+		});
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridy = 0;
+		buttonArea.add(cancelBtn, c);
+		
+		JButton saveBtn = new JButton("Save");
+		saveBtn.addActionListener((ActionEvent ae) -> {
+			System.out.println("SaveBtn triggered.");
+			ContactUI.this.parentController.submit();
+		});
+		c = new GridBagConstraints();
+		c.gridx = 1;
+		c.gridy = 0;
+		buttonArea.add(saveBtn, c);
+	}
+	
+	public Contact getContact() {
+		System.err.println("ContactUI.getContact() is a stub");
+		return new Contact();
 	}
 	
 	private class ContactUIWindowListener implements WindowListener {
 	
 		@Override
-		public void windowClosed(WindowEvent we) {	} // Do Nothing
+		public void windowClosed(WindowEvent we) {	
+			System.out.println("ContactUI closed.");
+			ContactUI.this.parentController.dispose();
+		} // Do Nothing
 		@Override
 		public void windowIconified(WindowEvent we) { }// Do Nothing
 		@Override

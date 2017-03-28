@@ -29,6 +29,10 @@ public class NavigationController {
 	public NavigationController(User activeUser) {
 		System.out.println("Creating NavigationController.");
 		dataController = SerializedDataController.getSerializedDataController();
+		System.out.println("Active User: " + activeUser.getUsername());
+		System.out.println("Events: " + activeUser.getEventList().size());
+		System.out.println("Locations: " + activeUser.getLocationList().size());
+		System.out.println("Contacts: " + activeUser.getContactList().size());
 		this.activeUser = activeUser;
 		serializedData = dataController.getSerializedData();
 		navigationUI = new NavigationUI(this);
@@ -153,6 +157,7 @@ public class NavigationController {
 				+ " ContactController.");
 		}
 	}
+	
 	/**
 	 * This method dumps the existing pickerCoontroller.
 	 * <p>
@@ -200,6 +205,7 @@ public class NavigationController {
 				+ " existing ContractController.");
 		}
 	}
+	
 	/**
 	 * This method will dump existing LocationController
 	 * <p>
@@ -223,7 +229,16 @@ public class NavigationController {
 				+ " existing LocationController.");
 		}
 	}
-
+	
+	public User getActiveUser() {
+		return activeUser;
+	}
+	
+	/**
+	 * 
+	 * @return eventTableModel returns and eventTableModel of activeUser6
+	 * 
+	 */
 	public EventTableModel getTableModel( ) {
 		return new EventTableModel(activeUser);
 	}

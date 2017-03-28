@@ -1,6 +1,8 @@
 package calendarapp.backend;
 
+import calendarapp.Contact;
 import calendarapp.Event;
+import calendarapp.Location;
 import calendarapp.Name;
 import calendarapp.Person;
 import java.io.Serializable;
@@ -24,6 +26,8 @@ public class User extends Person implements Serializable {
 	private String username;
 	private String password;
 	private ArrayList<Event> eventList;
+	private ArrayList<Location> locationList;
+	private ArrayList<Contact> contactList;
 	
 	/**
 	 * This constructor takes a name object and uses it to build the super
@@ -38,6 +42,8 @@ public class User extends Person implements Serializable {
 		this.username = username;
 		this.password = encryptor.encryptPassword(Arrays.toString(password));
 		this.eventList = new ArrayList<Event>();
+		this.locationList = new ArrayList<Location>();
+		this.contactList = new ArrayList<Contact>();
 	}
 	
 	public User(String username, char[] password) {
@@ -45,12 +51,14 @@ public class User extends Person implements Serializable {
 		this.username = username;
 		this.password = encryptor.encryptPassword(Arrays.toString(password));
 		this.eventList = new ArrayList<Event>();
+		this.contactList = new ArrayList<Contact>();
 	}
 
 	public User(){
 		super();
 		this.username = "";
 		this.eventList = new ArrayList<Event>();
+		this.contactList = new ArrayList<Contact>();
 	}
 
 
@@ -118,21 +126,36 @@ public class User extends Person implements Serializable {
 		User testUser = (User) obj;
 		return (testUser.getUsername().equals(this.getUsername()));
 	}
-        
-        public ArrayList<String> getLocationList(){
-            ArrayList<String> testLocations = new ArrayList<String>();
-            testLocations.add("State College, PA");
-            testLocations.add("Lewistown, PA");
-            testLocations.add("New York, NY");
-            testLocations.add("Harrisburg, PA");
-            testLocations.add("Philladelphia, PA");
-            testLocations.add("Pittsburgh, PA");
-            testLocations.add("Scranton, PA");
-            testLocations.add("San Fransisco, CA");
-            testLocations.add("Dallas, TX");
-            testLocations.add("Orlando, FL");
-            testLocations.add("Baltimore, MD");
-            testLocations.add("Columbus, OH");
-            return testLocations;
-        }
+    
+	public void addLocation(Location location ) {
+		locationList.add(location);
+	}
+	
+	public void addContact (Contact contact) {
+		contactList.add(contact);
+	}
+	
+	public ArrayList<Location> getLocationList() {
+		return locationList;
+	}
+	
+	public ArrayList<Contact> getContactList() {
+		return this.contactList;
+	}
+	public ArrayList<String> getLocationStringList(){
+		ArrayList<String> testLocations = new ArrayList<String>();
+		testLocations.add("State College, PA");
+		testLocations.add("Lewistown, PA");
+		testLocations.add("New York, NY");
+		testLocations.add("Harrisburg, PA");
+		testLocations.add("Philladelphia, PA");
+		testLocations.add("Pittsburgh, PA");
+		testLocations.add("Scranton, PA");
+		testLocations.add("San Fransisco, CA");
+		testLocations.add("Dallas, TX");
+		testLocations.add("Orlando, FL");
+		testLocations.add("Baltimore, MD");
+		testLocations.add("Columbus, OH");
+		return testLocations;
+	}
 }
