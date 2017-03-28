@@ -30,9 +30,6 @@ public class NavigationController {
 		System.out.println("Creating NavigationController.");
 		dataController = SerializedDataController.getSerializedDataController();
 		this.activeUser = activeUser;
-		System.out.println("This user has " + this.activeUser.getEventList().size()
-			+ " events");
-		System.out.println("This user is " + this.activeUser.getUsername());
 		serializedData = dataController.getSerializedData();
 		navigationUI = new NavigationUI(this);
 		navigationUI.setVisible(true);
@@ -70,7 +67,7 @@ public class NavigationController {
 	 * null.
 	 */
 
-	public void disposeEventController() { 
+	public void disposeEventController( ) { 
 		if(this.eventController != null) {
 			System.out.println("NavigationController disposing" 
 				+ " eventController.");
@@ -85,14 +82,14 @@ public class NavigationController {
 	/**
 	 * This method tells the dataController to write the data to disk.
 	 */
-	public void writeData() {
+	public void writeData( ) {
 		System.out.println("The NavigationController is requesting a" 
 			+ " writeData()");
 		dataController.writeTheSerializedData();
 	}
 	
 
-	public Object[][] getTableData() {
+	public Object[][] getTableData( ) {
 		ArrayList<Event> eventList = activeUser.getEventList();
 		int eventCount = activeUser.getEventList().size();
 		Object[][] data = new Object[eventCount][3];
@@ -107,18 +104,18 @@ public class NavigationController {
 	/**
 	 * This method is called when the user requests a logout.
 	 */
-	public void logout () {
+	public void logout ( ) {
 		System.out.println("NavigationController Logging out.");
 		navigationUI.dispose();
 		new LoginController();
 	}
 	
-	public void exit() {
+	public void exit( ) {
 		System.out.println("NavigationController exiting.");
 		System.exit(0);
 	}
 
-	public void updateTable() {
+	public void updateTable( ) {
 		navigationUI.updateTable();
 	}
 
@@ -133,7 +130,7 @@ public class NavigationController {
 		}
 	}
 	
-	public void requestLocationController () {
+	public void requestLocationController ( ) {
 		if(locationController == null) {
 			System.out.println("The NavigationController is creating a"
 				+ " LocationController.");
@@ -146,7 +143,7 @@ public class NavigationController {
 		}
 	}
 	
-	public void requestContactController () {
+	public void requestContactController ( ) {
 		if(contactController == null) {
 			contactController = new ContactController(this);
 		} else {
@@ -163,7 +160,7 @@ public class NavigationController {
 	 * will tell it to dispose of its UI and then set the pickerController to 
 	 * null.
 	 */
-	public void disposePickerController() {
+	public void disposePickerController( ) {
 		if(pickerController != null) {
 			System.out.println("The Navigation Controller is disposing of the"
 					+ " pickerController.");
@@ -187,7 +184,7 @@ public class NavigationController {
 	 * will tell it to dispose of its UI and then set the pickerController to 
 	 * null.
 	 */
-	public void disposeContactController () {
+	public void disposeContactController ( ) {
 		if(contactController != null) {
 			System.out.println("The NavigationController is disposing of the" 
 				+ " ContactController.");
@@ -210,7 +207,7 @@ public class NavigationController {
 	 * will tell it to dispose of its UI and then set the LocationController to 
 	 * null.
 	 */
-	public void disposeLocationController() {
+	public void disposeLocationController( ) {
 		if(locationController != null) {
 			System.out.println("The NavigationController is disposing of the" 
 				+ " LocationController.");
@@ -227,7 +224,7 @@ public class NavigationController {
 		}
 	}
 
-	public EventTableModel getTableModel() {
+	public EventTableModel getTableModel( ) {
 		return new EventTableModel(activeUser);
 	}
 }
