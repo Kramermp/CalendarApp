@@ -5,6 +5,8 @@
  */
 package calendarapp.ui;
 
+import calendarapp.Address;
+import calendarapp.Location;
 import calendarapp.backend.LocationController;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -28,8 +30,11 @@ import javax.swing.JTextField;
  */
 public class LocationUI extends JFrame {
 	private LocationController parentController;
+	private Location sourceLocation;
+	
 	private JTextField locationNameTxtFld;
 	private JPanel infoArea;
+	private JPanel cards;
 	
 	private JTextField addressLine1TxtFld;
 	private JTextField addressLine2TxtFld;
@@ -45,6 +50,18 @@ public class LocationUI extends JFrame {
 		addComponents();
 		this.addWindowListener(new LocationUIWindowListener());
 		System.out.println("Finished creating the LocationUI.");
+	}
+	
+	public LocationUI (LocationController parentController, 
+			Location sourceLocation) {
+		System.out.println("Creating the LocationUI with a sourceLocation.");
+		this.parentController = parentController;
+		this.sourceLocation = sourceLocation;
+		createWindow();
+		addComponents();
+		this.addWindowListener(new LocationUIWindowListener());
+		System.out.println("Finished creating the LocationUI with a "
+				+ " sourceLocation.");
 	}
 	
 	private void createWindow () {
@@ -71,7 +88,7 @@ public class LocationUI extends JFrame {
 		JButton addressBtn = new JButton("Address");
 		addressBtn.addActionListener((ActionEvent ae) -> { 
 			System.out.println("AddressBtn triggered.");
-			((CardLayout)infoArea.getLayout()).show(infoArea, ADDRESS_PANEL);
+			((CardLayout)cards.getLayout()).show(cards, ADDRESS_PANEL);
 		});
 		addressBtn.setPreferredSize(new Dimension( 1, 25));
 		c = new GridBagConstraints();
@@ -87,7 +104,7 @@ public class LocationUI extends JFrame {
 		coordinateBtn.setPreferredSize(new Dimension( 1, 25));
 		coordinateBtn.addActionListener((ActionEvent ae) -> { 
 			System.out.println("CoordinateBtn triggered.");
-			((CardLayout)infoArea.getLayout()).show(infoArea, COORDINATE_PANEL);
+			((CardLayout)cards.getLayout()).show(cards, COORDINATE_PANEL);
 		});
 		c = new GridBagConstraints();
 		c.gridx = 1;
@@ -109,10 +126,19 @@ public class LocationUI extends JFrame {
 		c.weighty = 1;
 		add(infoArea, c);
 		
+		JPanel buttonArea = new JPanel();
+		configureButtonArea(buttonArea);
+		c.gridx = 0;
+		c.gridwidth = 2;
+		c.weightx = 1;
+		c.gridy = 3;
+		c.weighty = 1;
+		add(buttonArea, c);
+		
 	}
 	
 	private void configureInfoArea(JPanel infoArea) {
-		JPanel cards = new JPanel();
+		cards = new JPanel();
 		CardLayout cardsLayout = new CardLayout();
 		JPanel addressPanel = new AddressPanel();
 		addressPanel.setBackground(Color.RED);
@@ -132,6 +158,40 @@ public class LocationUI extends JFrame {
 		((CardLayout) cards.getLayout()).show(cards, ADDRESS_PANEL);
 //		((CardLayout) infoArea.getLayout()).next(infoArea);
 		
+	}
+	
+	private void configureButtonArea(JPanel buttonArea) {
+		buttonArea.setLayout(new GridBagLayout());
+		JButton saveBtn = new JButton("Save");
+		saveBtn.addActionListener((ActionEvent) -> { 
+			System.out.println("SaveBtn triggered.");
+			LocationUI.this.parentController.submit();
+		});
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridy = 0;
+		buttonArea.add(saveBtn, c);
+		
+		JButton cancelBtn= new JButton("Cancel");
+		cancelBtn.addActionListener((ActionEvent ae) -> {
+			System.out.println("CancelBtn Triggered.");
+			LocationUI.this.dispose();
+		});
+		c.gridx = 1;
+		c.gridy = 0;
+		buttonArea.add(cancelBtn, c);
+		
+		JButton deleteBtn = new JButton("Delete");
+		deleteBtn.addActionListener((ActionEvent ae) -> { 
+			System.out.println("DeleteBtn triggered.");
+			System.err.println("DeleteBtn is not implemented yet.");
+		});
+		
+	}
+	
+	public Location getCALocation() {
+		System.out.println("Location.getCALocation() is a stub");
+		return new Address();
 	}
 	private class AddressPanel extends JPanel {
 		
@@ -160,6 +220,8 @@ public class LocationUI extends JFrame {
 
 		@Override
 		public void windowClosed(WindowEvent we) {
+			System.out.println("LocationUI Window Closed.");
+			LocationUI.this.parentController.dispose();
 		}
 
 		@Override
@@ -174,7 +236,7 @@ public class LocationUI extends JFrame {
 		public void windowOpened(WindowEvent we) { } // Do Nothing
 		@Override
 		public void windowClosing(WindowEvent we) { 
-		System.out.println("LocationUI Window Closed.");
+			System.out.println("LocationUI Window Closed.");
 			LocationUI.this.parentController.dispose();
 		}
 	}

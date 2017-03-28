@@ -66,7 +66,7 @@ public class LocationPicker extends JPanel {
             //c.insets = new Insets(10, 600, 10, 60);
             
             User testUser = new User();
-            ArrayList<String> locationList = testUser.getLocationList();
+            ArrayList<String> locationList = testUser.getLocationStringList();
             
             JPanel panel = new JPanel(new GridBagLayout());
             GridBagConstraints b = new GridBagConstraints( );
