@@ -18,7 +18,8 @@ public class Name implements Comparable, Serializable {
     private String suffix = "";
 
     public Name() {
-        
+        this.firstName= "Test FirstName";
+		this.lastName = "Test LastName";
     }
     
     public Name(String title, String firstName, String middleName, 

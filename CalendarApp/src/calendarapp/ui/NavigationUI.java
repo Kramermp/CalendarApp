@@ -54,7 +54,9 @@ public class NavigationUI extends JFrame {
 	private JPanel leftArea;
 	private JTable eventTable;
 	private JScrollPane tablePane;
-	private EventTableModel model;
+	private EventTableModel eventModel;
+	private JTable contactTable;
+	private ContactTableModel contactModel;
 	
 	public NavigationUI(NavigationController parentController) {
 		System.out.println("Creating NavigationUI.");
@@ -101,7 +103,7 @@ public class NavigationUI extends JFrame {
 		c.gridy = 1;
 		c.weighty = .85;
 		c.fill = GridBagConstraints.BOTH;
-		leftArea.add(new TestUI());
+		buildLeftArea(leftArea);
 		this.add(leftArea, c);
 		
 		
@@ -256,13 +258,30 @@ public class NavigationUI extends JFrame {
 		rightArea.add(tablePane, BorderLayout.CENTER);
 	}
 	
+	private void buildLeftArea(JPanel leftArea) {
+		System.out.println("Building leftArea.");
+		buildContactTable();
+		leftArea.setLayout(new BorderLayout());
+		leftArea.add(new JScrollPane(contactTable), BorderLayout.CENTER);
+	}
+	
 	private void buildEventTable() {
-		model = parentController.getTableModel();
-		eventTable = new JTable(model);
+		eventModel = parentController.getEventTableModel();
+		eventTable = new JTable(eventModel);
+	}
+	
+	private void buildContactTable() {
+		contactModel = parentController.getContactTableModel();
+		contactTable = new JTable(contactModel);
 	}
 
-	public void updateTable() {
-		model.setData();
-		model.fireTableDataChanged();
+	public void updateEventTable() {
+		eventModel.setData();
+		eventModel.fireTableDataChanged();
+	}
+	
+	public void updateContactTable() {
+		contactModel.setData();
+		eventModel.fireTableDataChanged();
 	}
 }

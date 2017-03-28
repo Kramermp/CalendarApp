@@ -44,6 +44,7 @@ public class ContactController {
 	public void submit() {
 		parentController.getActiveUser().addContact(contactUI.getContact());
 		parentController.writeData();
+		parentController.updateContactTable();
 		parentController.disposeContactController();
 	}
 

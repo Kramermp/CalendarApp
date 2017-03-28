@@ -1,6 +1,7 @@
 package calendarapp.backend;
 
 import calendarapp.Event;
+import calendarapp.ui.ContactTableModel;
 import calendarapp.ui.EventTableModel;
 import javax.swing.JFrame;
 import calendarapp.ui.NavigationUI;
@@ -119,8 +120,12 @@ public class NavigationController {
 		System.exit(0);
 	}
 
-	public void updateTable( ) {
-		navigationUI.updateTable();
+	public void updateEventTable( ) {
+		navigationUI.updateEventTable();
+	}
+	
+	public void updateContactTable () {
+		navigationUI.updateContactTable();
 	}
 
 	public void requestPickerUI(int pickerCode, int editCode) {
@@ -239,7 +244,11 @@ public class NavigationController {
 	 * @return eventTableModel returns and eventTableModel of activeUser6
 	 * 
 	 */
-	public EventTableModel getTableModel( ) {
+	public EventTableModel getEventTableModel( ) {
 		return new EventTableModel(activeUser);
+	}
+	
+	public ContactTableModel getContactTableModel ( ) {
+		return new ContactTableModel(activeUser);
 	}
 }

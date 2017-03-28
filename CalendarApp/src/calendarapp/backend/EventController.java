@@ -62,7 +62,7 @@ public class EventController {
 			sourceEvent.setEventLocation(eventUI.getEventLocation());
 		}
 		dataController.writeTheSerializedData();
-		parentController.updateTable();
+		parentController.updateEventTable();
 		disposeEventUI();
 	}
     public void disposeEventUI() {
