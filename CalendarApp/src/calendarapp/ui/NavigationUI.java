@@ -69,6 +69,7 @@ public class NavigationUI extends JFrame {
 	private void createWindow() {	
 		System.out.println("Creating the NavigationUI window.");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setTitle("Calendar App");
 		Dimension windowSize = new Dimension(375, 667);
 		//this.setPreferredSize(windowSize);
 		this.setExtendedState(MAXIMIZED_BOTH);
