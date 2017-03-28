@@ -7,6 +7,7 @@ package calendarapp.ui;
 
 import calendarapp.backend.NavigationController;
 import calendarapp.backend.PickerController;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -100,6 +101,7 @@ public class NavigationUI extends JFrame {
 		c.gridy = 1;
 		c.weighty = .85;
 		c.fill = GridBagConstraints.BOTH;
+		leftArea.add(new TestUI());
 		this.add(leftArea, c);
 		
 		
@@ -225,8 +227,9 @@ public class NavigationUI extends JFrame {
 	private void buildRightArea(JPanel rightArea) {
 		System.out.println("Building rightArea");
 		buildEventTable();
+		rightArea.setLayout(new BorderLayout());
 		tablePane = new JScrollPane(eventTable);
-		rightArea.add(tablePane);
+		rightArea.add(tablePane, BorderLayout.CENTER);
 	}
 	
 	private void buildEventTable() {
