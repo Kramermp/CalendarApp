@@ -13,14 +13,23 @@ import java.util.ArrayList;
  * @author Faust
  */
 public class Contact extends Person implements Comparable, Serializable {
-    private ArrayList<String> emails = new ArrayList<String>();
-    private ArrayList<String> phoneNumbers = new ArrayList<String>();
+    private ArrayList<String> emails;
+    private ArrayList<String> phoneNumbers;
     
-    public Name getName() {
-		return super.getName();
-    }
+	
+	public Contact () {
+		super();
+		emails = new ArrayList<String>();
+		phoneNumbers = new ArrayList<String>();
+	}
     public Contact(Name name) {
 		super(name);
+		emails = new ArrayList<String>();
+		phoneNumbers = new ArrayList<String>();
+    }
+	
+    public Name getName() {
+		return super.getName();
     }
     
     @Override

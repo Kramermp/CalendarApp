@@ -16,6 +16,17 @@ public class Address extends Location implements Serializable {
     private String state = "";
     private String country = "";
             
+	public Address() {
+		//Builds test address
+		super();
+		this.addressLine1 = "Test Line 1";
+        this.addressLine2 = "Test Line 2";
+        this.addressLine3 = "Test Line 3";
+        this.zipCode = 12345;
+        this.city = "Harrisburg";
+        this.state = "Pa";
+        this.country = "Dauphin";
+	}
             
     public Address(String name, String description, String addressLine1, 
             String addressLine2, String addressLine3, String city, String state,

@@ -12,7 +12,10 @@ public abstract class Location implements Serializable {
     private String name = "";
     private String description= "";
     
-    
+    public Location () {
+		this.name = "Test Location";
+		this.description = "Test Description";
+	}
     public Location (String name, String description) {
         this.locationID = Location.getNextID(); 
         this.name = name;
