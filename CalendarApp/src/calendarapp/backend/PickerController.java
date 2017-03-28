@@ -74,6 +74,7 @@ public class PickerController {
 	}
 
 	public void edit(int[] selectedRows) {
+		boolean editSuccessful = false;
 		switch(pickerCode) {
 			case 0:
 				if(selectedRows.length > 1 ) {
@@ -81,6 +82,7 @@ public class PickerController {
 				}else if (selectedRows.length == 1) {
 					System.out.println("One Item was selected.");
 					parentController.requestEventUI(activeUser.getEventList().get(selectedRows[0]));
+					editSuccessful = true;
 				}else {
 					System.out.println("No item was selected");
 				}
@@ -88,6 +90,7 @@ public class PickerController {
 			default:
 				break;
 		}
-		
+		if(editSuccessful)
+			dispose();	
 	}
 }

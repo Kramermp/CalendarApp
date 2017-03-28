@@ -94,7 +94,8 @@ public class PickerUI extends JFrame {
 
 		@Override
 		public void windowClosing(WindowEvent we) {
-			//Do Nothing
+			System.out.println("PickerUI Window Closed.");
+			PickerUI.this.parentController.dispose();
 		}
 
 		@Override
