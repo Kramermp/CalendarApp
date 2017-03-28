@@ -55,6 +55,7 @@ public class NavigationController {
 
 	public void requestEventUI(Event sourceEvent) {
 		if(this.eventController == null) {
+			//FIXME: GitHub Issue #16
 			this.eventController = new EventController(this, activeUser,
 					sourceEvent);
 		} else {
@@ -122,10 +123,12 @@ public class NavigationController {
 	}
 
 	public void requestPickerUI(int pickerCode, int editCode) {
+		
 		if(pickerController == null) {
 			pickerController = new PickerController(this, activeUser, 
 					pickerCode, editCode);
 		} else {
+			//FIXME: GitHub Issue #16
 			System.out.println("There is already a pickerController.");
 		}
 	}
@@ -136,6 +139,7 @@ public class NavigationController {
 				+ " LocationController.");
 			locationController = new LocationController(this);
 		} else {
+			//FIXME: GitHub Issue #16
 			System.out.println("The NavigationController recieved a request"
 				+ " for a LocationController but there was already an existing"
 				+ " LocationController.");
@@ -146,6 +150,7 @@ public class NavigationController {
 		if(contactController == null) {
 			contactController = new ContactController(this);
 		} else {
+			//FIXME: GitHub Issue #16
 			System.out.println("The NavigationController recieved a request"
 				+ " for a ContactController but there was already an existing"
 				+ " ContactController.");
@@ -198,7 +203,13 @@ public class NavigationController {
 				+ " existing ContractController.");
 		}
 	}
-	
+	/**
+	 * This method will dump existing LocationController
+	 * <p>
+	 * If there is currently a LocationController then the navigationController 
+	 * will tell it to dispose of its UI and then set the LocationController to 
+	 * null.
+	 */
 	public void disposeLocationController() {
 		if(locationController != null) {
 			System.out.println("The NavigationController is disposing of the" 
