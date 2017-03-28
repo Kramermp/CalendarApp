@@ -27,6 +27,8 @@ import javax.swing.JTextField;
  * @since .1
  * @version .1
  */
+
+//FIXME: GitHub Issue #17
 public class DateTimePicker extends JPanel {
     private Date selectedDate;
     private JComboBox dayComboBox;

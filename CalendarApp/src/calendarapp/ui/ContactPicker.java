@@ -17,6 +17,8 @@ import javax.swing.JTextField;
  * @version .1
  * @since .1
  */
+
+//FIXME: GitHub Issue #17
 public class ContactPicker extends JPanel {
 		private ArrayList<Contact> selectedContacts = new ArrayList<Contact>();
         private ArrayList<String> testContacts;

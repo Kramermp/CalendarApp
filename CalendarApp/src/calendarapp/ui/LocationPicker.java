@@ -39,6 +39,8 @@ import javax.swing.JTextField;
  * @version .1
  * @since .1
  */
+
+//FIXME: GitHub Issue #17
 public class LocationPicker extends JPanel {
 	private Location selectedLocation;
         private JTextField LocationNameTxtFld;
