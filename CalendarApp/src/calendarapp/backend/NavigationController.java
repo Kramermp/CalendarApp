@@ -46,6 +46,8 @@ public class NavigationController {
 			this.eventController = new EventController(this, activeUser);
 		} else {
 			System.out.println("There is already an existing eventController.");
+			//FIXME: Event Controller should get Focus if this happens 
+			//Issue: #16
 		}
 	}
 
@@ -57,16 +59,36 @@ public class NavigationController {
 			System.out.println("There is already an existing eventController.");
 		}
 	}	
-		public void disposeEventController() {
-			System.out.println("NavigationController disposing eventController.");
-			this.eventController = null;
-		}
+	/**
+	 * This methods dumps the exist eventController.
+	 * <p>
+	 * If there is an existing eventController then the NavigationController 
+	 * will tell it to dispose of its UI and then set the eventController to 
+	 * null.
+	 */
 
+	public void disposeEventController() { 
+		if(this.eventController != null) {
+			System.out.println("NavigationController disposing" 
+				+ " eventController.");
+			this.eventController = null;
+		} else {
+			System.out.println("The navigation Controller received a request"
+				+ " to disposeEventController but there was not and existing"
+				+ "eventController.");
+		}
+	}
+
+	/**
+	 * This method tells the dataController to write the data to disk.
+	 */
 	public void writeData() {
-		System.out.println("NavigationController writeData().");
+		System.out.println("The NavigationController is requesting a" 
+			+ " writeData()");
 		dataController.writeTheSerializedData();
 	}
 	
+
 	public Object[][] getTableData() {
 		ArrayList<Event> eventList = activeUser.getEventList();
 		int eventCount = activeUser.getEventList().size();
@@ -79,6 +101,9 @@ public class NavigationController {
 		return data;
 	}
 	
+	/**
+	 * This method is called when the user requests a logout.
+	 */
 	public void logout () {
 		System.out.println("NavigationController Logging out.");
 		navigationUI.dispose();
@@ -103,10 +128,28 @@ public class NavigationController {
 		}
 	}
 	
+	/**
+	 * This method dumps the existing pickerCoontroller.
+	 * <p>
+	 * If there is currently a pickerController then the navigationController 
+	 * will tell it to dispose of its UI and then set the pickerController to 
+	 * null.
+	 */
 	public void disposePickerController() {
-		System.out.println("The Navigation Controller is disposing of the"
-				+ " pickerController.");
-		this.pickerController = null;
+		if(pickerController != null) {
+			System.out.println("The Navigation Controller is disposing of the"
+					+ " pickerController.");
+			if (pickerController.hasUI()) {
+				pickerController.disposeUI();
+			}
+			pickerController = null;
+			System.out.println("The NaviagtionController disposed of the"
+				+ " PickerController.");
+		} else {
+			System.out.println("The navigationController received a request" 
+				+ " to dispose of the pickerController but there was not an"
+				+ " existing pickerController.");
+		}
 	}
 
 	public EventTableModel getTableModel() {

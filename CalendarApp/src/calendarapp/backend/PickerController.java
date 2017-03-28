@@ -30,6 +30,7 @@ public class PickerController {
 	
 	public PickerController (NavigationController parentController, 
 			User activeUser, int pickerCode, int editCode) {
+		System.out.println("Creating the PickerController.");
 		this.parentController = parentController;
 		this.pickerCode = pickerCode;
 		this.activeUser = activeUser;
@@ -50,13 +51,28 @@ public class PickerController {
 				break;
 		}
 		pickerUI.setVisible(true);
+		System.out.println("Finished creating the PickerController.");
 	}
 	
-	public void disposePickerUI() {
+	public void dispose() {
+		if(pickerUI != null) {
+			pickerUI.dispose();
+			pickerUI = null;
+			parentController.disposePickerController();
+		} else {
+			System.out.println("The PickerController received a request to"
+				+ " dispose of its UI but there was not an existing UI.");
+		}
+	}
+
+	public boolean hasUI () {
+		return pickerUI != null;
+	}
+	public void disposeUI () {
 		pickerUI.dispose();
-		parentController.disposePickerController();
+		pickerUI = null;
 	}
-	
+
 	public void edit(int[] selectedRows) {
 		switch(pickerCode) {
 			case 0:

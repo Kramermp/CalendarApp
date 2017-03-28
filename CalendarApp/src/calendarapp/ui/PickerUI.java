@@ -18,7 +18,9 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author Faust
+ * @author Michael Kramer <mpk5206 @ psu.edu>
+ * @version .1
+ * @since .1
  */
 public class PickerUI extends JFrame {
 	private PickerController parentController;
@@ -27,6 +29,7 @@ public class PickerUI extends JFrame {
 	
 	public PickerUI (PickerController parentController, int editCode,
 			Picker picker) {
+		System.out.println("Creating the PickerUI.");
 		this.parentController = parentController;
 		this.editCode = editCode;
 		this.picker = picker;
@@ -34,55 +37,18 @@ public class PickerUI extends JFrame {
 		this.setLayout(new BorderLayout());
 		this.add(picker, BorderLayout.CENTER);
 		addButtonArea();
+		System.out.println("Finished creating the PickerUI.");
 	}
 	
 	private void createWindow() {
 		System.out.println("Creating the PickerUI window.");
-		//this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		Dimension windowSize = new Dimension(375, 667);
 		this.setPreferredSize(windowSize);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		this.pack();
 		this.setLocation((screenSize.width/2) - this.getWidth()/2, 
 				screenSize.height/2 - this.getHeight()/2);
-		this.addWindowListener(new WindowListener() {
-			@Override
-			public void windowOpened(WindowEvent we) {
-				//Do Nothing
-			}
-
-			@Override
-			public void windowClosing(WindowEvent we) {
-				System.out.println("EventUI Window Closed.");
-				PickerUI.this.parentController.disposePickerUI();
-			}
-
-			@Override
-			public void windowClosed(WindowEvent we) {
-				System.out.println("EventUI Window Closed.");
-				PickerUI.this.parentController.disposePickerUI();
-			}
-
-			@Override
-			public void windowIconified(WindowEvent we) {
-				//Do Nothing
-			}
-
-			@Override
-			public void windowDeiconified(WindowEvent we) {
-				//Do Nothing
-			}
-
-			@Override
-			public void windowActivated(WindowEvent we) {
-				//Do Nothing
-			}
-
-			@Override
-			public void windowDeactivated(WindowEvent we) {
-				//Do Nothing
-			}
-		});
+		this.addWindowListener(new PickerUIWindowListener ()); 				
 		System.out.println("Finished creating the PickerUI window.");
 	}
 	
@@ -91,8 +57,8 @@ public class PickerUI extends JFrame {
 		this.add(buttonArea, BorderLayout.SOUTH);
 		JButton cancelBtn = new JButton("Cancel");
 		cancelBtn.addActionListener((ActionEvent ae) -> {
-			System.out.println("CancelBtn has been triggerd.");
-			PickerUI.this.parentController.disposePickerUI();
+			System.out.println("CancelBtn has been triggered.");
+			PickerUI.this.dispose();
 		});
 		buttonArea.add(cancelBtn);
 		
@@ -115,5 +81,46 @@ public class PickerUI extends JFrame {
 	private void edit() {
 		parentController.edit(picker.getSelected());
 		
+	}
+
+	/**
+	 * This class ensures that the controller if the window is closed.
+	 */
+	private class PickerUIWindowListener implements WindowListener {
+		@Override
+		public void windowOpened(WindowEvent we) {
+			//Do Nothing
+		}
+
+		@Override
+		public void windowClosing(WindowEvent we) {
+			//Do Nothing
+		}
+
+		@Override
+		public void windowClosed(WindowEvent we) {
+			System.out.println("PickerUI Window Closed.");
+			PickerUI.this.parentController.dispose();
+		}
+
+		@Override
+		public void windowIconified(WindowEvent we) {
+			//Do Nothing
+		}
+
+		@Override
+		public void windowDeiconified(WindowEvent we) {
+			//Do Nothing
+		}
+
+		@Override
+		public void windowActivated(WindowEvent we) {
+			//Do Nothing
+		}
+
+		@Override
+		public void windowDeactivated(WindowEvent we) {
+			//Do Nothing
+		}
 	}
 }
