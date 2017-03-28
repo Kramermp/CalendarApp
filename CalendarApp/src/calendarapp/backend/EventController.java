@@ -34,7 +34,7 @@ public class EventController {
 
     public EventController(NavigationController parentController, 
 			User activeUser, Event sourceEvent) {
-		System.out.println("Creating the Eventcontroller.");
+		System.out.println("Creating the EventController.");
     	this.parentController = parentController;
     	this.sourceEvent = sourceEvent;
 		this.activeUser = activeUser;

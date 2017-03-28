@@ -124,7 +124,9 @@ public class NavigationUI extends JFrame {
 	}
 
 	private void buildFileMenu() {
+		//FIXME: GitHub Issue #3 
 		JMenu fileMenu = new JMenu("File");
+		
 		fileMenu.setMnemonic(KeyEvent.VK_F); //Sets F as shortcut key
 		JMenuItem logoutBtn = new JMenuItem("Logout");
 		logoutBtn.setMnemonic(KeyEvent.VK_L);
@@ -144,14 +146,12 @@ public class NavigationUI extends JFrame {
 	}
 
 	private void buildEditMenu() {
-		//Not Sure what to pute here for now now will keep it commented out
-		//this is commented out inthe build MenuBar section
+		//FIXME: GitHub Issue #3
 		JMenu editMenu = new JMenu("Edit");
-		editMenu.setMnemonic(KeyEvent.VK_E);
+		editMenu.setMnemonic(KeyEvent.VK_E);	
 		buildEventMenu(editMenu);
 		buildContactMenu(editMenu);
 		buildLocationMenu(editMenu);
-		//Populate Edit Menu
 		menuBar.add(editMenu);
 	}
 	
@@ -189,12 +189,24 @@ public class NavigationUI extends JFrame {
 		contactMenu.setMnemonic(KeyEvent.VK_C);
 		JMenuItem createContactBtn = new JMenuItem("Create a New Contact");
 		createContactBtn.setMnemonic(KeyEvent.VK_N);
+		createContactBtn.addActionListener((ActionEvent ae) -> {
+			System.out.println("Create Contact Button was triggered.");
+			NavigationUI.this.parentController.requestContactController();
+		});
 		contactMenu.add(createContactBtn);
 		JMenuItem editContactBtn = new JMenuItem("Edit an Existing Contact");
 		editContactBtn.setMnemonic(KeyEvent.VK_E);
+		editContactBtn.addActionListener((ActionEvent ae) -> { 
+			System.out.println("EditContactBtn triggered.");
+			System.err.println("EditContactBtn is not implemented yet.");
+		});
 		contactMenu.add(editContactBtn);
 		JMenuItem removeContactBtn = new JMenuItem("Delete a Contact");
 		removeContactBtn.setMnemonic(KeyEvent.VK_D);
+		removeContactBtn.addActionListener((ActionEvent ae) -> { 
+			System.out.println("RemoveContactBtn was triggered.");
+			System.err.println("RemoveContactBtn is not implemented yet.");
+		});
 		contactMenu.add(removeContactBtn);
 
 		parentMenu.add(contactMenu);
@@ -204,15 +216,27 @@ public class NavigationUI extends JFrame {
 		//TODO: Build Functionality
 		JMenu locationMenu= new JMenu("Locations");
 		locationMenu.setMnemonic(KeyEvent.VK_L);
-		JMenuItem createContactBtn = new JMenuItem("Create a New Location");
-		createContactBtn.setMnemonic(KeyEvent.VK_N);
-		locationMenu.add(createContactBtn);
-		JMenuItem editContactBtn = new JMenuItem("Edit an Existing Location");
-		editContactBtn.setMnemonic(KeyEvent.VK_E);
-		locationMenu.add(editContactBtn);
-		JMenuItem removeContactBtn = new JMenuItem("Delete a Location");
-		removeContactBtn.setMnemonic(KeyEvent.VK_D);
-		locationMenu.add(removeContactBtn);
+		JMenuItem createLocationBtn = new JMenuItem("Create a New Location");
+		createLocationBtn.setMnemonic(KeyEvent.VK_N);
+		createLocationBtn.addActionListener((ActionEvent ae) -> {
+			System.out.println("Create Location Button triggered.");
+			NavigationUI.this.parentController.requestLocationController();
+		});
+		locationMenu.add(createLocationBtn);
+		JMenuItem editLocationBtn = new JMenuItem("Edit an Existing Location");
+		editLocationBtn.setMnemonic(KeyEvent.VK_E);
+		editLocationBtn.addActionListener((ActionEvent ae) -> { 
+			System.out.println("Edit LocationBtn triggered.");
+			System.err.println("Edit LocationBtn is not implemented yet.");
+		});
+		locationMenu.add(editLocationBtn);
+		JMenuItem removeLocationBtn = new JMenuItem("Delete a Location");
+		removeLocationBtn.setMnemonic(KeyEvent.VK_D);
+		removeLocationBtn.addActionListener((ActionEvent ae) -> { 
+			System.out.println("Remove LocationBtn triggered.");
+			System.err.println("Remove LocationBtn is not implemented yet.");
+		});
+		locationMenu.add(removeLocationBtn);
 
 		parentMenu.add(locationMenu);
 	}

@@ -280,6 +280,7 @@ public class EventUI extends JFrame {
 			buttonArea.add(deleteBtn);
 		}
 	}
+	
 	private void submitEvent() {
 		if(validateInput().isEmpty()) {
 			System.out.println("The Event Entered was valid.");
@@ -291,7 +292,7 @@ public class EventUI extends JFrame {
 	
 	private void configureLocationArea(JPanel locationArea) {
 		locationArea.setBackground(Color.CYAN);
-		//This area should be filledd with whatever we decide to configure
+		//This area should be filled with whatever we decide to configure
 		//location with
 	}
 	
@@ -307,22 +308,22 @@ public class EventUI extends JFrame {
 		descriptionArea.setLayout(new GridBagLayout());
 		descriptionArea.setBackground(Color.GREEN);
 		JPanel topBuffer = new JPanel();
-		GridBagConstraints gbc = new GridBagConstraints();
-		gbc.gridx = 0;
-		gbc.gridwidth = 3;
-		gbc.weightx = .99;
-		gbc.gridy = 0;
-		gbc.weighty = .15;
-		gbc.fill = GridBagConstraints.BOTH;
-		descriptionArea.add(topBuffer, gbc);
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridwidth = 3;
+		c.weightx = .99;
+		c.gridy = 0;
+		c.weighty = .15;
+		c.fill = GridBagConstraints.BOTH;
+		descriptionArea.add(topBuffer, c);
 				
 		JPanel leftBuffer = new JPanel();
-		gbc = new GridBagConstraints();
-		gbc.gridx = 0;
-		gbc.weightx = .1;
-		gbc.gridy = 1;
-		gbc.fill = GridBagConstraints.BOTH;
-		descriptionArea.add(leftBuffer, gbc);                
+		c = new GridBagConstraints();
+		c.gridx = 0;
+		c.weightx = .1;
+		c.gridy = 1;
+		c.fill = GridBagConstraints.BOTH;
+		descriptionArea.add(leftBuffer, c);                
 								
 		
 		JPanel container = new JPanel();
@@ -332,41 +333,42 @@ public class EventUI extends JFrame {
 		JScrollPane descriptionPane = new JScrollPane(descriptionTxtFld);
 		descriptionPane.setPreferredSize( new Dimension(0, 0));
         container.setLayout(new GridBagLayout());
-        gbc = new GridBagConstraints();
-        gbc.fill = GridBagConstraints.BOTH;
-        gbc.weightx = 1;
-        gbc.weighty = 1;
-		container.add(descriptionPane, gbc);
+        c = new GridBagConstraints();
+        c.fill = GridBagConstraints.BOTH;
+        c.weightx = 1;
+        c.weighty = 1;
+		container.add(descriptionPane, c);
         container.setBackground(Color.RED);
-		gbc = new GridBagConstraints();
-		gbc.gridx = 1;
-		gbc.weightx = .99;
-		gbc.gridy = 1;
-		gbc.weighty = .99;
-		gbc.fill = GridBagConstraints.BOTH;
-		descriptionArea.add(container, gbc);
+		c = new GridBagConstraints();
+		c.gridx = 1;
+		c.weightx = .99;
+		c.gridy = 1;
+		c.weighty = .99;
+		c.fill = GridBagConstraints.BOTH;
+		descriptionArea.add(container, c);
 								
 		JPanel rightBuffer = new JPanel();
-		gbc = new GridBagConstraints();
-		gbc.gridx = 2;
-		gbc.weightx = .1;
-		gbc.gridy = 1;
-		gbc.fill = GridBagConstraints.BOTH;
-		descriptionArea.add(rightBuffer, gbc);
+		c = new GridBagConstraints();
+		c.gridx = 2;
+		c.weightx = .1;
+		c.gridy = 1;
+		c.fill = GridBagConstraints.BOTH;
+		descriptionArea.add(rightBuffer, c);
 				
 		JPanel bottomBuffer = new JPanel();
-		gbc = new GridBagConstraints();
-		gbc.gridx = 0;
-		gbc.gridwidth = 3;
-		gbc.weightx = .99;
-		gbc.gridy = 2;
-		gbc.weighty = .15;
-		gbc.fill = GridBagConstraints.BOTH;
-		descriptionArea.add(bottomBuffer, gbc);
+		c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridwidth = 3;
+		c.weightx = .99;
+		c.gridy = 2;
+		c.weighty = .15;
+		c.fill = GridBagConstraints.BOTH;
+		descriptionArea.add(bottomBuffer, c);
 	}
 	
 	private void populateFields ( ) {
-		
+		this.eventNameTxtFld.setText(sourceEvent.getEventName());
+		this.eventTagTxtFld.setText(sourceEvent.getEventTag());
 	}
 
 	private ArrayList<String> validateInput() {

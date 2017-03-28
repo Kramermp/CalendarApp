@@ -20,6 +20,8 @@ public class NavigationController {
 	private SerializedData serializedData;
 	private NavigationUI navigationUI;
 	private EventController eventController;
+	private LocationController locationController;
+	private ContactController contactController;
 	private User activeUser;
 	private JTable eventTable;
 	private PickerController pickerController;
@@ -128,6 +130,27 @@ public class NavigationController {
 		}
 	}
 	
+	public void requestLocationController () {
+		if(locationController == null) {
+			System.out.println("The NavigationController is creating a"
+				+ " LocationController.");
+			locationController = new LocationController(this);
+		} else {
+			System.out.println("The NavigationController recieved a request"
+				+ " for a LocationController but there was already an existing"
+				+ " LocationController.");
+		}
+	}
+	
+	public void requestContactController () {
+		if(contactController == null) {
+			contactController = new ContactController(this);
+		} else {
+			System.out.println("The NavigationController recieved a request"
+				+ " for a ContactController but there was already an existing"
+				+ " ContactController.");
+		}
+	}
 	/**
 	 * This method dumps the existing pickerCoontroller.
 	 * <p>
@@ -149,6 +172,47 @@ public class NavigationController {
 			System.out.println("The navigationController received a request" 
 				+ " to dispose of the pickerController but there was not an"
 				+ " existing pickerController.");
+		}
+	}
+	
+	/**
+	 * This method will dump existing ContactController
+	 * <p>
+	 * If there is currently a ContactController then the navigationController 
+	 * will tell it to dispose of its UI and then set the pickerController to 
+	 * null.
+	 */
+	public void disposeContactController () {
+		if(contactController != null) {
+			System.out.println("The NavigationController is disposing of the" 
+				+ " ContactController.");
+			if(contactController.hasUI()) {
+				contactController.disposeUI();
+			}
+			contactController = null;
+			System.out.println("The NavigationController disposed of the"
+					+ " ContactController.");
+		} else {
+			System.out.println("The NavigationController recieved a request to"
+				+ " to dispose of the ContactController but there was not an"
+				+ " existing ContractController.");
+		}
+	}
+	
+	public void disposeLocationController() {
+		if(locationController != null) {
+			System.out.println("The NavigationController is disposing of the" 
+				+ " LocationController.");
+			if(locationController.hasUI()) {
+				locationController.disposeUI();
+			}
+			locationController = null;
+			System.out.println("The NavigationController disposed of the"
+					+ " LocationController.");
+		} else {
+			System.out.println("The NavigationController recieved a request to"
+				+ " to dispose of the LocationController but there was not an"
+				+ " existing LocationController.");
 		}
 	}
 
