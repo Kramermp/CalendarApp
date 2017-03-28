@@ -7,6 +7,7 @@ package calendarapp.backend;
 
 import calendarapp.Event;
 import calendarapp.ui.EventUI;
+import javax.swing.JFrame;
 
 /**
  *
@@ -72,7 +73,9 @@ public class EventController {
         parentController.disposeEventController();
     }
 
-	public void updateTable() {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	public void bringUIToTop() {
+		eventUI.setState(JFrame.NORMAL);
+		eventUI.toFront();
+		eventUI.repaint();
 	}
 }

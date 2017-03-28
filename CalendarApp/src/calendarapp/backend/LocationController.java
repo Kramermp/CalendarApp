@@ -7,6 +7,7 @@ package calendarapp.backend;
 
 import calendarapp.Location;
 import calendarapp.ui.LocationUI;
+import javax.swing.JFrame;
 
 /**
  *
@@ -74,5 +75,11 @@ public class LocationController {
 	void disposeUI() {
 		locationUI.dispose();
 		locationUI = null;
+	}
+
+	void bringUIToTop() {
+		locationUI.setState(JFrame.NORMAL);
+		locationUI.toFront();
+		locationUI.repaint();
 	}
 }

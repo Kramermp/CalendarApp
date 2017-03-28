@@ -9,6 +9,7 @@ import calendarapp.Event;
 import calendarapp.ui.EventPicker;
 import calendarapp.ui.PickerUI;
 import java.util.ArrayList;
+import javax.swing.JFrame;
 
 /**
  *
@@ -92,5 +93,11 @@ public class PickerController {
 		}
 		if(editSuccessful)
 			dispose();	
+	}
+
+	void bringUIToTop() {
+		pickerUI.setState(JFrame.NORMAL);
+		pickerUI.toFront();
+		pickerUI.repaint();
 	}
 }

@@ -6,6 +6,7 @@
 package calendarapp.backend;
 
 import calendarapp.ui.ContactUI;
+import javax.swing.JFrame;
 
 /**
  *
@@ -51,5 +52,15 @@ public class ContactController {
 	void disposeUI() {
 		contactUI.dispose();
 		contactUI = null;
+	}
+
+	void getFocus() {
+		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	}
+
+	void bringUIToTop() {
+		contactUI.setState(JFrame.NORMAL);
+		contactUI.toFront();
+		contactUI.repaint();
 	}
 }

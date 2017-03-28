@@ -41,29 +41,7 @@ public class NavigationController {
 		System.out.println("Finished creating the NavigationController.");
 	}
 
-	/**
-	 * This method will open a new EventUI. It will take no parameters and 
-	 * return nothing. It will will open an EventUI without a source Event.
-	 */
-	public void requestEventUI( ) {
-		if(this.eventController == null) {
-			this.eventController = new EventController(this, activeUser);
-		} else {
-			System.out.println("There is already an existing eventController.");
-			//FIXME: Event Controller should get Focus if this happens 
-			//Issue: #16
-		}
-	}
 
-	public void requestEventUI(Event sourceEvent) {
-		if(this.eventController == null) {
-			//FIXME: GitHub Issue #16
-			this.eventController = new EventController(this, activeUser,
-					sourceEvent);
-		} else {
-			System.out.println("There is already an existing eventController.");
-		}
-	}	
 	/**
 	 * This methods dumps the exist eventController.
 	 * <p>
@@ -127,15 +105,52 @@ public class NavigationController {
 	public void updateContactTable () {
 		navigationUI.updateContactTable();
 	}
+	
+	/**
+	* This method will open a new EventUI. It will take no parameters and 
+	* return nothing. It will will open an EventUI without a source Event.
+	*/
+	public void requestEventUI( ) {
+		if(this.eventController == null) {
+			this.eventController = new EventController(this, activeUser);
+		} else {
+			eventController.bringUIToTop();
+			System.out.println("The NavigationController recieved a request"
+				+ " for an EventController but there was already an existing"
+				+ " EventController.");
+		}
+	}
 
+	public void requestEventUI(Event sourceEvent) {
+		if(this.eventController == null) {
+			System.out.println("The NavigationController is creating an"
+					+ " EventController, with a source event.");
+			this.eventController = new EventController(this, activeUser,
+					sourceEvent);
+			System.out.println("The NavigationController finished creating the"
+					+ " EventController, with a source event.");
+		} else {
+			eventController.bringUIToTop();
+			System.out.println("The NavigationController recieved a request"
+				+ " for an EventController but there was already an existing"
+				+ " EventController.");
+		}
+	}
+	
 	public void requestPickerUI(int pickerCode, int editCode) {
-		
 		if(pickerController == null) {
+			System.out.println("The NavigationController is creating a"
+					+ " PickerController.");
 			pickerController = new PickerController(this, activeUser, 
 					pickerCode, editCode);
+			System.out.println("The NavigationController finished creating"
+					+ " the PickerController.");
 		} else {
 			//FIXME: GitHub Issue #16
-			System.out.println("There is already a pickerController.");
+			pickerController.bringUIToTop();
+			System.out.println("The NavigationController recieved a request"
+				+ " for a Pickerontroller but there was already an existing"
+				+ " PickerController.");
 		}
 	}
 	
@@ -146,6 +161,7 @@ public class NavigationController {
 			locationController = new LocationController(this);
 		} else {
 			//FIXME: GitHub Issue #16
+			locationController.bringUIToTop();
 			System.out.println("The NavigationController recieved a request"
 				+ " for a LocationController but there was already an existing"
 				+ " LocationController.");
@@ -157,6 +173,7 @@ public class NavigationController {
 			contactController = new ContactController(this);
 		} else {
 			//FIXME: GitHub Issue #16
+			contactController.bringUIToTop();
 			System.out.println("The NavigationController recieved a request"
 				+ " for a ContactController but there was already an existing"
 				+ " ContactController.");
