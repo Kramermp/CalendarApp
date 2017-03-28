@@ -367,6 +367,7 @@ public class EventUI extends JFrame {
 	}
 	
 	private void populateFields ( ) {
+		//FIXME: GitHub Issue #18
 		this.eventNameTxtFld.setText(sourceEvent.getEventName());
 		this.eventTagTxtFld.setText(sourceEvent.getEventTag());
 	}
