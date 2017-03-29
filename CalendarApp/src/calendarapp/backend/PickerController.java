@@ -6,7 +6,9 @@
 package calendarapp.backend;
 
 import calendarapp.Event;
+import calendarapp.ui.ContactPicker;
 import calendarapp.ui.EventPicker;
+import calendarapp.ui.LocationPicker;
 import calendarapp.ui.PickerUI;
 import java.util.ArrayList;
 import javax.swing.JFrame;
@@ -42,10 +44,10 @@ public class PickerController {
 						new EventPicker(activeUser));
 				break;
 			case 1:
-				//PickerUI(new ContactPicker());
+				pickerUI = new PickerUI(this, editCode, new ContactPicker(activeUser));
 				break;	
 			case 2:
-				//PickerUI(new LocationPicker());
+				pickerUI = new PickerUI(this, editCode, new LocationPicker(activeUser));
 				break;
 			default:
 				

@@ -1,6 +1,7 @@
 package calendarapp.ui;
 
 import calendarapp.Contact;
+import calendarapp.backend.User;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -19,7 +20,7 @@ import javax.swing.JTextField;
  */
 
 //FIXME: GitHub Issue #17
-public class ContactPicker extends JPanel {
+public class ContactPicker extends Picker {
 		private ArrayList<Contact> selectedContacts = new ArrayList<Contact>();
         private ArrayList<String> testContacts;
         private ArrayList<String> testGroups;
@@ -38,9 +39,20 @@ public class ContactPicker extends JPanel {
                 testGroups.add("IST 331");
                 addComponents();
 	}
-	
-	public ContactPicker(ArrayList<Contact> contacts) {
-		this.selectedContacts = contacts;
+
+	public ContactPicker(User activeUser) {
+		System.err.println("Not Yet Implemented.");
+		this.testContacts = new ArrayList<String>();
+		testContacts.add("Alex");
+		testContacts.add("Ben");
+		testContacts.add("Connor");
+		testContacts.add("Jim");
+		testContacts.add("Patrick");
+		this.testGroups = new ArrayList<String>();
+		testGroups.add("IST 311");
+		testGroups.add("IST 301");
+		testGroups.add("IST 331");
+		addComponents();
 	}
 
 	public ArrayList<Contact> getContacts() {
@@ -107,6 +119,11 @@ public class ContactPicker extends JPanel {
             }
             
         }
+
+	@Override
+	public int[] getSelected() {
+		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	}
         
 }
 

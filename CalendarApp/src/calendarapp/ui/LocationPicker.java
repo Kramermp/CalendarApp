@@ -41,7 +41,7 @@ import javax.swing.JTextField;
  */
 
 //FIXME: GitHub Issue #17
-public class LocationPicker extends JPanel {
+public class LocationPicker extends Picker {
 	private Location selectedLocation;
         private JTextField LocationNameTxtFld;
         private String selectedLocationString;
@@ -54,6 +54,10 @@ public class LocationPicker extends JPanel {
 	public LocationPicker(Location location) {
             this.selectedLocation = location;
             createComponents();
+	}
+
+	public LocationPicker(User activeUser) {
+		createComponents();
 	}
 	
 	public Location getSelectedLocation() {
@@ -121,4 +125,9 @@ public class LocationPicker extends JPanel {
         public void setLocation(String location){
             selectedLocationString = location;
         } 
+
+	@Override
+	public int[] getSelected() {
+		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	}
 }

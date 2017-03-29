@@ -201,14 +201,14 @@ public class NavigationUI extends JFrame {
 		editContactBtn.setMnemonic(KeyEvent.VK_E);
 		editContactBtn.addActionListener((ActionEvent ae) -> { 
 			System.out.println("EditContactBtn triggered.");
-			System.err.println("EditContactBtn is not implemented yet.");
+			NavigationUI.this.parentController.requestPickerUI(PickerController.CONTACT, PickerController.EDIT);
 		});
 		contactMenu.add(editContactBtn);
 		JMenuItem removeContactBtn = new JMenuItem("Delete a Contact");
 		removeContactBtn.setMnemonic(KeyEvent.VK_D);
 		removeContactBtn.addActionListener((ActionEvent ae) -> { 
 			System.out.println("RemoveContactBtn was triggered.");
-			System.err.println("RemoveContactBtn is not implemented yet.");
+			NavigationUI.this.parentController.requestPickerUI(PickerController.CONTACT, PickerController.DELETE);
 		});
 		contactMenu.add(removeContactBtn);
 
@@ -230,14 +230,14 @@ public class NavigationUI extends JFrame {
 		editLocationBtn.setMnemonic(KeyEvent.VK_E);
 		editLocationBtn.addActionListener((ActionEvent ae) -> { 
 			System.out.println("Edit LocationBtn triggered.");
-			System.err.println("Edit LocationBtn is not implemented yet.");
+			NavigationUI.this.parentController.requestPickerUI(PickerController.LOCATION, PickerController.EDIT);
 		});
 		locationMenu.add(editLocationBtn);
 		JMenuItem removeLocationBtn = new JMenuItem("Delete a Location");
 		removeLocationBtn.setMnemonic(KeyEvent.VK_D);
 		removeLocationBtn.addActionListener((ActionEvent ae) -> { 
 			System.out.println("Remove LocationBtn triggered.");
-			System.err.println("Remove LocationBtn is not implemented yet.");
+			NavigationUI.this.parentController.requestPickerUI(PickerController.CONTACT, PickerController.DELETE);
 		});
 		locationMenu.add(removeLocationBtn);
 
