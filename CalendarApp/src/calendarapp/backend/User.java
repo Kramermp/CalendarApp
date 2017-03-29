@@ -25,9 +25,9 @@ public class User extends Person implements Serializable {
 			= new StrongPasswordEncryptor();
 	private String username;
 	private String password;
-	private ArrayList<Event> eventList;
-	private ArrayList<Location> locationList;
-	private ArrayList<Contact> contactList;
+	private ArrayList<Event> eventList = new ArrayList<>();
+	private ArrayList<Location> locationList = new ArrayList<>();;
+	private ArrayList<Contact> contactList = new ArrayList<>();;
 	
 	/**
 	 * This constructor takes a name object and uses it to build the super
