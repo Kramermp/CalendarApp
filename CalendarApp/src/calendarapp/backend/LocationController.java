@@ -65,7 +65,10 @@ public class LocationController {
 				dispose();
 			} catch (InvalidZipCodeException e) {
 				System.err.println("An error Occured while parsing the zip.");
-				locationUI.setZipErrorMessage(e.getMessage());
+				locationUI.setErrorMessage(e.getMessage());
+			} catch (NumberFormatException e) {
+				System.err.println("An Error Occured while parseing lat or long");
+				locationUI.setErrorMessage("Lat or Long is incorrect");
 			}
 		} else {
 			System.out.println("Source Location was not null implying editing a"

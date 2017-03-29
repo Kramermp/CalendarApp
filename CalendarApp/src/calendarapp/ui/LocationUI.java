@@ -213,7 +213,8 @@ public class LocationUI extends JFrame {
 		
 	}
 	
-	public Location getCALocation() throws InvalidZipCodeException {
+	public Location getCALocation() throws InvalidZipCodeException, 
+			NumberFormatException {
 		System.out.println("Location.getCALocation() is a stub");
 		if(isAddress) {
 			System.out.println("The Entered Location was detected to be an"
@@ -232,17 +233,19 @@ public class LocationUI extends JFrame {
 		} else {
 			System.out.println("The entered location was detected to be a"
 					+ " CoordinateLocation.");
-			System.err.println("Submitting Coordinate Locations is not"
-					+ " implemented yet. Returning a test CoordinateLocaiton.");
-			return 	new CoordinateLocation();		
+			String name = locationNameTxtFld.getText();
+			double longitude = coordinatePanel.getLongitude();
+			double latitude = coordinatePanel.getLatitude();
+			String description = descriptionArea.getText();
+			return 	new CoordinateLocation(name, description, longitude, latitude);		
 		}
 	}
 	/**
-	 *  This method will display the message as an error message for the zip
-	 * 
+	 * This method will display the message as an error message
+	 * <p>
 	 * @param message String; the message to display
 	 */
-	public void setZipErrorMessage(String message) {
+	public void setErrorMessage(String message) {
 		errorPanel.add(new JLabel(message));
 		errorPanel.revalidate();
 		errorPanel.repaint();
@@ -351,15 +354,40 @@ public class LocationUI extends JFrame {
 	}
 	
 	private class CoordinatePanel extends JPanel {
+		private JTextField latitudeTxtFld;
+		private JTextField longitudeTxtFld;
 		
 		private CoordinatePanel() {
 			addComponents();
 		}
 		
 		private void addComponents() {
-			add(new JLabel("This is a Coordinate Panel."));
+			setLayout(new GridBagLayout());
+			GridBagConstraints c = new GridBagConstraints();
+			c.gridx = 0;
+			c.gridy = 0;
+			add(new JLabel("This is a Coordinate Panel."), c);
+			
+			latitudeTxtFld = new JTextField("Latitude", 30);
+			c = new GridBagConstraints();
+			c.gridx = 0;
+			c.gridy = 1;
+			add(latitudeTxtFld, c);
+			
+			longitudeTxtFld = new JTextField("Longitude", 30);
+			c = new GridBagConstraints();
+			c.gridx = 0;
+			c.gridy = 2;
+			add(longitudeTxtFld, c);
 		}
 		
+		private double getLatitude() throws NumberFormatException {
+			return Double.parseDouble(latitudeTxtFld.getText());
+		}
+		
+		private double getLongitude() throws NumberFormatException {
+			return Double.parseDouble(longitudeTxtFld.getText());
+		}
 	}
 	
 	private class LocationUIWindowListener implements WindowListener {
