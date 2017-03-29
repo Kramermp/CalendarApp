@@ -108,6 +108,7 @@ public class User extends Person implements Serializable {
 	
 	public void addEvent(Event event) {
 		this.eventList.add(event);
+		System.out.println("This user now has " + eventList.size() + " events.");
 	}
 	
 	public String getUsername() {
@@ -129,10 +130,12 @@ public class User extends Person implements Serializable {
     
 	public void addLocation(Location location ) {
 		locationList.add(location);
+		System.out.println("This user now has " + locationList.size() + " locations.");
 	}
 	
 	public void addContact (Contact contact) {
 		contactList.add(contact);
+		System.out.println("This user now has " + contactList.size() + " contacts.");
 	}
 	
 	public ArrayList<Location> getLocationList() {
