@@ -45,6 +45,7 @@ public class LocationUI extends JFrame {
 	private static final String COORDINATE_PANEL = "Card for Coordinates";
 	private AddressPanel addressPanel;
 	private CoordinatePanel coordinatePanel;
+	private JPanel errorPanel;
 	
 	public LocationUI(LocationController parentController) {
 		System.out.println("Creating the LocationUI.");
@@ -141,12 +142,20 @@ public class LocationUI extends JFrame {
 		c.weighty = 1;
 		add(descriptionArea, c);
 		
+		errorPanel = new JPanel();
+		c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridwidth = 2;
+		c.weightx = 1;
+		c.gridy = 4;
+		add(errorPanel, c);
+		
 		JPanel buttonArea = new JPanel();
 		configureButtonArea(buttonArea);
 		c.gridx = 0;
 		c.gridwidth = 2;
 		c.weightx = 1;
-		c.gridy = 4;
+		c.gridy = 5;
 		c.weighty = 1;
 		add(buttonArea, c);
 		
@@ -204,7 +213,7 @@ public class LocationUI extends JFrame {
 		
 	}
 	
-	public Location getCALocation() {
+	public Location getCALocation() throws InvalidZipCodeException {
 		System.out.println("Location.getCALocation() is a stub");
 		if(isAddress) {
 			System.out.println("The Entered Location was detected to be an"
@@ -217,7 +226,7 @@ public class LocationUI extends JFrame {
 			String state = addressPanel.getState();
 			int zipCode = addressPanel.getZip();
 			String description = descriptionArea.getText();
-			
+
 			return new Address(name, description, addressLine1, addressLine2,
 					addressLine3, city, state, zipCode, "United States");
 		} else {
@@ -228,10 +237,22 @@ public class LocationUI extends JFrame {
 			return 	new CoordinateLocation();		
 		}
 	}
+	/**
+	 *  This method will display the message as an error message for the zip
+	 * 
+	 * @param message String; the message to display
+	 */
+	public void setZipErrorMessage(String message) {
+		errorPanel.add(new JLabel(message));
+		errorPanel.revalidate();
+		errorPanel.repaint();
+		errorPanel.paint(errorPanel.getGraphics());
+	}
 	
 	public boolean getAddressState () {
 		return isAddress;
 	}
+
 	private class AddressPanel extends JPanel {
 		private JTextField addressLine1TxtFld;
 		private JTextField addressLine2TxtFld;
@@ -309,8 +330,19 @@ public class LocationUI extends JFrame {
 			return cityTxtFld.getText();
 		}
 		
-		public int getZip() {
-			return 12345;
+		public int getZip() throws InvalidZipCodeException {
+			try {
+				int zipCode = Integer.parseInt(zipTxtFld.getText());
+				if(zipCode < 0 || zipCode > 99999) {
+					throw new InvalidZipCodeException("The Zip Code Enter was"
+							+ " not valid.");
+				} else {
+					return zipCode;
+				}
+			} catch(NumberFormatException e){
+				throw new InvalidZipCodeException("The Zip Code Entered was not"
+						+ " a valid number.");	
+			}
 		}
 		
 		public String getState() {

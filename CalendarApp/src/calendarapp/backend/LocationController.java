@@ -6,6 +6,7 @@
 package calendarapp.backend;
 
 import calendarapp.Location;
+import calendarapp.ui.InvalidZipCodeException;
 import calendarapp.ui.LocationUI;
 import javax.swing.JFrame;
 
@@ -56,11 +57,16 @@ public class LocationController {
 	
 	public void submit() {
 		if(sourceLocation == null) {
-			System.out.println("Adding a new Location.");
-			locationUI.getLocation();
-			parentController.getActiveUser().addLocation(locationUI.getCALocation());
-			parentController.writeData();
-			dispose();
+			try {
+				System.out.println("Adding a new Location.");
+				Location location = locationUI.getCALocation();
+				parentController.getActiveUser().addLocation(location);
+				parentController.writeData();
+				dispose();
+			} catch (InvalidZipCodeException e) {
+				System.err.println("An error Occured while parsing the zip.");
+				locationUI.setZipErrorMessage(e.getMessage());
+			}
 		} else {
 			System.out.println("Source Location was not null implying editing a"
 					+ " Location.");
