@@ -25,6 +25,14 @@ public class Contact extends Person implements Comparable, Serializable {
 	public Contact(String title, String firstName, String middleName, String lastName, String suffix) {
 		super(title, firstName, middleName, lastName, suffix);
 	}
+	
+	public Contact(String title, String firstName, String middleName, 
+			String lastName, String suffix, ArrayList<String> emailList,
+			ArrayList<String> phoneNumberList) {
+		super(title, firstName, middleName, lastName, suffix);
+		this.emails = emailList;
+		this.phoneNumbers = phoneNumberList;
+	}
     public Contact(Name name) {
 		super(name);
 		emails = new ArrayList<String>();
