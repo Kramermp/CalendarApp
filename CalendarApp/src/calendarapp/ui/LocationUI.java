@@ -220,8 +220,8 @@ public class LocationUI extends JFrame {
 
 		@Override
 		public void windowClosed(WindowEvent we) {
-			System.out.println("LocationUI Window Closed.");
-			LocationUI.this.parentController.dispose();
+//			System.out.println("LocationUI Window Closed.");
+//			LocationUI.this.parentController.dispose();
 		}
 
 		@Override

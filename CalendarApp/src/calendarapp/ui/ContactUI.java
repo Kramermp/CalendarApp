@@ -59,7 +59,7 @@ public class ContactUI extends JFrame {
 		JButton cancelBtn = new JButton("Cancel");
 		cancelBtn.addActionListener((ActionEvent ae) -> {
 			System.out.println("CancelBtn triggered.");
-			ContactUI.this.dispose();
+			ContactUI.this.parentController.dispose();
 		});
 		GridBagConstraints c = new GridBagConstraints();
 		c.gridx = 0;
@@ -86,8 +86,8 @@ public class ContactUI extends JFrame {
 	
 		@Override
 		public void windowClosed(WindowEvent we) {	
-			System.out.println("ContactUI closed.");
-			ContactUI.this.parentController.dispose();
+//			System.out.println("ContactUI closed.");
+//			ContactUI.this.parentController.dispose();
 		} // Do Nothing
 		@Override
 		public void windowIconified(WindowEvent we) { }// Do Nothing
@@ -101,7 +101,7 @@ public class ContactUI extends JFrame {
 		public void windowOpened(WindowEvent we) { } // Do Nothing
 		@Override
 		public void windowClosing(WindowEvent we) { 
-			System.out.println("ContactUI closed.");
+			System.out.println("ContactUI closing.");
 			ContactUI.this.parentController.dispose();
 		} // Do Nothing
 	}

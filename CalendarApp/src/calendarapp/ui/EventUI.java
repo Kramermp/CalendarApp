@@ -80,13 +80,13 @@ public class EventUI extends JFrame {
 			@Override
 			public void windowClosing(WindowEvent we) {
 				System.out.println("EventUI Window Closed.");
-				EventUI.this.parentController.disposeEventUI();
+				EventUI.this.parentController.dispose();
 			}
 
 			@Override
 			public void windowClosed(WindowEvent we) {
-					System.out.println("EventUI Window Closed.");
-					EventUI.this.parentController.disposeEventUI();
+//					System.out.println("EventUI Window Closed.");
+//					EventUI.this.parentController.dispose();
 			}
 
 			@Override
@@ -262,7 +262,7 @@ public class EventUI extends JFrame {
 		JButton cancelBtn = new JButton("Cancel");
 		cancelBtn.addActionListener((ActionEvent ae) -> {
 			System.out.println("Cancel Button triggered");
-			EventUI.this.parentController.disposeEventUI();		
+			EventUI.this.parentController.dispose();		
 		});
 		buttonArea.add(cancelBtn);
 		JButton saveBtn = new JButton("Save");
