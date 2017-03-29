@@ -10,6 +10,7 @@ import calendarapp.backend.ContactController;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
@@ -32,6 +33,11 @@ import javax.swing.table.AbstractTableModel;
  */
 public class ContactUI extends JFrame {
 	private ContactController parentController;
+	private Contact sourceContact;
+	
+	private int windowWidth;
+	int windowHeight;
+	
 	private JComboBox titleComboBox;
 	private JTextField firstNameTxtFld;
 	private JTextField middleNameTxtFld;
@@ -52,37 +58,77 @@ public class ContactUI extends JFrame {
 		System.out.println("Finished creating the ContactUI.");
 	}
 	
+	public ContactUI (ContactController parentController, 
+			Contact sourceContact) {
+		System.out.println("Creating a ContactUI with sourceContact.");
+		System.err.println("This is not supported yet.");
+		this.parentController = parentController;
+		this.sourceContact = sourceContact;
+		createWindow();
+		addComponents();
+		this.addWindowListener(new ContactUIWindowListener());
+		System.out.println("Finished creating the ContactUI.");
+	}
+	
 	private void createWindow() {
 		//This method will create the physical JFrame
-		Dimension windowSize = new Dimension(375, 667);
-		this.setPreferredSize(windowSize);
+		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		windowHeight = (int) screenSize.getHeight() * 2 / 3; // 66% of screen height
+		windowWidth = (int) screenSize.getWidth() / 5; //20% of screen width
+		Dimension windowSize = new Dimension(windowWidth, windowHeight);
+		this.setPreferredSize(windowSize);
 		this.pack();
 		this.setLocation((screenSize.width/2) - this.getWidth()/2, 
-				screenSize.height/2 - this.getHeight()/2);
+				screenSize.height/2 - this.getHeight()/2); // Centers Window
 	}
 	
 	private void addComponents() {
 		//This method will add the components to the JFramer
+		Insets txtFldInsets = new Insets(0, getWidth() / 20 , getHeight() / 100, getWidth() / 20);
 		setLayout(new GridBagLayout());
 		String[] titles = {"", "Mr.", "Mrs.", "Miss"};
 		titleComboBox = new JComboBox(titles);
 		GridBagConstraints c = new GridBagConstraints();
+		c.insets = new Insets(0, getWidth()/20, getHeight() / 100, 20);
 		c.gridx = 0;
+		c.anchor = GridBagConstraints.EAST;
 		c.gridy = 0;
 		add(titleComboBox, c);
+		
 		firstNameTxtFld = new JTextField("First Name");
 		c = new GridBagConstraints();
+		c.insets = new Insets(0, 0, getHeight() / 100, getWidth() / 20);
 		c.gridx = 1;
+		c.weightx = 1;
 		c.gridy = 0;
+		c.anchor = GridBagConstraints.WEST;
+		c.fill = GridBagConstraints.HORIZONTAL;
 		add(firstNameTxtFld, c);
+		
 		middleNameTxtFld = new JTextField("Middle Name");
+		middleNameTxtFld.setHorizontalAlignment(JTextField.CENTER);
+		//middleNameTxtFld.setPreferredSize(new Dimension((windowWidth - windowWidth / 10) - 1, windowHeight / 40));
+		c = new GridBagConstraints();
+		c.insets = txtFldInsets;
 		c.gridx = 0;
 		c.gridwidth = 2;
+		c.weightx = .5;
 		c.gridy = 1;
+		c.anchor = GridBagConstraints.CENTER;
+		c.fill = GridBagConstraints.HORIZONTAL;
 		add(middleNameTxtFld, c);
+		
 		lastNameTxtFld = new JTextField("Last Name");
+		lastNameTxtFld.setHorizontalAlignment(JTextField.CENTER);
+		c = new GridBagConstraints();
+		c.insets = txtFldInsets;
+		c.gridx = 0;
+		c.gridwidth = 2;
+		c.weightx = .5;
 		c.gridy = 2;
+		c.anchor = GridBagConstraints.CENTER;
+		c.fill = GridBagConstraints.HORIZONTAL;
 		add(lastNameTxtFld, c);
 		
 		JLabel emails = new JLabel("Emails");
@@ -95,35 +141,48 @@ public class ContactUI extends JFrame {
 		emailListModel = new DefaultListModel();
 		emailList = new JList(emailListModel);
 		c = new GridBagConstraints();
+		c.insets = txtFldInsets;
 		c.gridx = 0;
 		c.gridwidth = 2;
 		c.weightx = 1;
 		c.gridy = 4;
 		c.anchor = GridBagConstraints.CENTER;
+		c.fill = GridBagConstraints.BOTH;
 		JScrollPane emailPane = new JScrollPane(emailList);
 		emailPane.setPreferredSize(new Dimension(50, 50));
 		add(emailPane, c);
 		
 		emailTxtFld = new JTextField("Enter Email", 20);
+		emailTxtFld.setHorizontalAlignment(JTextField.CENTER);
 		c = new GridBagConstraints();
+		c.insets = txtFldInsets;
 		c.gridx = 0;
 		c.gridwidth = 2;
 		c.gridy = 5;
-		c.anchor = GridBagConstraints.WEST;
+		c.anchor = GridBagConstraints.CENTER;
+		c.fill = GridBagConstraints.BOTH;
 		add(emailTxtFld, c);
 		
+		JPanel emailBtnArea = new JPanel(new GridBagLayout ());
+		
 		JButton addEmailBtn = new JButton("Add Email");
+		addEmailBtn.setPreferredSize(new Dimension(50, 10));
 		addEmailBtn.addActionListener((ActionEvent ae) -> { 
 			System.out.println("AddEmailBtn Triggered.");
 			System.out.println("This should be updated to validate the email.");
 			ContactUI.this.emailListModel.addElement(ContactUI.this.emailTxtFld.getText());
 		});
 		c = new GridBagConstraints();
+		c.insets = new Insets(0, 0, 0, windowWidth/ 100);
 		c.gridx = 0;
-		c.gridy = 6;
-		add(addEmailBtn, c);
+		c.weightx = 1;
+		c.gridy = 0;
+		c.weighty = 1;
+		c.fill = GridBagConstraints.BOTH;
+		emailBtnArea.add(addEmailBtn, c);
 		
 		JButton removeEmailBtn = new JButton("Remove Email");
+		removeEmailBtn.setPreferredSize(new Dimension(50, 10));
 		removeEmailBtn.addActionListener((ActionEvent ae) -> {
 			System.out.println("RemoveEmailBtn Triggered.");
 			int[] selection = emailList.getSelectedIndices();
@@ -133,9 +192,22 @@ public class ContactUI extends JFrame {
 			}
 		});
 		c = new GridBagConstraints();
+		c.insets = new Insets(0, windowWidth/ 100, 0, 0);
 		c.gridx = 1;
+		c.weightx = 1;
+		c.gridy = 0;
+		c.weighty = 1;
+		c.fill = GridBagConstraints.BOTH;
+		emailBtnArea.add(removeEmailBtn, c);
+		
+		c = new GridBagConstraints();
+		c.insets = txtFldInsets;
+		c.gridx = 0;
+		c.gridwidth = 2;
 		c.gridy = 6;
-		add(removeEmailBtn, c);
+		c.weighty = .1;
+		c.fill = GridBagConstraints.BOTH;
+		add(emailBtnArea, c);
 		
 		JLabel phoneNumbers = new JLabel("PhoneNumbers");
 		c = new GridBagConstraints();
@@ -147,35 +219,48 @@ public class ContactUI extends JFrame {
 		phoneNumberListModel = new DefaultListModel();
 		phoneNumberList = new JList(phoneNumberListModel);
 		c = new GridBagConstraints();
+		c.insets = txtFldInsets;
 		c.gridx = 0;
 		c.gridwidth = 2;
 		c.weightx = 1;
 		c.gridy = 8;
 		c.anchor = GridBagConstraints.CENTER;
+		c.fill = GridBagConstraints.BOTH;
 		JScrollPane phoneNumberPane = new JScrollPane(phoneNumberList);
 		phoneNumberPane.setPreferredSize(new Dimension(50, 50));
 		add(phoneNumberPane, c);
 		
 		phoneNumberTxtFld = new JTextField("Enter PhoneNumber", 20);
+		phoneNumberTxtFld.setHorizontalAlignment(JTextField.CENTER);
 		c = new GridBagConstraints();
+		c.insets = txtFldInsets;
 		c.gridx = 0;
 		c.gridwidth = 2;
 		c.gridy = 9;
-		c.anchor = GridBagConstraints.WEST;
+		c.anchor = GridBagConstraints.CENTER;
+		c.fill = GridBagConstraints.BOTH;
 		add(phoneNumberTxtFld, c);
 		
+		JPanel phoneNumberBtnArea = new JPanel(new GridBagLayout());
 		JButton addPhoneNumberBtn = new JButton("Add PhoneNumber");
+		addPhoneNumberBtn.setPreferredSize(new Dimension(50, 10));
 		addPhoneNumberBtn.addActionListener((ActionEvent ae) -> { 
 			System.out.println("AddPhoneNumberBtn Triggered.");
 			System.out.println("This should be updated to validate the phoneNumber.");
 			ContactUI.this.phoneNumberListModel.addElement(ContactUI.this.phoneNumberTxtFld.getText());
 		});
 		c = new GridBagConstraints();
+		c.insets = new Insets(0, 0, 0, windowWidth/ 100);
 		c.gridx = 0;
-		c.gridy = 10;
-		add(addPhoneNumberBtn, c);
+		c.weightx = 1;
+		c.gridy = 0;
+		c.weighty = 1;
+		c.fill = GridBagConstraints.BOTH;
+		c.anchor = GridBagConstraints.EAST;
+		phoneNumberBtnArea.add(addPhoneNumberBtn, c);
 		
 		JButton removePhoneNumberBtn = new JButton("Remove PhoneNumber");
+		removePhoneNumberBtn.setPreferredSize(new Dimension(50, 10));
 		removePhoneNumberBtn.addActionListener((ActionEvent ae) -> {
 			System.out.println("RemovePhoneNumberBtn Triggered.");
 			int[] selection = phoneNumberList.getSelectedIndices();
@@ -185,15 +270,31 @@ public class ContactUI extends JFrame {
 			}
 		});
 		c = new GridBagConstraints();
+		c.insets = new Insets(0, windowWidth/ 100, 0, 0);
 		c.gridx = 1;
-		c.gridy = 10;
-		add(removePhoneNumberBtn, c);
+		c.weightx = 1;
+		c.gridy = 0;
+		c.weightx = 1;
+		c.fill = GridBagConstraints.BOTH;
+		c.anchor = GridBagConstraints.WEST;
+		phoneNumberBtnArea.add(removePhoneNumberBtn, c);
 		
+		c = new GridBagConstraints();
+		c.insets = txtFldInsets;
+		c.gridx = 0;
+		c.gridwidth = 2;
+		c.gridy = 10;
+		c.weighty = .1;
+		c.fill = GridBagConstraints.BOTH;
+		add(phoneNumberBtnArea, c);
 		
 		
 		JPanel buttonArea = new JPanel();
 		configureButtonArea(buttonArea);
+		c.insets = txtFldInsets;
 		c.gridy = 11;
+		c.anchor = GridBagConstraints.NORTH;
+		c.weighty = 1;
 		add(buttonArea, c);
 	}
 	
