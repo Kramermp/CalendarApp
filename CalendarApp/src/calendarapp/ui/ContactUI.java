@@ -15,6 +15,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -25,6 +26,10 @@ import javax.swing.JTextField;
  */
 public class ContactUI extends JFrame {
 	private ContactController parentController;
+	private JComboBox titleComboBox;
+	private JTextField firstNameTxtFld;
+	private JTextField middleNameTxtFld;
+	private JTextField lastNameTxtFld;
 	
 	public ContactUI (ContactController parentController) {
 		System.out.println("Creating the ContactUI.");
@@ -47,11 +52,30 @@ public class ContactUI extends JFrame {
 	
 	private void addComponents() {
 		//This method will add the components to the JFramer
-		JTextField firstNameTxtFld = new JTextField("First Name");
-		JTextField lastNameTxtFld = new JTextField("Last Name");
+		setLayout(new GridBagLayout());
+		String[] titles = {"", "Mr.", "Mrs.", "Miss"};
+		titleComboBox = new JComboBox(titles);
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridy = 0;
+		add(titleComboBox, c);
+		firstNameTxtFld = new JTextField("First Name");
+		c = new GridBagConstraints();
+		c.gridx = 1;
+		c.gridy = 0;
+		add(firstNameTxtFld, c);
+		middleNameTxtFld = new JTextField("Middle Name");
+		c.gridx =0;
+		c.gridwidth = 2;
+		c.gridy = 1;
+		add(middleNameTxtFld, c);
+		lastNameTxtFld = new JTextField("Last Name");
+		c.gridy = 2;
+		add(lastNameTxtFld, c);
+		c.gridy = 3;
 		JPanel buttonArea = new JPanel();
 		configureButtonArea(buttonArea);
-		add(buttonArea);
+		add(buttonArea, c);
 	}
 	
 	private void configureButtonArea(JPanel buttonArea) {
@@ -79,7 +103,12 @@ public class ContactUI extends JFrame {
 	
 	public Contact getContact() {
 		System.err.println("ContactUI.getContact() is a stub");
-		return new Contact();
+		String title = (String) titleComboBox.getSelectedItem();
+		String firstName = firstNameTxtFld.getText();
+		String middleName = "";
+		String lastName = lastNameTxtFld.getText();
+		String suffix = "";
+		return new Contact(title, firstName, middleName, lastName, suffix);
 	}
 	
 	private class ContactUIWindowListener implements WindowListener {
