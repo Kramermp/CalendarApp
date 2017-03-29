@@ -11,6 +11,11 @@ public class CoordinateLocation extends Location implements Serializable {
     private double longitude = 0.00;
     private double latitude = 0.00;
     
+	public CoordinateLocation() {
+		super("Test Coordinate Location", "A simple Test Coordinate Location");
+		this.longitude = 7.77;
+		this.latitude = 7.77;
+	}
     //There should be some type of verification on the numbers before this point
     public CoordinateLocation(String name, String description, double latitude,
             double longitude) {

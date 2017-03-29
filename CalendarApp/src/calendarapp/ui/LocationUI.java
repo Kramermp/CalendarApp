@@ -6,6 +6,7 @@
 package calendarapp.ui;
 
 import calendarapp.Address;
+import calendarapp.CoordinateLocation;
 import calendarapp.Location;
 import calendarapp.backend.LocationController;
 import java.awt.BorderLayout;
@@ -22,6 +23,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 /**
@@ -35,13 +37,14 @@ public class LocationUI extends JFrame {
 	private JTextField locationNameTxtFld;
 	private JPanel infoArea;
 	private JPanel cards;
+	private JTextArea descriptionArea;
 	
-	private JTextField addressLine1TxtFld;
-	private JTextField addressLine2TxtFld;
-	private JTextField addressLine3TxtFld;
+	private boolean isAddress = true;
 	
 	private static final String ADDRESS_PANEL = "Card for Address";
 	private static final String COORDINATE_PANEL = "Card for Coordinates";
+	private AddressPanel addressPanel;
+	private CoordinatePanel coordinatePanel;
 	
 	public LocationUI(LocationController parentController) {
 		System.out.println("Creating the LocationUI.");
@@ -89,6 +92,7 @@ public class LocationUI extends JFrame {
 		addressBtn.addActionListener((ActionEvent ae) -> { 
 			System.out.println("AddressBtn triggered.");
 			((CardLayout)cards.getLayout()).show(cards, ADDRESS_PANEL);
+			isAddress = true;
 		});
 		addressBtn.setPreferredSize(new Dimension( 1, 25));
 		c = new GridBagConstraints();
@@ -105,6 +109,7 @@ public class LocationUI extends JFrame {
 		coordinateBtn.addActionListener((ActionEvent ae) -> { 
 			System.out.println("CoordinateBtn triggered.");
 			((CardLayout)cards.getLayout()).show(cards, COORDINATE_PANEL);
+			isAddress = false;
 		});
 		c = new GridBagConstraints();
 		c.gridx = 1;
@@ -126,12 +131,22 @@ public class LocationUI extends JFrame {
 		c.weighty = 1;
 		add(infoArea, c);
 		
+		descriptionArea = new JTextArea();
+		descriptionArea.setPreferredSize(new Dimension(50, 50)); //FixMe:
+		c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridwidth = 2;
+		c.weightx = 1;
+		c.gridy = 3;
+		c.weighty = 1;
+		add(descriptionArea, c);
+		
 		JPanel buttonArea = new JPanel();
 		configureButtonArea(buttonArea);
 		c.gridx = 0;
 		c.gridwidth = 2;
 		c.weightx = 1;
-		c.gridy = 3;
+		c.gridy = 4;
 		c.weighty = 1;
 		add(buttonArea, c);
 		
@@ -140,10 +155,10 @@ public class LocationUI extends JFrame {
 	private void configureInfoArea(JPanel infoArea) {
 		cards = new JPanel();
 		CardLayout cardsLayout = new CardLayout();
-		JPanel addressPanel = new AddressPanel();
+		addressPanel = new AddressPanel();
 		addressPanel.setBackground(Color.RED);
 		//addressPanel.setPreferredSize(new Dimension(200, 200));
-		JPanel coordinatePanel = new CoordinatePanel();
+		coordinatePanel = new CoordinatePanel();
 		coordinatePanel.setBackground(Color.yellow);
 		//coordinatePanel.setPreferredSize(new Dimension(200, 200));
 		cardsLayout.addLayoutComponent(coordinatePanel, COORDINATE_PANEL);
@@ -175,7 +190,7 @@ public class LocationUI extends JFrame {
 		JButton cancelBtn= new JButton("Cancel");
 		cancelBtn.addActionListener((ActionEvent ae) -> {
 			System.out.println("CancelBtn Triggered.");
-			LocationUI.this.dispose();
+			LocationUI.this.parentController.dispose();
 		});
 		c.gridx = 1;
 		c.gridy = 0;
@@ -191,16 +206,115 @@ public class LocationUI extends JFrame {
 	
 	public Location getCALocation() {
 		System.out.println("Location.getCALocation() is a stub");
-		return new Address();
+		if(isAddress) {
+			System.out.println("The Entered Location was detected to be an"
+					+ " Address.");
+			String name = locationNameTxtFld.getText();
+			String addressLine1 = addressPanel.getAddressLine1();
+			String addressLine2 = addressPanel.getAddressLine2();
+			String addressLine3 = addressPanel.getAddressLine3();
+			String city = addressPanel.getCity();
+			String state = addressPanel.getState();
+			int zipCode = addressPanel.getZip();
+			String description = descriptionArea.getText();
+			
+			return new Address(name, description, addressLine1, addressLine2,
+					addressLine3, city, state, zipCode, "United States");
+		} else {
+			System.out.println("The entered location was detected to be a"
+					+ " CoordinateLocation.");
+			System.err.println("Submitting Coordinate Locations is not"
+					+ " implemented yet. Returning a test CoordinateLocaiton.");
+			return 	new CoordinateLocation();		
+		}
+	}
+	
+	public boolean getAddressState () {
+		return isAddress;
 	}
 	private class AddressPanel extends JPanel {
+		private JTextField addressLine1TxtFld;
+		private JTextField addressLine2TxtFld;
+		private JTextField addressLine3TxtFld;
+		private JTextField cityTxtFld;
+		private JTextField stateTxtFld;
+		private JTextField zipTxtFld;
 		
 		private AddressPanel( ) {
+			setLayout(new GridBagLayout());
 			addComponents();
 		}
 		
 		private void addComponents() {
-			add(new JLabel ("This is a Address Panel"));
+			GridBagConstraints c = new GridBagConstraints();
+			c.gridx = 0;
+			c.weightx = 1;
+			c.gridwidth = 3;
+			c.gridy = 0;	
+			add(new JLabel ("This is a Address Panel"), c);
+			
+			
+			addressLine1TxtFld = new JTextField("Address Line 1", 30);
+			c.gridx = 0;
+			c.weightx = 1;
+			c.gridwidth = 3;
+			c.gridy = 1;
+			add(addressLine1TxtFld, c);
+			
+			addressLine2TxtFld = new JTextField("Address Line 2", 30);
+			c = new GridBagConstraints();
+			c.gridx = 0;
+			c.gridwidth = 3;
+			c.gridy = 2;
+			add(addressLine2TxtFld, c);
+			
+			addressLine3TxtFld = new JTextField("Address Line 3", 30);
+			c.gridx = 0;
+			c.gridwidth = 3;
+			c.gridy = 3;
+			add(addressLine3TxtFld, c);
+			
+			cityTxtFld = new JTextField("City", 20);
+			c = new GridBagConstraints();
+			c.gridx = 0;
+			c.gridy = 4;
+			add(cityTxtFld, c);
+			
+			stateTxtFld = new JTextField("State", 5);
+			c = new GridBagConstraints();
+			c.gridx = 1;
+			c.gridy = 4;
+			add(stateTxtFld, c);
+			
+			zipTxtFld = new JTextField("Zip Code", 5);
+			c = new GridBagConstraints();
+			c.gridx = 2;
+			c.gridy = 4;
+			add(zipTxtFld, c);
+		}
+		
+		public String getAddressLine1() {
+			return addressLine1TxtFld.getText();
+		}
+		
+		public String getAddressLine2() {
+			return addressLine2TxtFld.getText();
+		}
+		
+		public String getAddressLine3() {
+			return addressLine3TxtFld.getText();
+		}
+		
+		public String getCity() {
+			return cityTxtFld.getText();
+		}
+		
+		public int getZip() {
+			return 12345;
+		}
+		
+		public String getState() {
+			return stateTxtFld.getText();
 		}
 	}
 	
@@ -211,7 +325,7 @@ public class LocationUI extends JFrame {
 		}
 		
 		private void addComponents() {
-			add( new JLabel("This is a Coordinate Panel."));
+			add(new JLabel("This is a Coordinate Panel."));
 		}
 		
 	}
