@@ -47,7 +47,7 @@ public class ContactTableModel extends AbstractTableModel {
 
 	@Override
 	public int getColumnCount() {
-		return data[0].length;
+		return this.columns.length;
 	}
 
 	@Override
