@@ -64,14 +64,29 @@ public class EventController {
 		}
 		dataController.writeTheSerializedData();
 		parentController.updateEventTable();
-		disposeEventUI();
+		dispose();
 	}
-    public void disposeEventUI() {
-        System.out.println("EventController disposing EventUI.");
-		System.out.println(activeUser.getEventList().size());
-        eventUI.dispose();
-        parentController.disposeEventController();
-    }
+	
+	public void dispose() {
+		if(hasUI()) {
+			eventUI.dispose();
+			eventUI = null;
+			parentController.disposeEventController();
+		} else {
+			System.out.println("The EventController recieved a request to"
+					+ " dispose the EventUI but there was not an existing"
+					+ " EventUI.");
+		}
+	}
+	
+	public void disposeUI() {
+		eventUI.dispose();
+		eventUI = null;
+	}
+	
+	public boolean hasUI() {
+		return eventUI != null;
+	}
 
 	public void bringUIToTop() {
 		eventUI.setState(JFrame.NORMAL);
