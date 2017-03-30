@@ -58,7 +58,7 @@ public class PickerUI extends JFrame {
 		JButton cancelBtn = new JButton("Cancel");
 		cancelBtn.addActionListener((ActionEvent ae) -> {
 			System.out.println("CancelBtn has been triggered.");
-			PickerUI.this.dispose();
+			PickerUI.this.parentController.dispose();
 		});
 		buttonArea.add(cancelBtn);
 		
