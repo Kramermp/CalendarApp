@@ -21,7 +21,7 @@ import org.jasypt.util.password.StrongPasswordEncryptor;
 
 public class User extends Person implements Serializable {
 	//Will need a contactList and eventList at some point
-	private static StrongPasswordEncryptor encryptor 
+	private StrongPasswordEncryptor encryptor 
 			= new StrongPasswordEncryptor();
 	private String username;
 	private String password;
@@ -46,6 +46,11 @@ public class User extends Person implements Serializable {
 		this.contactList = new ArrayList<Contact>();
 	}
 	
+	/**
+	 * Creates a User with the provided Username and Password
+	 * @param username; The User's username
+	 * @param password; The User's password before hash
+	 */
 	public User(String username, char[] password) {
 		super();
 		this.username = username;
@@ -53,15 +58,23 @@ public class User extends Person implements Serializable {
 		this.eventList = new ArrayList<Event>();
 		this.contactList = new ArrayList<Contact>();
 	}
-
+	
+	/**
+	 * Creates a User object with no values
+	 */
 	public User(){
 		super();
 		this.username = "";
 		this.eventList = new ArrayList<Event>();
 		this.contactList = new ArrayList<Contact>();
 	}
-
-
+	
+	/**
+	 * Changes a User's username if authentic credentials are included.
+	 * @param newUsername; The desired username
+	 * @param orginalUsername; The current username
+	 * @param password ; The User's password
+	 */
 	public void setUsername(String newUsername, String orginalUsername, 
 			char[] password) {
 		/*
@@ -76,6 +89,7 @@ public class User extends Person implements Serializable {
 				+ " provided were not authentic.");
 		}
 	}
+	
 	/**
 	 * This method validates the user information and then makes the changes to
 	 * the user.
@@ -106,45 +120,83 @@ public class User extends Person implements Serializable {
 		return false;
 	}
 	
+	/**
+	 * Adds an event to the User's event list.
+	 * @param event; the Event to be added
+	 */
 	public void addEvent(Event event) {
 		this.eventList.add(event);
 		System.out.println("This user now has " + eventList.size() + " events.");
 	}
 	
+	/**
+	 * Gets the User's username.
+	 * @return 
+	 */
 	public String getUsername() {
 		return this.username;
 	}
-
+	
+	/**
+	 * Gets the User's password has
+	 * @return 
+	 */
 	protected String getPassword() { 
 		return this.password;
 	}
 	
+	/**
+	 * Gets the User's Event List
+	 * @returns
+	 */
 	public ArrayList<Event> getEventList() {
 		return this.eventList;
 	}
 	
+	/**
+	 * Checks if the object is equal to the User.
+	 * <p>
+	 * The object is equal if the it has the same Username.
+	 * @param obj
+	 * @return 
+	 */
 	public boolean equals(Object obj) {
 		User testUser = (User) obj;
 		return (testUser.getUsername().equals(this.getUsername()));
 	}
-    
+	
+    /**
+	 * Adds a location to the User's Locaiton list.
+	 * @param location; the Location to be added
+	 */
 	public void addLocation(Location location ) {
 		locationList.add(location);
 		System.out.println("This user now has " + locationList.size() + " locations.");
 	}
 	
+	/**
+	 * Adds the Contact to the User's contactList 
+	 */
 	public void addContact (Contact contact) {
 		contactList.add(contact);
 		System.out.println("This user now has " + contactList.size() + " contacts.");
 	}
 	
+	/**
+	 *  Get the user's location list.
+	 * @return 
+	 */
 	public ArrayList<Location> getLocationList() {
 		return locationList;
 	}
-	
+	/**
+	 * Gets the User's contact list.
+	 * @return 
+	 */
 	public ArrayList<Contact> getContactList() {
 		return this.contactList;
 	}
+	
 	public ArrayList<String> getLocationStringList(){
 		ArrayList<String> testLocations = new ArrayList<String>();
 		testLocations.add("State College, PA");
