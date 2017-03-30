@@ -16,16 +16,39 @@ public class Contact extends Person implements Comparable, Serializable {
     private ArrayList<String> emails;
     private ArrayList<String> phoneNumbers;
     
-	
+	/**
+	 * Creates a test Contact
+	 */
 	public Contact () {
 		super();
 		emails = new ArrayList<String>();
 		phoneNumbers = new ArrayList<String>();
 	}
+
+	/**
+	 * Creates a Contact and builds the Name object
+	 * <p>
+	 * @param title
+	 * @param firstName
+	 * @param middleName
+	 * @param lastName
+	 * @param suffix
+	 */
 	public Contact(String title, String firstName, String middleName, String lastName, String suffix) {
 		super(title, firstName, middleName, lastName, suffix);
 	}
 	
+	/**
+	 * Creates a Contact, builds the Name, and sets the Emails and PhoneNumbers
+	 * <p>
+	 * @param title
+	 * @param firstName
+	 * @param middleName
+	 * @param lastName
+	 * @param suffix
+	 * @param emailList
+	 * @param phoneNumberList
+	 */
 	public Contact(String title, String firstName, String middleName, 
 			String lastName, String suffix, ArrayList<String> emailList,
 			ArrayList<String> phoneNumberList) {
@@ -33,22 +56,41 @@ public class Contact extends Person implements Comparable, Serializable {
 		this.emails = emailList;
 		this.phoneNumbers = phoneNumberList;
 	}
-    public Contact(Name name) {
-		super(name);
-		emails = new ArrayList<String>();
-		phoneNumbers = new ArrayList<String>();
-    }
 	
-    public Name getName() {
+	/**
+	 * Returns the Name object of the Contact
+	 * <p>
+	 * @return
+	 */
+	public Name getName() {
 		return super.getName();
     }
     
-    @Override
+	/**
+	 * Compares two Contact
+	 * <p>
+	 * Compares two Contacts by converting them to strings and then comparing
+	 * the resulting strings.
+	 * <p>
+	 * @param object
+	 * @return
+	 */
+	@Override
     public int compareTo(Object object) {
 		return this.toString().toLowerCase().compareTo(object.toString().toLowerCase());
     }
 
-    public int compareBy(String fieldName, Contact contact) {
+	/**
+	 * Compares two Contacts using the specified field.
+	 * <p>
+	 * Takes the Contact object gets the request field and then returns the
+	 * result of comparison.
+	 * <p>
+	 * @param fieldName
+	 * @param contact
+	 * @return
+	 */
+	public int compareBy(String fieldName, Contact contact) {
 		switch (fieldName) {
 			case "firstName":
 				return this.getName().getFullName(false).compareTo(contact.getName().getFullName(false));
