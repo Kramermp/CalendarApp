@@ -169,17 +169,18 @@ public class NavigationUI extends JFrame {
 		eventMenu.add(createEventBtn);
 		createEventBtn.setMnemonic(KeyEvent.VK_N);	
 		JMenuItem editEventBtn = new JMenuItem("Edit an Existing Event");
-			// Need to create some way to specify which we want edited
-			// probablly sometype of list view
+
 		editEventBtn.setMnemonic(KeyEvent.VK_E);
 		editEventBtn.addActionListener((ActionEvent ae) -> { 
 			NavigationUI.this.parentController.requestPickerUI(PickerController.EVENT, PickerController.EDIT);
 		});
 		eventMenu.add(editEventBtn);
 		JMenuItem removeEventBtn = new JMenuItem("Delete an Existing Event");
-			// Nee to create some way to specify which we want to delete
-			//Probably sometype of lsit view
 		removeEventBtn.setMnemonic(KeyEvent.VK_D);
+		removeEventBtn.addActionListener((ActionEvent ae) -> { 
+			System.out.println("removeEventBtn triggered.");
+			NavigationUI.this.parentController.requestPickerUI(PickerController.EVENT, PickerController.DELETE);
+		});
 		eventMenu.add(removeEventBtn);
 
 		parentMenu.add(eventMenu);
