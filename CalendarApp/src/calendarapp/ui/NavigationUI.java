@@ -247,7 +247,12 @@ public class NavigationUI extends JFrame {
 	private void buildViewMenu() {
 		JMenu viewMenu = new JMenu("View");
 		viewMenu.setMnemonic(KeyEvent.VK_V);
-		//Populate View Menu
+		JMenu colorMenu = new JMenu("Change Color Scheme");
+		colorMenu.setMnemonic(KeyEvent.VK_C);
+		colorMenu.addActionListener((ActionEvent ae) -> { 
+			System.out.println("Color menu triggered.");
+		});
+		viewMenu.add(colorMenu);
 		menuBar.add(viewMenu);
 	}
 	
