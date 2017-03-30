@@ -47,10 +47,14 @@ public class EventUI extends JFrame {
 	private DateTimePicker endTimeArea;
 	private ContactPicker contactArea;
 	private LocationPicker locationArea;
+        private ArrayList<Location> listOfLocations;
+        private ArrayList<Contact> listOfContacts;
 
 	public EventUI(EventController parentController, Event sourceEvent) {
 		System.out.println("Creating EventUI.");
 		this.parentController = parentController;
+                this.listOfContacts = parentController.getContactList();
+                this.listOfLocations = parentController.getLocationList();
 		this.sourceEvent = sourceEvent;
 		createWindow();
 		addComponents();
@@ -190,7 +194,7 @@ public class EventUI extends JFrame {
 		c.gridy = 2;
 		this.add(locationLbl, c);
 		
-		locationArea = new LocationPicker ();
+		locationArea = new LocationPicker (listOfLocations);
 		configureLocationArea(locationArea); //I'm no longer sure these configure statements are necessary
 		c = new GridBagConstraints();
 		c.gridx = 4;
@@ -206,7 +210,7 @@ public class EventUI extends JFrame {
 		c.gridy = 3;
 		this.add(contactsLbl, c);
 		
-		contactArea = new ContactPicker();
+		contactArea = new ContactPicker(listOfContacts);
 		configureContactArea(contactArea);
 		c = new GridBagConstraints();
 		c.gridx = 4;

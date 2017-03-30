@@ -5,8 +5,11 @@
  */
 package calendarapp.backend;
 
+import calendarapp.Contact;
 import calendarapp.Event;
+import calendarapp.Location;
 import calendarapp.ui.EventUI;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 
 /**
@@ -93,4 +96,12 @@ public class EventController {
 		eventUI.toFront();
 		eventUI.repaint();
 	}
+
+    public ArrayList<Location> getLocationList() {
+        return activeUser.getLocationList();
+    }
+    
+    public ArrayList<Contact> getContactList() {
+        return activeUser.getContactList();
+    }
 }
