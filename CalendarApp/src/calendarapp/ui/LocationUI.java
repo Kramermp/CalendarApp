@@ -84,12 +84,14 @@ public class LocationUI extends JFrame {
 	}
 	
 	private void addComponents() {
-		Insets txtFldInsets = new Insets(0, getWidth() / 20 , getHeight() / 100, getWidth() / 20);
+		Insets txtFldInsets = new Insets(0, getWidth() / 20 , getHeight() / 100,
+				getWidth() / 20);
 		locationNameTxtFld = new JTextField ("Location Name", 20);
 		locationNameTxtFld.setHorizontalAlignment(JTextField.HORIZONTAL);
 		setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
-		c.insets = new Insets(getHeight() / 20, getWidth() / 20 , getHeight() / 100, getWidth() / 20);
+		c.insets = new Insets(getHeight() / 20, getWidth() / 20 ,
+				getHeight() / 100, getWidth() / 20);
 		c.gridx = 0;
 		c.weightx = .5;
 		c.gridy = 0;
@@ -254,7 +256,8 @@ public class LocationUI extends JFrame {
 			double longitude = coordinatePanel.getLongitude();
 			double latitude = coordinatePanel.getLatitude();
 			String description = descriptionArea.getText();
-			return 	new CoordinateLocation(name, description, longitude, latitude);		
+			return 	new CoordinateLocation(name, description, longitude,
+					latitude);		
 		}
 	}
 	/**
@@ -288,7 +291,10 @@ public class LocationUI extends JFrame {
 		}
 		
 		private void addComponents() {
-			Insets txtFldInsets = new Insets(0, LocationUI.this.getWidth() / 20 ,  LocationUI.this.getHeight() / 100,  LocationUI.this.getWidth() / 20);
+			Insets txtFldInsets = new Insets(0,
+					LocationUI.this.getWidth() / 20 ,
+					LocationUI.this.getHeight() / 100,
+					LocationUI.this.getWidth() / 20);
 			GridBagConstraints c = new GridBagConstraints();
 			c.gridx = 0;
 			c.weightx = 1;
@@ -325,7 +331,8 @@ public class LocationUI extends JFrame {
 			
 			cityTxtFld = new JTextField("City");
 			c = new GridBagConstraints();
-			c.insets = new Insets(0, (LocationUI.this.getWidth() / 20) ,  LocationUI.this.getHeight() / 100,  0);
+			c.insets = new Insets(0, (LocationUI.this.getWidth() / 20) , 
+					LocationUI.this.getHeight() / 100,  0);
 			c.gridx = 0;
 			c.weightx = .75;
 			c.gridy = 4;
@@ -335,7 +342,8 @@ public class LocationUI extends JFrame {
 			
 			stateTxtFld = new JTextField("State");
 			c = new GridBagConstraints();
-			c.insets = new Insets(0, LocationUI.this.getWidth() / 80,  LocationUI.this.getHeight() / 100,  0);
+			c.insets = new Insets(0, LocationUI.this.getWidth() / 80,
+					LocationUI.this.getHeight() / 100,  0);
 			c.weightx = .25;
 			c.gridx = 1;
 			c.gridy = 4;
@@ -344,7 +352,9 @@ public class LocationUI extends JFrame {
 			
 			zipTxtFld = new JTextField("Zip");
 			c = new GridBagConstraints();
-			c.insets = new Insets(0, LocationUI.this.getWidth() / 80,  LocationUI.this.getHeight() / 100,  LocationUI.this.getWidth() / 20 );
+			c.insets = new Insets(0, LocationUI.this.getWidth() / 80, 
+					LocationUI.this.getHeight() / 100,
+					LocationUI.this.getWidth() / 20 );
 			c.gridx = 2;
 			c.weightx = .1;
 			c.gridy = 4;
@@ -398,7 +408,10 @@ public class LocationUI extends JFrame {
 		}
 		
 		private void addComponents() {
-			Insets txtFldInsets = new Insets(0, LocationUI.this.getWidth() / 20 ,  LocationUI.this.getHeight() / 100,  LocationUI.this.getWidth() / 20);
+			Insets txtFldInsets = new Insets(0,
+					LocationUI.this.getWidth() / 20 ,
+					LocationUI.this.getHeight() / 100,
+					LocationUI.this.getWidth() / 20);
 			setLayout(new GridBagLayout());
 			GridBagConstraints c = new GridBagConstraints();
 			
