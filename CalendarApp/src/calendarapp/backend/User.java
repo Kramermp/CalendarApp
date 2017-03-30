@@ -21,7 +21,7 @@ import org.jasypt.util.password.StrongPasswordEncryptor;
 
 public class User extends Person implements Serializable {
 	//Will need a contactList and eventList at some point
-	private StrongPasswordEncryptor encryptor 
+	private static StrongPasswordEncryptor encryptor 
 			= new StrongPasswordEncryptor();
 	private String username;
 	private String password;
