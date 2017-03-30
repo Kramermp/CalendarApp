@@ -5,7 +5,9 @@
  */
 package calendarapp.backend;
 
+import calendarapp.Contact;
 import calendarapp.Event;
+import calendarapp.Location;
 import calendarapp.ui.ContactPicker;
 import calendarapp.ui.EventPicker;
 import calendarapp.ui.LocationPicker;
@@ -30,13 +32,18 @@ public class PickerController {
 	private int pickerCode = -1;
 	private int editCode = -1;
 	private User activeUser;
+        private ArrayList<Location> locationList;
+        private ArrayList<Contact> contactList;
+        
 	
 	public PickerController (NavigationController parentController, 
 			User activeUser, int pickerCode, int editCode) {
 		System.out.println("Creating the PickerController.");
 		this.parentController = parentController;
 		this.pickerCode = pickerCode;
-		this.activeUser = activeUser;
+                this.activeUser = activeUser;
+		this.locationList = activeUser.getLocationList();
+                this.contactList = activeUser.getContactList();
 		this.editCode = editCode;
 		switch(pickerCode) {
 			case 0:
@@ -44,10 +51,12 @@ public class PickerController {
 						new EventPicker(activeUser));
 				break;
 			case 1:
-				pickerUI = new PickerUI(this, editCode, new ContactPicker(activeUser));
+				pickerUI = new PickerUI(this, editCode, 
+                                        new ContactPicker(contactList));
 				break;	
 			case 2:
-				pickerUI = new PickerUI(this, editCode, new LocationPicker(activeUser));
+				pickerUI = new PickerUI(this, editCode, 
+                                        new LocationPicker(locationList));
 				break;
 			default:
 				
