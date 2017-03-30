@@ -46,23 +46,41 @@ public class LocationPicker extends Picker {
         private JTextField LocationNameTxtFld;
         private String selectedLocationString;
         
-	
-	public LocationPicker () {
+        private ArrayList<Location> listOfLocations;
+        
+	/**
+         * Creates a LocationPicker from the listOfLocations.
+         * <p>
+         * This takes the provided ArrayList of Locations and displays these
+         * Locations. There is no default selected value for this one.
+         * <p>
+         * @param listOfLocations; The list of Locations
+         */
+	public LocationPicker (ArrayList<Location> listOfLocations) {
+            this.listOfLocations = listOfLocations;
             createComponents();     
 	}
 	
-	public LocationPicker(Location location) {
+        /**
+         * Creates LocationPicker from the list and selects the indicated one.
+         * <p>
+         * This takes the provided ArrayList of Locations and displays
+         * these locations. The provided Location is selected.
+         * <p>
+         * @param listOfLocations; The List of Locations
+         * @param location; The Location to be selected
+         */
+	public LocationPicker(ArrayList<Location> listOfLocations,
+                Location location) {
+            this.listOfLocations = listOfLocations;
             this.selectedLocation = location;
             createComponents();
-	}
-
-	public LocationPicker(User activeUser) {
-		createComponents();
 	}
 	
 	public Location getSelectedLocation() {
             return this.selectedLocation;
 	}
+        
 	public void createComponents(){
             this.setLayout(new BorderLayout());
             GridBagConstraints c = new GridBagConstraints( );
@@ -79,8 +97,7 @@ public class LocationPicker extends Picker {
             b.fill = GridBagConstraints.HORIZONTAL;
             b.weightx = .50;
             b.gridwidth = 1;
-            b.weighty = .1;
-            
+            b.weighty = .1; 
             
             for (int i = 0; i < locationList.size(); i++) {
                 b.gridx = 0;
