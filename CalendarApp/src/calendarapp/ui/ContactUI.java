@@ -85,7 +85,8 @@ public class ContactUI extends JFrame {
 	
 	private void addComponents() {
 		//This method will add the components to the JFramer
-		Insets txtFldInsets = new Insets(0, getWidth() / 20 , getHeight() / 100, getWidth() / 20);
+		Insets txtFldInsets = new Insets(0, getWidth() / 20 , getHeight() / 100,
+				getWidth() / 20);
 		setLayout(new GridBagLayout());
 		String[] titles = {"", "Mr.", "Mrs.", "Miss"};
 		titleComboBox = new JComboBox(titles);
@@ -108,7 +109,6 @@ public class ContactUI extends JFrame {
 		
 		middleNameTxtFld = new JTextField("Middle Name");
 		middleNameTxtFld.setHorizontalAlignment(JTextField.CENTER);
-		//middleNameTxtFld.setPreferredSize(new Dimension((windowWidth - windowWidth / 10) - 1, windowHeight / 40));
 		c = new GridBagConstraints();
 		c.insets = txtFldInsets;
 		c.gridx = 0;
@@ -170,7 +170,7 @@ public class ContactUI extends JFrame {
 		addEmailBtn.addActionListener((ActionEvent ae) -> { 
 			System.out.println("AddEmailBtn Triggered.");
 			System.out.println("This should be updated to validate the email.");
-			ContactUI.this.emailListModel.addElement(ContactUI.this.emailTxtFld.getText());
+			emailListModel.addElement(emailTxtFld.getText());
 		});
 		c = new GridBagConstraints();
 		c.insets = new Insets(0, 0, 0, windowWidth/ 100);
@@ -246,8 +246,9 @@ public class ContactUI extends JFrame {
 		addPhoneNumberBtn.setPreferredSize(new Dimension(50, 10));
 		addPhoneNumberBtn.addActionListener((ActionEvent ae) -> { 
 			System.out.println("AddPhoneNumberBtn Triggered.");
-			System.out.println("This should be updated to validate the phoneNumber.");
-			ContactUI.this.phoneNumberListModel.addElement(ContactUI.this.phoneNumberTxtFld.getText());
+			System.out.println("This should be updated to validate the"
+					+ " phoneNumber.");
+			phoneNumberListModel.addElement(phoneNumberTxtFld.getText());
 		});
 		c = new GridBagConstraints();
 		c.insets = new Insets(0, 0, 0, windowWidth/ 100);
@@ -343,10 +344,7 @@ public class ContactUI extends JFrame {
 	private class ContactUIWindowListener implements WindowListener {
 	
 		@Override
-		public void windowClosed(WindowEvent we) {	
-//			System.out.println("ContactUI closed.");
-//			ContactUI.this.parentController.dispose();
-		} // Do Nothing
+		public void windowClosed(WindowEvent we) {	} // Do Nothing
 		@Override
 		public void windowIconified(WindowEvent we) { }// Do Nothing
 		@Override
@@ -361,49 +359,6 @@ public class ContactUI extends JFrame {
 		public void windowClosing(WindowEvent we) { 
 			System.out.println("ContactUI closing.");
 			ContactUI.this.parentController.dispose();
-		} // Do Nothing
+		}
 	}
-	
-//	private class EmailTableModel extends AbstractTableModel {
-//		private Object[][] data;
-//		private String[] columnNames = {"Email"};
-//		private Abstract
-//		
-//		@Override
-//		public int getRowCount() {
-//			return
-//		}
-//
-//		@Override
-//		public int getColumnCount() {
-//			return columnNames.length;
-//		}
-//
-//		@Override
-//		public Object getValueAt(int i, int i1) {
-//			return data[i][i1];
-//		}
-//		
-//	}
-//	
-//	private class PhoneTableModel extends AbstractTableModel {
-//		private Object[][] data;
-//		private String[] columnNames = {"Phone Number"};
-//		
-//		@Override
-//		public int getRowCount() {
-//			throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//		}
-//
-//		@Override
-//		public int getColumnCount() {
-//			throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//		}
-//
-//		@Override
-//		public Object getValueAt(int i, int i1) {
-//			throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//		}
-//		
-//	}
 }
