@@ -16,6 +16,9 @@ public class Address extends Location implements Serializable {
     private String state = "";
     private String country = "";
             
+	/**
+	 * Creates a Test Address
+	 */
 	public Address() {
 		//Builds test address
 		super();
@@ -28,7 +31,20 @@ public class Address extends Location implements Serializable {
         this.country = "Dauphin";
 	}
             
-    public Address(String name, String description, String addressLine1, 
+	/**
+	 * Creates an Address
+	 * <p>
+	 * @param name
+	 * @param description
+	 * @param addressLine1
+	 * @param addressLine2
+	 * @param addressLine3
+	 * @param city
+	 * @param state
+	 * @param zipCode
+	 * @param country
+	 */
+	public Address(String name, String description, String addressLine1, 
             String addressLine2, String addressLine3, String city, String state,
             int zipCode, String country) {
         super(name, description);
@@ -41,7 +57,11 @@ public class Address extends Location implements Serializable {
         this.country = country;
     }
     /**
-     * 
+     * Takes the Address and returns it as a String
+	 * <p>
+	 * It will format the Address into a String that is styled in the 
+	 * conventional way to display address.
+	 * <p>
      * @return the Address object in the conventional way to format addresses
      * @Override
      */
@@ -56,10 +76,10 @@ public class Address extends Location implements Serializable {
         }
         return addressString + this.city + ", " + this.state + " " +this.zipCode;
     }
-    
-    //Accessors
 
     /**
+	 * Gets the first line of the Address
+	 * <p>
      * @return the Address object's addressLine1
      */
     public String getAddressLine1() {
@@ -67,6 +87,8 @@ public class Address extends Location implements Serializable {
     }
 
     /**
+	 * Gets the second line of the Address
+	 * <p>
      * @return the Address object's addressLine2
      */
     public String  getAddressLine2() {
@@ -74,6 +96,8 @@ public class Address extends Location implements Serializable {
     }
 
     /**
+	 * Gets the third line of the Address
+	 * <p>
      * @return the Address object's addressLine3
      */
     public String getAddressLine3() {
@@ -81,6 +105,8 @@ public class Address extends Location implements Serializable {
     }
 
     /**
+	 * Gets the zip code of the Address
+	 * <p>
      * @return the Address object's zipCode
      */
     public int getZipCode() {
@@ -88,6 +114,8 @@ public class Address extends Location implements Serializable {
     }
 
     /**
+	 * Gets the State where the Address is located
+	 * <p>
      * @return Address object's the state
      */
     public String getState() {
@@ -95,6 +123,8 @@ public class Address extends Location implements Serializable {
     }
 
     /**
+	 * Gets the country of the Address
+	 * <p>
      * @return Address object's the country
      */
     public String getCountry() {
@@ -102,6 +132,8 @@ public class Address extends Location implements Serializable {
     }
 
     /**
+	 * Sets the first line of the Address
+	 * <p>
      * @param addressLine1 the addressLine1 to set
      */
     public void setAddressLine1(String addressLine1) {
@@ -109,6 +141,8 @@ public class Address extends Location implements Serializable {
     }
 
     /**
+	 * Sets the second line of the Address
+	 * <p>
      * @param addressLine2 the addressLine2 to set
      */
     public void setAddressLine2(String addressLine2) {
@@ -116,6 +150,8 @@ public class Address extends Location implements Serializable {
     }
 
     /**
+	 * Sets the third line of the Address
+	 * <p>
      * @param addressLine3 the addressLine3 to set
      */
     public void setAddressLine3(String addressLine3) {
@@ -123,6 +159,8 @@ public class Address extends Location implements Serializable {
     }
 
     /**
+	 * Sets the zip code of the Address
+	 * <p>
      * @param zipCode the zipCode to set
      */
     public void setZipCode(int zipCode) {
@@ -130,6 +168,8 @@ public class Address extends Location implements Serializable {
     }
 
     /**
+	 * Sets the State of the address
+	 * <p>
      * @param state the state to set
      */
     public void setState(String state) {
@@ -137,6 +177,8 @@ public class Address extends Location implements Serializable {
     }
 
     /**
+	 * Sets the Country of the Address
+	 * <p>
      * @param country the country to set
      */
     public void setCountry(String country) {
