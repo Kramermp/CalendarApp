@@ -88,7 +88,8 @@ public class PickerController {
 	public void edit(int[] selectedRows) {
 		boolean editSuccessful = false;
 		switch(pickerCode) {
-			case 0:
+			case EVENT:
+				System.out.println("Editing an Event.");
 				if(selectedRows.length > 1 ) {
 					System.out.println("More than one item is selected");
 				}else if (selectedRows.length == 1) {
@@ -99,6 +100,17 @@ public class PickerController {
 					System.out.println("No item was selected");
 				}
 				break;
+			case LOCATION: 
+				System.out.println("Editing Location.");
+				if(selectedRows.length > 1 ) {
+					System.out.println("More than one item is selected");
+				}else if (selectedRows.length == 1) {
+					System.out.println("One Item was selected.");
+					parentController.requestLocationUI(activeUser.getLocationList().get(selectedRows[0]));
+					editSuccessful = true;
+				}else {
+					System.out.println("No item was selected");
+				}
 			default:
 				break;
 		}

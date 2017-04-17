@@ -73,7 +73,20 @@ public class LocationController {
 		} else {
 			System.out.println("Source Location was not null implying editing a"
 					+ " Location.");
-			System.out.println("Editing a Location is not implemented yet.");
+			try {
+				System.out.println("Saving Location");
+				Location tempLocation = locationUI.getCALocation();
+				parentController.getActiveUser().removeLocation(sourceLocation);
+				parentController.getActiveUser().addLocation(tempLocation);
+				parentController.writeData();
+				dispose();
+			} catch (InvalidZipCodeException e) {
+				System.err.println("An error Occured while parsing the zip.");
+				locationUI.setErrorMessage(e.getMessage());
+			} catch (NumberFormatException e) {
+				System.err.println("An Error Occured while parseing lat or long");
+				locationUI.setErrorMessage("Lat or Long is incorrect");
+			}
 		}
 	}
 	
