@@ -213,8 +213,4 @@ public class User extends Person implements Serializable {
 		testLocations.add("Columbus, OH");
 		return testLocations;
 	}
-
-	void removeLocation(Location sourceLocation) {
-		locationList.remove(sourceLocation);
-	}
 }

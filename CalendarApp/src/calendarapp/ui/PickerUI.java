@@ -80,6 +80,7 @@ public class PickerUI extends JFrame {
 	
 	private void edit() {
 		parentController.edit(picker.getSelected());
+		
 	}
 
 	/**
