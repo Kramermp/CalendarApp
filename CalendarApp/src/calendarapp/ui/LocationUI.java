@@ -67,6 +67,7 @@ public class LocationUI extends JFrame {
 		this.sourceLocation = sourceLocation;
 		createWindow();
 		addComponents();
+		populateFields();
 		this.addWindowListener(new LocationUIWindowListener());
 		System.out.println("Finished creating the LocationUI with a "
 				+ " sourceLocation.");
@@ -275,7 +276,12 @@ public class LocationUI extends JFrame {
 	public boolean getAddressState () {
 		return isAddress;
 	}
-
+	
+	public void populateFields() {
+		locationNameTxtFld.setText(sourceLocation.getName());
+		//FIXME: This should populate the other fields
+	}
+	
 	private class AddressPanel extends JPanel {
 		private JTextField addressLine1TxtFld;
 		private JTextField addressLine2TxtFld;
