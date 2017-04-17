@@ -1,6 +1,7 @@
 package calendarapp.backend;
 
 import calendarapp.Event;
+import calendarapp.Location;
 import calendarapp.ui.ContactTableModel;
 import calendarapp.ui.EventTableModel;
 import javax.swing.JFrame;
@@ -267,5 +268,11 @@ public class NavigationController {
 	
 	public ContactTableModel getContactTableModel ( ) {
 		return new ContactTableModel(activeUser);
+	}
+
+	void requestLocationUI(Location sourceLocation) {
+		if (locationController == null) {
+			locationController = new LocationController(this, sourceLocation);
+		}
 	}
 }

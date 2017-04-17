@@ -27,6 +27,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -35,6 +36,7 @@ import javax.swing.JTextField;
 /**
  * This class will extend JPanel and will be used to have the user select a 
  * locations.
+ * @author Michael Kramer <mpk5206 @ psu.edu
  * @author Aaron Stricker <aps5376 @ psu.edu>
  * @version .1
  * @since .1
@@ -45,6 +47,7 @@ public class LocationPicker extends Picker {
 	private Location selectedLocation;
         private JTextField LocationNameTxtFld;
         private String selectedLocationString;
+		private JList locationJList;
         
         private ArrayList<Location> listOfLocations;
         
@@ -83,68 +86,26 @@ public class LocationPicker extends Picker {
         
 	public void createComponents(){
             this.setLayout(new BorderLayout());
-            GridBagConstraints c = new GridBagConstraints( );
+            GridBagConstraints c = new GridBagConstraints( ); 
+            ArrayList<String> locationList = new ArrayList<String>();
+			int locationCount = listOfLocations.size();
+			for (int i = 0; i < locationCount; i++) {
+               locationList.add(listOfLocations.get(i).getName());
+            }  
+			locationJList = new JList(locationList.toArray());
+			locationJList.setAlignmentY(CENTER_ALIGNMENT);
             
-            //c.insets = new Insets(10, 600, 10, 60);
-            
-            User testUser = new User();
-            ArrayList<String> locationList = testUser.getLocationStringList();
-            
-            JPanel panel = new JPanel(new GridBagLayout());
-            GridBagConstraints b = new GridBagConstraints( );
-            b.insets = new Insets(10, 10, 10, 10);
-            b.anchor = GridBagConstraints.NORTH;
-            b.fill = GridBagConstraints.HORIZONTAL;
-            b.weightx = .50;
-            b.gridwidth = 1;
-            b.weighty = .1; 
-            
-            for (int i = 0; i < locationList.size(); i++) {
-                b.gridx = 0;
-                b.gridy = i;
-                panel.add(createButton("" + (i + 1) + ": " + locationList.get(i)), b);
-            }
-            
-            JScrollPane scrollPane = new JScrollPane(panel);
+            JScrollPane scrollPane = new JScrollPane(locationJList);
 			scrollPane.setPreferredSize(new Dimension(0,0));
-            scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-            scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-            
-//            GridBagConstraints sp = new GridBagConstraints();
-//            sp.insets = new Insets(50, 50, 50, 50);
-//            sp.anchor = GridBagConstraints.CENTER;
-//            sp.fill = GridBagConstraints.BOTH;
-//            sp.gridx = 0;
-//            sp.gridwidth = 1;
-//            sp.gridy = 0;
+            //scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+            //scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        
             this.add(scrollPane, BorderLayout.CENTER);     
         }
         
-        public JButton createButton(String name){
-            JButton button = new JButton(name);
-            class ClickListener implements ActionListener{
-
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    StringBuilder sb = new StringBuilder(button.getText());
-                    sb.delete(0, 3);
-                    String location = sb.toString();
-                    
-                    System.out.println("Location Set to: " + location);
-                    setLocation(location);
-                }
-            }
-            ActionListener listener = new ClickListener();
-            button.addActionListener(listener);
-            return button;
-        }
-        
-        public void setLocation(String location){
-            selectedLocationString = location;
-        } 
 
 	@Override
 	public int[] getSelected() {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+		return locationJList.getSelectedIndices();
 	}
 }
