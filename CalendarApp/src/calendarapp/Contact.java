@@ -10,7 +10,8 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Faust
+ * @author Michael Kramer <mpk5206 @ psu.edu>
+ * 
  */
 public class Contact extends Person implements Comparable, Serializable {
     private ArrayList<String> emails;

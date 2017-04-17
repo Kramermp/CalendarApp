@@ -94,7 +94,19 @@ public class PickerController {
 					System.out.println("More than one item is selected");
 				}else if (selectedRows.length == 1) {
 					System.out.println("One Item was selected.");
-					parentController.requestEventUI(activeUser.getEventList().get(selectedRows[0]));
+					parentController.requestEventController(activeUser.getEventList().get(selectedRows[0]));
+					editSuccessful = true;
+				}else {
+					System.out.println("No item was selected");
+				}
+				break;
+			case CONTACT:
+				System.out.println("Editing a contact");
+				if(selectedRows.length > 1 ) {
+					System.out.println("More than one item is selected");
+				}else if (selectedRows.length == 1) {
+					System.out.println("One Item was selected.");
+					parentController.requestContactController(activeUser.getContactList().get(selectedRows[0]));
 					editSuccessful = true;
 				}else {
 					System.out.println("No item was selected");
@@ -106,7 +118,7 @@ public class PickerController {
 					System.out.println("More than one item is selected");
 				}else if (selectedRows.length == 1) {
 					System.out.println("One Item was selected.");
-					parentController.requestLocationUI(activeUser.getLocationList().get(selectedRows[0]));
+					parentController.requestLocationController(activeUser.getLocationList().get(selectedRows[0]));
 					editSuccessful = true;
 				}else {
 					System.out.println("No item was selected");

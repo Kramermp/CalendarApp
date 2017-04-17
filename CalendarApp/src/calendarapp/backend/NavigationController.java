@@ -1,5 +1,6 @@
 package calendarapp.backend;
 
+import calendarapp.Contact;
 import calendarapp.Event;
 import calendarapp.Location;
 import calendarapp.ui.ContactTableModel;
@@ -111,7 +112,7 @@ public class NavigationController {
 	* This method will open a new EventUI. It will take no parameters and 
 	* return nothing. It will will open an EventUI without a source Event.
 	*/
-	public void requestEventUI( ) {
+	public void requestEventController( ) {
 		if(this.eventController == null) {
 			this.eventController = new EventController(this, activeUser);
 		} else {
@@ -122,7 +123,7 @@ public class NavigationController {
 		}
 	}
 
-	public void requestEventUI(Event sourceEvent) {
+	public void requestEventController(Event sourceEvent) {
 		if(this.eventController == null) {
 			System.out.println("The NavigationController is creating an"
 					+ " EventController, with a source event.");
@@ -138,7 +139,7 @@ public class NavigationController {
 		}
 	}
 	
-	public void requestPickerUI(int pickerCode, int editCode) {
+	public void requestPickerController(int pickerCode, int editCode) {
 		if(pickerController == null) {
 			System.out.println("The NavigationController is creating a"
 					+ " PickerController.");
@@ -169,9 +170,35 @@ public class NavigationController {
 		}
 	}
 	
+	public void requestLocationController (Location sourceLocation) {
+		if(locationController == null) {
+			System.out.println("The NavigationController is creating a"
+				+ " LocationController.");
+			locationController = new LocationController(this, sourceLocation);
+		} else {
+			//FIXME: GitHub Issue #16
+			locationController.bringUIToTop();
+			System.out.println("The NavigationController recieved a request"
+				+ " for a LocationController but there was already an existing"
+				+ " LocationController.");
+		}
+	}
+	
 	public void requestContactController ( ) {
 		if(contactController == null) {
 			contactController = new ContactController(this);
+		} else {
+			//FIXME: GitHub Issue #16
+			contactController.bringUIToTop();
+			System.out.println("The NavigationController recieved a request"
+				+ " for a ContactController but there was already an existing"
+				+ " ContactController.");
+		}
+	}
+	
+	public void requestContactController (Contact sourceContact) {
+		if(contactController == null) {
+			contactController = new ContactController(this, sourceContact);
 		} else {
 			//FIXME: GitHub Issue #16
 			contactController.bringUIToTop();
@@ -270,9 +297,4 @@ public class NavigationController {
 		return new ContactTableModel(activeUser);
 	}
 
-	void requestLocationUI(Location sourceLocation) {
-		if (locationController == null) {
-			locationController = new LocationController(this, sourceLocation);
-		}
-	}
 }

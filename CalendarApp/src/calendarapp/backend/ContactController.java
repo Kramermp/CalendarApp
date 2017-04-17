@@ -5,6 +5,7 @@
  */
 package calendarapp.backend;
 
+import calendarapp.Contact;
 import calendarapp.ui.ContactUI;
 import javax.swing.JFrame;
 
@@ -15,11 +16,21 @@ import javax.swing.JFrame;
 public class ContactController {
 	private NavigationController parentController;
 	private ContactUI contactUI;
+	private Contact sourceContact;
 	
 	public ContactController(NavigationController parentController) {
 		System.out.println("Creating the ContactController.");
 		this.parentController = parentController;
 		this.contactUI = new ContactUI(this);
+		this.contactUI.setVisible(true);
+		System.out.println("Finished creathing the ContactController.");
+	}
+	
+	public ContactController(NavigationController parentController, Contact sourceContact) {
+		System.out.println("Creating the ContactController.");
+		this.parentController = parentController;
+		this.sourceContact = sourceContact;
+		this.contactUI = new ContactUI(this, sourceContact);
 		this.contactUI.setVisible(true);
 		System.out.println("Finished creathing the ContactController.");
 	}
@@ -43,10 +54,18 @@ public class ContactController {
 	}
 	
 	public void submit() {
-		parentController.getActiveUser().addContact(contactUI.getContact());
-		parentController.writeData();
-		parentController.updateContactTable();
-		parentController.disposeContactController();
+		if(sourceContact == null) {
+			parentController.getActiveUser().addContact(contactUI.getContact());
+			parentController.writeData();
+			parentController.updateContactTable();
+			parentController.disposeContactController();
+		} else {
+			parentController.getActiveUser().removeContact(sourceContact);
+			parentController.getActiveUser().addContact(contactUI.getContact());
+			parentController.writeData();
+			parentController.updateContactTable();
+			parentController.disposeContactController();
+		}
 	}
 
 	void disposeUI() {

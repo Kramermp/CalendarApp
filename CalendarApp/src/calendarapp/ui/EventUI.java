@@ -47,14 +47,14 @@ public class EventUI extends JFrame {
 	private DateTimePicker endTimeArea;
 	private ContactPicker contactArea;
 	private LocationPicker locationArea;
-        private ArrayList<Location> listOfLocations;
-        private ArrayList<Contact> listOfContacts;
+    private ArrayList<Location> listOfLocations;
+    private ArrayList<Contact> listOfContacts;
 
 	public EventUI(EventController parentController, Event sourceEvent) {
 		System.out.println("Creating EventUI.");
 		this.parentController = parentController;
-                this.listOfContacts = parentController.getContactList();
-                this.listOfLocations = parentController.getLocationList();
+        this.listOfContacts = parentController.getContactList();
+        this.listOfLocations = parentController.getLocationList();
 		this.sourceEvent = sourceEvent;
 		createWindow();
 		addComponents();
@@ -386,7 +386,7 @@ public class EventUI extends JFrame {
 			errorMessages.add("The start time is not valid.");
 		if(this.endTimeArea.getDate() == null)
 			errorMessages.add("The end time is not valid.");
-		if(this.contactArea.getContacts() == null)
+		if(this.contactArea.getSelected() == null)
 			errorMessages.add("The associated contact list was not valid.");
 		if(this.locationArea.getLocation() == null)
 			errorMessages.add("The associated location was not valid.");
@@ -413,7 +413,12 @@ public class EventUI extends JFrame {
 		return this.locationArea.getSelectedLocation();
 	}
 	
-	public ArrayList<Contact> getEventContacts () {
-		return this.contactArea.getContacts();
+	public ArrayList<Contact> getEventContacts() {
+		ArrayList<Contact> selectedContactsList = new ArrayList<Contact>();
+		int[] selectedContacts = contactArea.getSelected();
+		for(int i = 0; i < selectedContacts.length; i++) {
+			selectedContactsList.add(listOfContacts.get(selectedContacts[i]));
+		}
+		return selectedContactsList;
 	}
 }

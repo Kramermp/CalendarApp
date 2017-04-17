@@ -66,13 +66,13 @@ public class ContactUI extends JFrame {
 		this.sourceContact = sourceContact;
 		createWindow();
 		addComponents();
+		populateFields();
 		this.addWindowListener(new ContactUIWindowListener());
 		System.out.println("Finished creating the ContactUI.");
 	}
 	
 	private void createWindow() {
 		//This method will create the physical JFrame
-		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		windowHeight = (int) screenSize.getHeight() * 2 / 3; // 66% of screen height
 		windowWidth = (int) screenSize.getWidth() / 5; //20% of screen width
@@ -339,6 +339,11 @@ public class ContactUI extends JFrame {
 		}
 		return new Contact(title, firstName, middleName, lastName, suffix, 
 				emailArrayList, phoneNumberArrayList);
+	}
+	public void populateFields() {
+		firstNameTxtFld.setText(sourceContact.getName().getFirstName());
+		middleNameTxtFld.setText(sourceContact.getName().getMiddleName());
+		lastNameTxtFld.setText(sourceContact.getName().getLastName());
 	}
 	
 	private class ContactUIWindowListener implements WindowListener {

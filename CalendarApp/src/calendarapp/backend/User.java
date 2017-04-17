@@ -214,7 +214,10 @@ public class User extends Person implements Serializable {
 		return testLocations;
 	}
 
-	void removeLocation(Location sourceLocation) {
+	public void removeLocation(Location sourceLocation) {
 		locationList.remove(sourceLocation);
+	}
+	public void removeContact(Contact sourceContact){
+		contactList.remove(sourceContact);
 	}
 }
