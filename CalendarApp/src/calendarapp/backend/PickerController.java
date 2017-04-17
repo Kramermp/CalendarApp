@@ -46,15 +46,15 @@ public class PickerController {
                 this.contactList = activeUser.getContactList();
 		this.editCode = editCode;
 		switch(pickerCode) {
-			case 0:
+			case EVENT:
 				pickerUI = new PickerUI(this, editCode,
 						new EventPicker(activeUser));
 				break;
-			case 1:
+			case CONTACT:
 				pickerUI = new PickerUI(this, editCode, 
                                         new ContactPicker(contactList));
 				break;	
-			case 2:
+			case LOCATION:
 				pickerUI = new PickerUI(this, editCode, 
                                         new LocationPicker(locationList));
 				break;

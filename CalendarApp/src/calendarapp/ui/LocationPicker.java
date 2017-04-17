@@ -27,6 +27,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -47,6 +48,7 @@ public class LocationPicker extends Picker {
         private String selectedLocationString;
         
         private ArrayList<Location> listOfLocations;
+		private JList locationJList;
         
 	/**
          * Creates a LocationPicker from the listOfLocations.
@@ -85,30 +87,15 @@ public class LocationPicker extends Picker {
             this.setLayout(new BorderLayout());
             GridBagConstraints c = new GridBagConstraints( );
             
-            //c.insets = new Insets(10, 600, 10, 60);
-            
-            User testUser = new User();
-            ArrayList<String> locationList = testUser.getLocationStringList();
-            
-            JPanel panel = new JPanel(new GridBagLayout());
-            GridBagConstraints b = new GridBagConstraints( );
-            b.insets = new Insets(10, 10, 10, 10);
-            b.anchor = GridBagConstraints.NORTH;
-            b.fill = GridBagConstraints.HORIZONTAL;
-            b.weightx = .50;
-            b.gridwidth = 1;
-            b.weighty = .1; 
-            
-            for (int i = 0; i < locationList.size(); i++) {
-                b.gridx = 0;
-                b.gridy = i;
-                panel.add(createButton("" + (i + 1) + ": " + locationList.get(i)), b);
+            ArrayList<String> locationStringList = new ArrayList<String>();
+			for (int i = 0; i < listOfLocations.size(); i++) {
+                locationStringList.add(listOfLocations.get(i).getName());
             }
             
-            JScrollPane scrollPane = new JScrollPane(panel);
+			locationJList = new JList(locationStringList.toArray());
+            
+            JScrollPane scrollPane = new JScrollPane(locationJList);
 			scrollPane.setPreferredSize(new Dimension(0,0));
-            scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-            scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
             
 //            GridBagConstraints sp = new GridBagConstraints();
 //            sp.insets = new Insets(50, 50, 50, 50);
@@ -145,6 +132,6 @@ public class LocationPicker extends Picker {
 
 	@Override
 	public int[] getSelected() {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+		return locationJList.getSelectedIndices();
 	}
 }
