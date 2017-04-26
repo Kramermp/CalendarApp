@@ -38,7 +38,7 @@ public class NavigationController {
 		System.out.println("Contacts: " + activeUser.getContactList().size());
 		this.activeUser = activeUser;
 		serializedData = dataController.getSerializedData();
-		navigationUI = new NavigationUI(this);
+		navigationUI = new NavigationUI(this, activeUser);
 		navigationUI.setVisible(true);
 		System.out.println("Finished creating the NavigationController.");
 	}
