@@ -1,6 +1,10 @@
 package calendarapp;
 
+import calendarapp.backend.ContactController;
+import calendarapp.backend.LocationController;
 import calendarapp.backend.LoginController;
+import calendarapp.backend.NavigationController;
+import calendarapp.backend.User;
 
 /**
  *
