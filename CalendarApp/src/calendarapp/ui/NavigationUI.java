@@ -88,7 +88,7 @@ public class NavigationUI extends JFrame {
 		this.setJMenuBar(menuBar);
 		this.setLayout(new GridBagLayout());
 		topArea = new JPanel();
-		topArea.setBackground(Color.MAGENTA);
+		//topArea.setBackground(Color.MAGENTA);
 		GridBagConstraints c = new GridBagConstraints();
 		c.gridx = 0;
 		c.gridwidth = 2;
