@@ -5,12 +5,16 @@
  */
 package calendarapp.ui;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Random;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -50,28 +54,78 @@ public class CalendarUI extends JPanel {
 		add(topArea, c);
 		
 		bottomArea = new JPanel();
-		buildBottomArea();
-		c = new GridBagConstraints();
-		c.gridx = 0;
-		c.gridy = 1;
-		c.weighty = 1;
-		c.weightx = 1;
-		c.fill = GridBagConstraints.BOTH;
-		add(bottomArea, c);
+		buildBottomArea(bottomArea);
+		
 		
 	}
 
 	private void buildTopArea() {
 		topArea.setLayout(new GridBagLayout());
-		monthLabel = new JLabel(getMonthName(calendar.get(Calendar.MONTH)));
 		GridBagConstraints c = new GridBagConstraints();
+		JButton previousMonthBtn = new JButton("Previous Month");
+		previousMonthBtn.addActionListener((ActionEvent ae) -> {
+			System.out.println("Previous month Button was triggered.");
+			int currentMonth = displayCalendar.get(Calendar.MONTH);
+			if(currentMonth == 0) {
+				displayCalendar.set(Calendar.YEAR, displayCalendar.get(Calendar.YEAR) - 1);
+				displayCalendar.set(Calendar.MONTH, Calendar.DECEMBER);
+			} else {
+				displayCalendar.set(Calendar.MONTH, displayCalendar.get(Calendar.MONTH) - 1);
+			}
+			System.out.println("Navigating to " + getMonthName(displayCalendar.get(Calendar.MONTH)));
+			monthLabel.setText(getMonthName(displayCalendar.get(Calendar.MONTH)));
+			bottomArea.removeAll();
+			buildBottomArea(bottomArea);
+		});
 		c.fill = GridBagConstraints.VERTICAL;
+		c.gridx = 0;
 		c.weighty = 1;
-		topArea.add(monthLabel, c);
+		c.weightx =0;
+		c.anchor = GridBagConstraints.WEST;
+		topArea.add(previousMonthBtn, c);
+		
+		monthLabel = new JLabel(getMonthName(displayCalendar.get(Calendar.MONTH)));
+		JPanel labelArea = new JPanel();
+		labelArea.setLayout(new GridBagLayout());
+		labelArea.add(monthLabel);
+		labelArea.setBackground(Color.RED);
+		c = new GridBagConstraints();
+		c.fill = GridBagConstraints.BOTH;
+		c.anchor = GridBagConstraints.CENTER;
+		c.gridx = 1;
+		c.weighty = 1;
+		c.weightx = 1;
+		topArea.add(labelArea, c);
+			
+		JButton nextMonthBtn = new JButton("NextMonth");
+		nextMonthBtn.addActionListener((ActionEvent ae) -> {
+			System.out.println("Next month Button was triggered.");
+			int currentMonth = displayCalendar.get(Calendar.MONTH);
+			if(currentMonth == 11) {
+				displayCalendar.set(Calendar.YEAR, displayCalendar.get(Calendar.YEAR) + 1);
+				displayCalendar.set(Calendar.MONTH, Calendar.JANUARY);
+			} else {
+				displayCalendar.set(Calendar.MONTH, displayCalendar.get(Calendar.MONTH) + 1);
+			}
+			System.out.println("Navigating to " + getMonthName(displayCalendar.get(Calendar.MONTH)));
+			monthLabel.setText(getMonthName(displayCalendar.get(Calendar.MONTH)));
+			bottomArea.removeAll();
+			buildBottomArea(bottomArea);
+		});
+		c = new GridBagConstraints();
+		c.fill = GridBagConstraints.VERTICAL;
+		c.gridx = 2;
+		c.weighty = 1;
+		c.weightx =0;
+		c.anchor = GridBagConstraints.EAST;
+		topArea.add(nextMonthBtn, c);
 		
 	}
-
-	private void buildBottomArea() {
+	
+	private void buildBottomArea(JPanel bottomArea) {
+		if(bottomArea == null) {
+			bottomArea = new JPanel();
+		}
 		bottomArea.setLayout(new GridBagLayout());
 		int dayNumber = handleFirstWeek(bottomArea);
 		GridBagConstraints c = new GridBagConstraints();
@@ -90,6 +144,14 @@ public class CalendarUI extends JPanel {
 			}
 		}
 		handleLastWeek(bottomArea, dayNumber);
+		
+		c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridy = 1;
+		c.weighty = 1;
+		c.weightx = 1;
+		c.fill = GridBagConstraints.BOTH;
+		add(bottomArea, c);
 	}
 	
 	private int handleFirstWeek(JPanel bottomArea) {
@@ -100,19 +162,20 @@ public class CalendarUI extends JPanel {
 		c.fill = GridBagConstraints.BOTH;
 		GregorianCalendar test = (GregorianCalendar) displayCalendar.clone();
 		test.set(Calendar.DAY_OF_MONTH, 1);
-		System.out.println(test.get(Calendar.DAY_OF_WEEK));
+		//System.out.println(test.get(Calendar.DAY_OF_WEEK));
 		//This loop handles the first week
 		int previousMonth = test.get(Calendar.MONTH) - 1;
 		if(previousMonth == 0) {
-			previousMonth = 12;
+			previousMonth = 11;
 		}
 		
 		int previousMonthDayCount = getDayCount(previousMonth);
 		System.out.println(previousMonthDayCount);
 		//This loop handles the end of the previous month
-		for(int i = test.get(Calendar.DAY_OF_WEEK) - 1; i > 0; i--) {
-			DayPanel dayPanel = new DayPanel(previousMonthDayCount - i + 1); //I'm not sure why this plus 1 is need but it doesn't work without it
-			c.gridx = 6 - i;
+		
+		for(int i = 0; i < test.get(Calendar.DAY_OF_WEEK) -1; i++) {
+			DayPanel dayPanel = new DayPanel(previousMonthDayCount - i); 
+			c.gridx = test.get(Calendar.DAY_OF_WEEK) - 2 - i;//I'm not entirly sure why it is a -2
 			c.gridy = 0;
 			bottomArea.add(dayPanel, c);
 		}
@@ -157,7 +220,10 @@ public class CalendarUI extends JPanel {
 		}
 
 	}
-	
+	private void clearBottomArea() {
+		bottomArea.removeAll();
+		buildBottomArea(bottomArea);
+	}
 	private String getMonthName(int monthNumber) {
 		switch (monthNumber) {
 			case (Calendar.JANUARY): 
