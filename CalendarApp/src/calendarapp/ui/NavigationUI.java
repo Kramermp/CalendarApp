@@ -18,6 +18,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -261,8 +263,9 @@ public class NavigationUI extends JFrame {
 		System.out.println("Building rightArea");
 		buildEventTable();
 		rightArea.setLayout(new BorderLayout());
-		tablePane = new JScrollPane(eventTable);
-		rightArea.add(tablePane, BorderLayout.CENTER);
+		GregorianCalendar sourceCalendar = new GregorianCalendar();
+		sourceCalendar.setTimeInMillis(System.currentTimeMillis());
+		rightArea.add(new CalendarUI(sourceCalendar), BorderLayout.CENTER);
 	}
 	
 	private void buildLeftArea(JPanel leftArea) {
