@@ -88,7 +88,7 @@ public class CalendarUI extends JPanel {
 		JPanel labelArea = new JPanel();
 		labelArea.setLayout(new GridBagLayout());
 		labelArea.add(monthLabel);
-		labelArea.setBackground(Color.RED);
+		//labelArea.setBackground(Color.RED);
 		c = new GridBagConstraints();
 		c.fill = GridBagConstraints.BOTH;
 		c.anchor = GridBagConstraints.CENTER;
