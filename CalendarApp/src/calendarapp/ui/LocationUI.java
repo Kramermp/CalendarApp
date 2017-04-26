@@ -279,7 +279,20 @@ public class LocationUI extends JFrame {
 	
 	public void populateFields() {
 		locationNameTxtFld.setText(sourceLocation.getName());
-		//FIXME: This should populate the other fields
+                if(sourceLocation instanceof Address){
+                    addressPanel.addressLine1TxtFld.setText(((Address)sourceLocation).getAddressLine1());
+                    addressPanel.addressLine2TxtFld.setText(((Address)sourceLocation).getAddressLine2());
+                    addressPanel.addressLine3TxtFld.setText(((Address)sourceLocation).getAddressLine3());
+                    
+                    addressPanel.cityTxtFld.setText(((Address)sourceLocation).getCity());
+                    addressPanel.stateTxtFld.setText(((Address)sourceLocation).getState());
+                    addressPanel.zipTxtFld.setText(String.valueOf(((Address)sourceLocation).getZipCode()));
+                }
+                else if(sourceLocation instanceof CoordinateLocation){
+                    coordinatePanel.latitudeTxtFld.setText(String.valueOf(((CoordinateLocation)sourceLocation).getLatitude()));
+                    coordinatePanel.longitudeTxtFld.setText(String.valueOf(((CoordinateLocation)sourceLocation).getLongitude()));
+                    ((CardLayout) cards.getLayout()).show(cards, COORDINATE_PANEL);
+                }
 	}
 	
 	private class AddressPanel extends JPanel {
