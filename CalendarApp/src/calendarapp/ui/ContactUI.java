@@ -324,8 +324,9 @@ public class ContactUI extends JFrame {
 	
 	public Contact getContact() {
 		String title = (String) titleComboBox.getSelectedItem();
+                System.out.println(title);
 		String firstName = firstNameTxtFld.getText();
-		String middleName = "";
+		String middleName = middleNameTxtFld.getText();
 		String lastName = lastNameTxtFld.getText();
 		String suffix = "";
 		ArrayList<String> emailArrayList = new ArrayList<>();
@@ -341,9 +342,16 @@ public class ContactUI extends JFrame {
 				emailArrayList, phoneNumberArrayList);
 	}
 	public void populateFields() {
-		firstNameTxtFld.setText(sourceContact.getName().getFirstName());
-		middleNameTxtFld.setText(sourceContact.getName().getMiddleName());
-		lastNameTxtFld.setText(sourceContact.getName().getLastName());
+            firstNameTxtFld.setText(sourceContact.getName().getFirstName());
+            middleNameTxtFld.setText(sourceContact.getName().getMiddleName());
+            lastNameTxtFld.setText(sourceContact.getName().getLastName());            
+            titleComboBox.setSelectedItem(sourceContact.getName().getTitle());
+            for(int i = 0; i < sourceContact.getPhoneNumbers().size(); i++){
+                phoneNumberListModel.addElement(sourceContact.getPhoneNumbers().get(i));
+            }
+            for(int i = 0; i < sourceContact.getEmailList().size(); i++){
+                emailListModel.addElement(sourceContact.getEmailList().get(i));
+            }
 	}
 	
 	private class ContactUIWindowListener implements WindowListener {
