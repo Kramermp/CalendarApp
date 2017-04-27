@@ -156,9 +156,9 @@ public class NavigationUI extends JFrame {
 			System.out.println("exitBtn triggered.");
 			parentController.exit();
 		});
+		buildGsonMenu(fileMenu);
 		fileMenu.add(logoutBtn);
 		fileMenu.add(exitBtn);
-                buildGsonMenu(fileMenu);
 		menuBar.add(fileMenu);
 	}
 
