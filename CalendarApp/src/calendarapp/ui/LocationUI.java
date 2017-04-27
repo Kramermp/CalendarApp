@@ -185,7 +185,7 @@ public class LocationUI extends JFrame {
 		cards = new JPanel();
 		CardLayout cardsLayout = new CardLayout();
 		addressPanel = new AddressPanel();
-		addressPanel.setBackground(Color.RED);
+		//addressPanel.setBackground(Color.GRAY);
 		//addressPanel.setPreferredSize(new Dimension(200, 200));
 		coordinatePanel = new CoordinatePanel();
 		coordinatePanel.setBackground(Color.yellow);
