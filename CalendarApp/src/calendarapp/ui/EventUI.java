@@ -9,6 +9,7 @@ import calendarapp.Contact;
 import calendarapp.Event;
 import calendarapp.Location;
 import calendarapp.backend.EventController;
+import calendarapp.backend.PickerController;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -317,7 +318,8 @@ public class EventUI extends JFrame {
             JButton deleteBtn = new JButton("Delete");
             deleteBtn.addActionListener((ActionEvent ae) -> {
                 System.out.println("Delete Button Triggered");
-                //Fixme: Make this delete the active event
+                parentController.deleteEvent(sourceEvent);
+                parentController.dispose();
             });
             buttonArea.add(deleteBtn);
         }

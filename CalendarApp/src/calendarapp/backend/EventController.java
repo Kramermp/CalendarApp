@@ -105,4 +105,8 @@ public class EventController {
     public ArrayList<Contact> getContactList() {
         return activeUser.getContactList();
     }
+    
+    public void deleteEvent(Event sourceEvent){
+        activeUser.getEventList().remove(sourceEvent);
+    }
 }

@@ -136,7 +136,51 @@ public class PickerController {
 		if(editSuccessful)
 			dispose();	
 	}
-
+        
+        public void delete(int[] selectedRows) {
+		boolean deleteSuccessful = false;
+		switch(pickerCode) {
+			case EVENT:
+				System.out.println("Deleting an Event.");
+				if(selectedRows.length > 1 ) {
+					System.out.println("More than one item is selected");
+				}else if (selectedRows.length == 1) {
+					System.out.println("One Item was selected.");
+					activeUser.getEventList().remove(selectedRows[0]);
+					deleteSuccessful = true;
+				}else {
+					System.out.println("No item was selected");
+				}
+				break;
+			case CONTACT:
+				System.out.println("Deleting a contact");
+				if(selectedRows.length > 1 ) {
+					System.out.println("More than one item is selected");
+				}else if (selectedRows.length == 1) {
+					System.out.println("One Item was selected.");
+					activeUser.getContactList().remove(selectedRows[0]);
+					deleteSuccessful = true;
+				}else {
+					System.out.println("No item was selected");
+				}
+				break;
+			case LOCATION: 
+				System.out.println("Deleting a Location.");
+				if(selectedRows.length > 1 ) {
+					System.out.println("More than one item is selected");
+				}else if (selectedRows.length == 1) {
+					System.out.println("One Item was selected.");
+					activeUser.getLocationList().remove(selectedRows[0]);
+					deleteSuccessful = true;
+				}else {
+					System.out.println("No item was selected");
+				}
+			default:
+				break;
+		}
+		if(deleteSuccessful)
+			dispose();	
+	}
 	void bringUIToTop() {
 		pickerUI.setState(JFrame.NORMAL);
 		pickerUI.toFront();

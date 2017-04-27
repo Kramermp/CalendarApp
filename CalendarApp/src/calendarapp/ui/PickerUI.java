@@ -73,6 +73,7 @@ public class PickerUI extends JFrame {
 			JButton deleteBtn = new JButton("Delete");
 			deleteBtn.addActionListener((ActionEvent ae) -> {
 				System.out.println("DeleteBtn triggered");
+                                PickerUI.this.delete();
 			});
 			buttonArea.add(deleteBtn, BorderLayout.SOUTH);
 		}
@@ -80,8 +81,10 @@ public class PickerUI extends JFrame {
 	
 	private void edit() {
 		parentController.edit(picker.getSelected());
-		
 	}
+        private void delete(){
+            parentController.delete(picker.getSelected());
+        }
 
 	/**
 	 * This class ensures that the controller if the window is closed.
