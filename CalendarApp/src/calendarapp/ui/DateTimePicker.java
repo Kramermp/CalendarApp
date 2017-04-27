@@ -165,7 +165,7 @@ public class DateTimePicker extends JPanel {
         this.add(timeLbl, c);
 
         c = new GridBagConstraints();
-        hoursTxtField = new JTextField("Hours");
+        hoursTxtField = new JTextField("12");
         c.gridx = 1;
         c.gridwidth = 2;
         c.anchor = GridBagConstraints.CENTER;
@@ -176,7 +176,7 @@ public class DateTimePicker extends JPanel {
         this.add(hoursTxtField, c);
 
         c = new GridBagConstraints();
-        minTxtField = new JTextField("Minutes");
+        minTxtField = new JTextField("00");
         c.gridx = 3;
         c.gridwidth = 2;
         c.anchor = GridBagConstraints.CENTER;
