@@ -158,6 +158,7 @@ public class NavigationUI extends JFrame {
 		});
 		fileMenu.add(logoutBtn);
 		fileMenu.add(exitBtn);
+                buildGsonMenu(fileMenu);
 		menuBar.add(fileMenu);
 	}
 
@@ -168,7 +169,7 @@ public class NavigationUI extends JFrame {
 		buildEventMenu(editMenu);
 		buildContactMenu(editMenu);
 		buildLocationMenu(editMenu);
-                buildGsonMenu(editMenu);                
+                                
 		menuBar.add(editMenu);
 	}
 	
