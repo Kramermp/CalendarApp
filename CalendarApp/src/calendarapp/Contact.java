@@ -61,9 +61,15 @@ public class Contact extends Person implements Comparable, Serializable {
         public ArrayList<String> getEmailList(){
             return emails;
         }
+        public String returnEmail(int i){
+           return emails.get(i);
+        }
         
         public ArrayList<String> getPhoneNumbers(){
             return phoneNumbers;
+        }
+        public String phoneNumber(int i){
+            return phoneNumbers.get(i);
         }
 	
 	/**
