@@ -18,6 +18,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import calendarapp.backend.User;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.io.PrintWriter;
+import calendarapp.Contact;
+import calendarapp.Event;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -52,13 +62,16 @@ public class NavigationUI extends JFrame {
 	private JPanel topArea;
 	private JPanel rightArea;
 	private JPanel leftArea;
+        private User user;
 	private JTable eventTable;
 	private JScrollPane tablePane;
 	private EventTableModel eventModel;
 	private JTable contactTable;
 	private ContactTableModel contactModel;
 	
-	public NavigationUI(NavigationController parentController) {
+        //changed to also accept User
+	public NavigationUI(NavigationController parentController, User user) {
+                this.user = user;
 		System.out.println("Creating NavigationUI.");
 		this.parentController = parentController;
 		createWindow();
@@ -86,7 +99,7 @@ public class NavigationUI extends JFrame {
 		this.setJMenuBar(menuBar);
 		this.setLayout(new GridBagLayout());
 		topArea = new JPanel();
-		topArea.setBackground(Color.MAGENTA);
+		//topArea.setBackground(Color.MAGENTA);
 		GridBagConstraints c = new GridBagConstraints();
 		c.gridx = 0;
 		c.gridwidth = 2;
@@ -155,6 +168,7 @@ public class NavigationUI extends JFrame {
 		buildEventMenu(editMenu);
 		buildContactMenu(editMenu);
 		buildLocationMenu(editMenu);
+                buildGsonMenu(editMenu);                
 		menuBar.add(editMenu);
 	}
 	
@@ -215,7 +229,45 @@ public class NavigationUI extends JFrame {
 
 		parentMenu.add(contactMenu);
 	}
-	
+	private void buildGsonMenu(JMenu parentMenu){
+            FileOutputStream out = null;
+            JMenu gsonMenu = new JMenu("Import/Export");
+            gsonMenu.setMnemonic(KeyEvent.VK_G);
+            JMenuItem importGson = new JMenuItem("Import Events/Contacts");
+            importGson.setMnemonic(KeyEvent.VK_I);
+            File file = new File("exportedContacts.Gson");            
+            importGson.addActionListener((ActionEvent ae) ->{
+                System.out.println("Import Gson selected");
+                NavigationUI.this.parentController.requestPickerController(PickerController.GSON, PickerController.IMPORT);
+            });
+            JMenuItem exportGson = new JMenuItem("Export Events/Contacts");
+            exportGson.setMnemonic(KeyEvent.VK_E);
+            exportGson.addActionListener((ActionEvent ae) ->{
+                try{
+                    ArrayList<Contact> conatctsToExport = user.getContactList();
+                    System.out.println(user.getContactList());
+                    PrintWriter writer = new PrintWriter(file);
+                    for(int i = 0; i < conatctsToExport.size(); i++ ){
+                        writer.println(user.getContactList());
+                    }
+                    writer.close();
+                }catch (IOException e){
+                    System.err.println("Check to make sure you have events and contacts to export");
+                }
+                try{
+                    ArrayList<Event> eventsToExport = user.getEventList();
+                    PrintWriter writer = new PrintWriter("exportedEvents.Gson");
+                    for(int i = 0; i < eventsToExport.size(); i++ ){
+                    writer.println(user.getEventList());
+                    }
+                    writer.close();
+                }catch (IOException e){
+                }
+            });
+            gsonMenu.add(importGson);
+            gsonMenu.add(exportGson);
+            parentMenu.add(gsonMenu);
+        }	
 	private void buildLocationMenu(JMenu parentMenu) {
 		//TODO: Build Functionality
 		JMenu locationMenu= new JMenu("Locations");
@@ -261,8 +313,9 @@ public class NavigationUI extends JFrame {
 		System.out.println("Building rightArea");
 		buildEventTable();
 		rightArea.setLayout(new BorderLayout());
-		tablePane = new JScrollPane(eventTable);
-		rightArea.add(tablePane, BorderLayout.CENTER);
+		GregorianCalendar sourceCalendar = new GregorianCalendar();
+		sourceCalendar.setTimeInMillis(System.currentTimeMillis());
+		rightArea.add(new CalendarUI(sourceCalendar), BorderLayout.CENTER);
 	}
 	
 	private void buildLeftArea(JPanel leftArea) {
@@ -290,5 +343,5 @@ public class NavigationUI extends JFrame {
 	public void updateContactTable() {
 		contactModel.setData();
 		eventModel.fireTableDataChanged();
-	}
+	}        
 }

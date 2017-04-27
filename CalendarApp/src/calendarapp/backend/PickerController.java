@@ -11,6 +11,7 @@ import calendarapp.Location;
 import calendarapp.ui.ContactPicker;
 import calendarapp.ui.EventPicker;
 import calendarapp.ui.LocationPicker;
+import calendarapp.ui.GsonPicker;
 import calendarapp.ui.PickerUI;
 import java.util.ArrayList;
 import javax.swing.JFrame;
@@ -23,10 +24,12 @@ public class PickerController {
 	public static final int EVENT = 0;
 	public static final int CONTACT = 1;
 	public static final int LOCATION = 2;
+        public static final int GSON = 3;
 	
 	public static final int EDIT = 0;
 	public static final int DELETE = 1;
-	
+	public static final int IMPORT = 0;
+        public static final int EXPORT = 1;
 	private PickerUI pickerUI;
 	private NavigationController parentController;
 	private int pickerCode = -1;
@@ -57,6 +60,10 @@ public class PickerController {
 			case LOCATION:
 				pickerUI = new PickerUI(this, editCode, 
                                         new LocationPicker(locationList));
+				break;
+                        case GSON:
+                                pickerUI = new PickerUI(this, editCode,
+                                        new GsonPicker());
 				break;
 			default:
 				
