@@ -46,7 +46,7 @@ public class EventTableModel extends AbstractTableModel {
 	public String getDate(Calendar calendar) {
 		//FIXME: make this less ugly maybe
 		String dateString = "";
-		dateString = dateString + calendar.get(Calendar.MONTH) + "-";
+		dateString = dateString + (calendar.get(Calendar.MONTH) + 2) + "-";
 		dateString = dateString + calendar.get(Calendar.DAY_OF_MONTH) + "-";
 		dateString = dateString + String.valueOf(calendar.get(Calendar.YEAR));
 		return dateString;

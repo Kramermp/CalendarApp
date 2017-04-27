@@ -41,6 +41,7 @@ public class EventController {
 		System.out.println("Creating the EventController.");
     	this.parentController = parentController;
     	this.sourceEvent = sourceEvent;
+        this.dataController = SerializedDataController.getSerializedDataController();
 		this.activeUser = activeUser;
 		this.eventUI = new EventUI(this, sourceEvent);
     	this.eventUI.setVisible(true);

@@ -5,6 +5,7 @@
  */
 package calendarapp.ui;
 
+import calendarapp.Event;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -50,7 +51,8 @@ public class DateTimePicker extends JPanel {
 
     public Calendar getDate() {
         ArrayList<String> errorMessages = new ArrayList<String>();
-        month = monthComboBox.getSelectedIndex() + 1;
+        month = monthComboBox.getSelectedIndex() - 1;
+        day = dayComboBox.getSelectedIndex() + 1;
         if (this.yearTxtField.getText() == null){
             errorMessages.add("Invalid year");
         }
@@ -71,20 +73,24 @@ public class DateTimePicker extends JPanel {
         else{
             min = Integer.parseInt(this.minTxtField.getText());
         }
-        if(radAMField.isSelected())
+        if(radAMField.isSelected()){
+            System.out.println("AM is selected for this save");
             ampm = "AM";
-        else if(radPMField.isSelected())
-            ampm = "PM";
-        else
-            errorMessages.add("Choose AM or PM");
-
-        if (ampm == "PM"){
-            hours += 12;
+            calendar.set(Calendar.AM_PM, 0);
         }
-                    calendar.set(Calendar.YEAR, year);
-                    calendar.set(Calendar.DAY_OF_MONTH, day);
-                    calendar.set(Calendar.HOUR, hours);
-                    calendar.set(Calendar.MINUTE, min);
+        else if(radPMField.isSelected()){
+            System.out.println("PM is selected for this save");
+            ampm = "PM";      
+            calendar.set(Calendar.AM_PM, 1);
+        }
+        else{
+            errorMessages.add("Choose AM or PM");
+        }
+        calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.DAY_OF_MONTH, day);
+        calendar.set(Calendar.HOUR, hours);
+        calendar.set(Calendar.MINUTE, min);
+        calendar.set(Calendar.MONTH, month);
 
         return calendar;
     }
@@ -199,18 +205,33 @@ public class DateTimePicker extends JPanel {
         this.add(radPMField, c);
     }
 
-            private void monthUpdated () {
-                    //Have some way to update dayComboBox base off of month
-                    System.out.println("Month updated");
-                    calendar.set(Calendar.MONTH, monthComboBox.getSelectedIndex() + 1);
-                    System.out.println("Month is now " + calendar.get(Calendar.MONTH));
-            }
+    private void monthUpdated () {
+            //Have some way to update dayComboBox base off of month
+            System.out.println("Month updated");
+            calendar.set(Calendar.MONTH, monthComboBox.getSelectedIndex() + 1);
+            System.out.println("Month is now " + calendar.get(Calendar.MONTH));
+    }
 
-            private void dayUpdated () {
-                    System.out.println("Day Updated.");
-                    calendar.set(Calendar.DAY_OF_MONTH, 
-                                    dayComboBox.getSelectedIndex() + 1);
-                    System.out.println("Day is now" 
-                                    + " " + calendar.get(Calendar.DAY_OF_MONTH));
-            }		
+    private void dayUpdated () {
+            System.out.println("Day Updated.");
+            calendar.set(Calendar.DAY_OF_MONTH, 
+                            dayComboBox.getSelectedIndex() + 1);
+            System.out.println("Day is now" 
+                            + " " + calendar.get(Calendar.DAY_OF_MONTH));
+    }
+    
+    public void setDate(Calendar c){
+        monthComboBox.setSelectedIndex(c.get(Calendar.MONTH) + 1);
+        dayComboBox.setSelectedIndex(c.get(Calendar.DAY_OF_MONTH) - 1);
+        yearTxtField.setText(Integer.toString(c.get(Calendar.YEAR)));
+        hoursTxtField.setText(Integer.toString(c.get(Calendar.HOUR)));
+        minTxtField.setText(Integer.toString(c.get(Calendar.MINUTE)));
+        if(c.get(Calendar.AM_PM) == 1){
+            radPMField.setSelected(true);
+        }
+        else{           
+            radAMField.setSelected(true);
+        }
+        
+    }
 }

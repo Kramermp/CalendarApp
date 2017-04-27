@@ -46,6 +46,7 @@ public class LocationPicker extends Picker {
 	private Location selectedLocation;
         private JTextField LocationNameTxtFld;
         private String selectedLocationString;
+         ArrayList<String> locationStringList = new ArrayList<String>();
         
         private ArrayList<Location> listOfLocations;
 		private JList locationJList;
@@ -80,14 +81,15 @@ public class LocationPicker extends Picker {
 	}
 	
 	public Location getSelectedLocation() {
-            return this.selectedLocation;
+            return listOfLocations.get(locationJList.getSelectedIndices()[0]);
+            //return locationJList.getSelectedIndices();
 	}
         
 	public void createComponents(){
             this.setLayout(new BorderLayout());
             GridBagConstraints c = new GridBagConstraints( );
             
-            ArrayList<String> locationStringList = new ArrayList<String>();
+           
 			for (int i = 0; i < listOfLocations.size(); i++) {
                 locationStringList.add(listOfLocations.get(i).getName());
             }
@@ -129,9 +131,25 @@ public class LocationPicker extends Picker {
         public void setLocation(String location){
             selectedLocationString = location;
         } 
+        
+        public void setLocation(Location location){
+            selectedLocation = location;
+        } 
+        
+        public void setSelected(String location){
+            int i = locationStringList.indexOf(location);
+            locationJList.setSelectedIndex(i);
+        }
 
-	@Override
-	public int[] getSelected() {
-		return locationJList.getSelectedIndices();
+	public Location getSelectedItem() {
+            if(locationJList.isSelectionEmpty())
+                return null;
+            int[] i = locationJList.getSelectedIndices();
+            return listOfLocations.get(i[0]);
 	}
+
+    @Override
+    public int[] getSelected() {
+        return locationJList.getSelectedIndices();
+    }
 }

@@ -36,6 +36,14 @@ public class Event implements Serializable {
 	public String getEventName() {
 		return eventName;
 	}
+        
+        public boolean hasLocation(){
+            return eventLocation != null;
+        }
+        
+        public boolean hasContacts(){
+            return eventContactList.size() > 0;
+        }
 
 	/**
 	 * @param eventName the eventName to set

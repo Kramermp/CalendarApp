@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 
 /**
  * This class will be used to have the user select a contact.
@@ -68,10 +69,28 @@ public class ContactPicker extends Picker {
 			listOfContactNames.add(listOfContacts.get(i).getName().getFullName(false));
 		}
 		contactJList = new JList(listOfContactNames.toArray());
+                contactJList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		JScrollPane pane = new JScrollPane(contactJList);
 		this.add(pane, BorderLayout.CENTER);
 
 	}
+        
+        public void setSelected(ArrayList<Contact> contacts){
+            int[] indices = new int[contacts.size()];
+            for(int i = 0; i < contacts.size(); i++){
+                indices[i] = listOfContacts.indexOf(contacts.get(i));
+            }
+            contactJList.setSelectedIndices(indices);
+        }
+        
+        public ArrayList<Contact> getSelectedContacts(){
+            int[] i = getSelected();
+            ArrayList<Contact> selected = new ArrayList<Contact>();
+            for(int n = 0; n < i.length; n++){
+                selected.add(listOfContacts.get(i[n]));
+            }
+            return selected;
+        }
 
 	@Override
 	public int[] getSelected() {

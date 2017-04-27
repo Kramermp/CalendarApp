@@ -411,6 +411,12 @@ public class EventUI extends JFrame {
         //FIXME: GitHub Issue #18
         this.eventNameTxtFld.setText(sourceEvent.getEventName());
         this.eventTagTxtFld.setText(sourceEvent.getEventTag());
+        startTimeArea.setDate(sourceEvent.getEventStartDate());
+        endTimeArea.setDate(sourceEvent.getEventEndDate());
+        if(sourceEvent.hasLocation())
+            locationArea.setSelected(sourceEvent.getEventLocation().getName());
+        if(sourceEvent.hasContacts())
+            contactArea.setSelected(sourceEvent.getEventContactList());
     }
 
     private ArrayList<String> validateInput() {
@@ -453,15 +459,10 @@ public class EventUI extends JFrame {
     }
 
     public Location getEventLocation() {
-        return this.locationArea.getSelectedLocation();
+        return locationArea.getSelectedItem();
     }
 
     public ArrayList<Contact> getEventContacts() {
-        ArrayList<Contact> selectedContactsList = new ArrayList<Contact>();
-        int[] selectedContacts = contactArea.getSelected();
-        for (int i = 0; i < selectedContacts.length; i++) {
-            selectedContactsList.add(listOfContacts.get(selectedContacts[i]));
-        }
-        return selectedContactsList;
+        return contactArea.getSelectedContacts();
     }
 }

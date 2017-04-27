@@ -346,12 +346,12 @@ public class ContactUI extends JFrame {
             middleNameTxtFld.setText(sourceContact.getName().getMiddleName());
             lastNameTxtFld.setText(sourceContact.getName().getLastName());            
             titleComboBox.setSelectedItem(sourceContact.getName().getTitle());
-//            for(int i = 0; i < sourceContact.getPhoneNumbers().size(); i++){
-//                phoneNumberListModel.addElement(sourceContact.getPhoneNumbers().get(i));
-//            }
-//            for(int i = 0; i < sourceContact.getEmailList().size(); i++){
-//                emailListModel.addElement(sourceContact.getEmailList().get(i));
-//            }
+            for(int i = 0; i < sourceContact.getPhoneNumbers().size(); i++){
+                phoneNumberListModel.addElement(sourceContact.getPhoneNumbers().get(i));
+            }
+            for(int i = 0; i < sourceContact.getEmailList().size(); i++){
+                emailListModel.addElement(sourceContact.getEmailList().get(i));
+            }
 	}
 	
 	private class ContactUIWindowListener implements WindowListener {
