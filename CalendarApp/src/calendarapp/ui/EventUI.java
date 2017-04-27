@@ -72,8 +72,9 @@ public class EventUI extends JFrame {
         System.out.println("Creating the EventUI window.");
         //this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         Dimension windowSize = new Dimension(375, 667);
-        this.setPreferredSize(windowSize);
+        //this.setPreferredSize(windowSize);
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setPreferredSize(screenSize);
         this.pack();
         this.setLocation((screenSize.width / 2) - this.getWidth() / 2,
                 screenSize.height / 2 - this.getHeight() / 2);
@@ -149,7 +150,7 @@ public class EventUI extends JFrame {
         
         // gridx = 2 will be empty and be the space between columns
         JPanel leftBlankSpace = new JPanel();
-        leftBlankSpace.setBackground(Color.white);
+        //leftBlankSpace.setBackground(Color.white);
         c = new GridBagConstraints();
         c.gridx = 0;
         c.weightx = .25;
@@ -287,14 +288,14 @@ public class EventUI extends JFrame {
     private void configureStartTimeArea(JPanel startTimeArea) {
         //This Area is odd consider using other means to get the user's time
         System.out.println("Configuring the startTimeArea");
-        startTimeArea.setBackground(Color.WHITE);
+        //startTimeArea.setBackground(Color.WHITE);
         //This area should add what ever components we decide to handle
         //The start time as
     }
 
     private void configureEndTimeArea(JPanel endTimeArea) {
         System.out.println("Configuring the endTimeArea");
-        endTimeArea.setBackground(Color.WHITE);
+        //endTimeArea.setBackground(Color.WHITE);
         //This area should add whatever components we end up using to handle the
         //end time
     }
