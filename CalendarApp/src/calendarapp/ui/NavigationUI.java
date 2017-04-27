@@ -63,6 +63,7 @@ public class NavigationUI extends JFrame {
 	private JPanel rightArea;
 	private JPanel leftArea;
         private User user;
+        private Contact contact;
 	private JTable eventTable;
 	private JScrollPane tablePane;
 	private EventTableModel eventModel;
@@ -245,11 +246,12 @@ public class NavigationUI extends JFrame {
             exportGson.setMnemonic(KeyEvent.VK_E);
             exportGson.addActionListener((ActionEvent ae) ->{
                 try{
-                    ArrayList<Contact> conatctsToExport = user.getContactList();
+                    ArrayList<Contact> contactsToExport = user.getContactList();
                     System.out.println(user.getContactList());
                     PrintWriter writer = new PrintWriter(file);
-                    for(int i = 0; i < conatctsToExport.size(); i++ ){
-                        writer.println(user.getContactList());
+                    for(int i = 0; i < contactsToExport.size(); i++ ){
+                        contact = contactsToExport.get(i);
+                        writer.println(user.getContactList() + ", " + contact.returnEmail(i) + ", " + contact.phoneNumber(i));
                     }
                     writer.close();
                 }catch (IOException e){
