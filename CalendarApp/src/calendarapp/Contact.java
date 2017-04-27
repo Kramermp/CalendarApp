@@ -57,6 +57,14 @@ public class Contact extends Person implements Comparable, Serializable {
 		this.emails = emailList;
 		this.phoneNumbers = phoneNumberList;
 	}
+        
+        public ArrayList<String> getEmailList(){
+            return emails;
+        }
+        
+        public ArrayList<String> getPhoneNumbers(){
+            return phoneNumbers;
+        }
 	
 	/**
 	 * Returns the Name object of the Contact
