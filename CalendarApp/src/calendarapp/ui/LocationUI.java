@@ -188,7 +188,7 @@ public class LocationUI extends JFrame {
 		//addressPanel.setBackground(Color.GRAY);
 		//addressPanel.setPreferredSize(new Dimension(200, 200));
 		coordinatePanel = new CoordinatePanel();
-		coordinatePanel.setBackground(Color.yellow);
+		//coordinatePanel.setBackground(Color.yellow);
 		//coordinatePanel.setPreferredSize(new Dimension(200, 200));
 		cardsLayout.addLayoutComponent(coordinatePanel, COORDINATE_PANEL);
 		cardsLayout.addLayoutComponent(addressPanel, ADDRESS_PANEL);
@@ -228,8 +228,11 @@ public class LocationUI extends JFrame {
 		JButton deleteBtn = new JButton("Delete");
 		deleteBtn.addActionListener((ActionEvent ae) -> { 
 			System.out.println("DeleteBtn triggered.");
-			System.err.println("DeleteBtn is not implemented yet.");
+			LocationUI.this.parentController.delete(sourceLocation);
 		});
+                c.gridx = 2;
+                c.gridy = 0;
+                buttonArea.add(deleteBtn);
 		
 	}
 	

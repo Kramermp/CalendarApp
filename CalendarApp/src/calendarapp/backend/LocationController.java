@@ -104,4 +104,8 @@ public class LocationController {
 		locationUI.toFront();
 		locationUI.repaint();
 	}
+
+    public void delete(Location sourceLocation) {
+        this.parentController.deleteLocation(sourceLocation);
+    }
 }

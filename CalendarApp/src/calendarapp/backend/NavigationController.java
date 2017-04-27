@@ -297,4 +297,9 @@ public class NavigationController {
 		return new ContactTableModel(activeUser);
 	}
 
+    public void deleteLocation(Location sourceLocation) {
+       this.activeUser.getLocationList().remove(sourceLocation);
+    }
+    
+
 }
