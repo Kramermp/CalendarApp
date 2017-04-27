@@ -21,13 +21,22 @@ import javax.swing.border.MatteBorder;
  * @since .1
  */
 public class DayPanel extends JPanel {
+	public static final int NOT_ACTIVE = 0;
+	public static final int ACTIVE = 1;
 	
-	public DayPanel (int date) {
+	private static final Color GRAY = new Color (211, 211, 211);
+	private Color borderColor;
+	public DayPanel (int date, int activeState) {
+		if(activeState == NOT_ACTIVE) {
+			borderColor = GRAY;
+		} else {
+			borderColor = Color.BLACK;
+		}
 		addComponents(date);
 	}
 
 	private void addComponents(int date) {
-		setBorder(new LineBorder(Color.BLACK));
+		setBorder(new LineBorder(borderColor));
 		setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		c.gridx = 0;
@@ -37,7 +46,7 @@ public class DayPanel extends JPanel {
 		c.anchor = GridBagConstraints.NORTHWEST;
 		JPanel datePanel = new JPanel();
 		
-		MatteBorder datePanelBorder = new MatteBorder(0, 0, 1, 1, Color.BLACK);
+		MatteBorder datePanelBorder = new MatteBorder(0, 0, 2, 2, borderColor);
 		datePanel.setBorder(datePanelBorder);
 		datePanel.setLayout(new BorderLayout());
 		datePanel.add(new JLabel(String.valueOf(date)), BorderLayout.CENTER);
