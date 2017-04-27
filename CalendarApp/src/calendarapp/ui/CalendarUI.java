@@ -126,6 +126,7 @@ public class CalendarUI extends JPanel {
 		if(bottomArea == null) {
 			bottomArea = new JPanel();
 		}
+		GregorianCalendar test = (GregorianCalendar) displayCalendar.clone();
 		bottomArea.setLayout(new GridBagLayout());
 		int dayNumber = handleFirstWeek(bottomArea);
 		GridBagConstraints c = new GridBagConstraints();
@@ -133,17 +134,29 @@ public class CalendarUI extends JPanel {
 		c.weightx = 1;
 		c.fill = GridBagConstraints.BOTH;
 		int date = calendar.get(Calendar.DAY_OF_MONTH);
-		for(int i = 1; i < 5; i++) {
+		int dayCount = getDayCount(test.get(Calendar.MONTH));
+		int i = 1;
+		int j = 0;
+		boolean nextMonth = false;
+		for(i = 1; i < 6; i++) {
 			c.gridy = i;
-			for(int j = 0; j < 7; j++) {
+			for(j = 0; j < 7; j++) {
 				c.gridx = j;
-				DayPanel dayPanel = new DayPanel(dayNumber);
+				DayPanel dayPanel;
+				if(!nextMonth)
+					dayPanel = new DayPanel(dayNumber, DayPanel.ACTIVE);
+				else
+					dayPanel = new DayPanel(dayNumber, DayPanel.NOT_ACTIVE);
 				//dayPanel.setBackground(new Color(rng.nextInt(255), rng.nextInt(255), rng.nextInt(255)));
 				bottomArea.add(dayPanel, c);
 				dayNumber++;
+				if(dayNumber > dayCount) {
+					nextMonth = true;
+					dayNumber = 1; //Wrapping into nextMonth Starts  dates back to 1
+				}
 			}
+
 		}
-		handleLastWeek(bottomArea, dayNumber);
 		
 		c = new GridBagConstraints();
 		c.gridx = 0;
@@ -174,14 +187,14 @@ public class CalendarUI extends JPanel {
 		//This loop handles the end of the previous month
 		
 		for(int i = 0; i < test.get(Calendar.DAY_OF_WEEK) -1; i++) {
-			DayPanel dayPanel = new DayPanel(previousMonthDayCount - i); 
+			DayPanel dayPanel = new DayPanel(previousMonthDayCount - i, DayPanel.NOT_ACTIVE); 
 			c.gridx = test.get(Calendar.DAY_OF_WEEK) - 2 - i;//I'm not entirly sure why it is a -2
 			c.gridy = 0;
 			bottomArea.add(dayPanel, c);
 		}
 		//This loop handles the start of the month
 		for(int i = test.get(Calendar.DAY_OF_WEEK); i < 8; i++) {
-			DayPanel dayPanel = new DayPanel(date);
+			DayPanel dayPanel = new DayPanel(date, DayPanel.ACTIVE);
 			c.gridx = i - 1;
 			c.gridy= 0;
 			bottomArea.add(dayPanel, c);
@@ -190,36 +203,7 @@ public class CalendarUI extends JPanel {
 		return date;
 	}
 	
-	private void handleLastWeek(JPanel bottomArea, int date) {
-		GridBagConstraints c = new GridBagConstraints();
-		c.weighty = 1;
-		c.weightx = 1;
-		c.fill = GridBagConstraints.BOTH;
-		GregorianCalendar test = (GregorianCalendar) displayCalendar.clone();
-		int dayCount = getDayCount(test.get(Calendar.MONTH));
-		int j = 0;
-		System.out.println(date);
-		System.out.println(dayCount);
-		//This loop handles the remainder of the month
-		for(int i = date; i <= dayCount; i++) {
-			System.out.println("Looped");
-			DayPanel dayPanel = new DayPanel(date);
-			c.gridx = 0 + j;
-			c.gridy = 7;
-			bottomArea.add(dayPanel, c);
-			j++;
-		}
-		//Handles the start of the next month
-		for(int i = 1; j < 7; i++) {
-			System.out.println("Looped");
-			DayPanel dayPanel = new DayPanel(i);
-			c.gridx = 0 + j;
-			c.gridy = 7;
-			bottomArea.add(dayPanel, c);
-			j++;
-		}
-
-	}
+	
 	private void clearBottomArea() {
 		bottomArea.removeAll();
 		buildBottomArea(bottomArea);
