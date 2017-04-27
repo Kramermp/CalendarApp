@@ -7,6 +7,7 @@ package calendarapp.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -54,9 +55,7 @@ public class CalendarUI extends JPanel {
 		add(topArea, c);
 		
 		bottomArea = new JPanel();
-		buildBottomArea(bottomArea);
-		
-		
+		buildBottomArea(bottomArea);	
 	}
 
 	private void buildTopArea() {
@@ -119,6 +118,74 @@ public class CalendarUI extends JPanel {
 		c.weightx =0;
 		c.anchor = GridBagConstraints.EAST;
 		topArea.add(nextMonthBtn, c);
+		JPanel dayArea = new JPanel();
+		dayArea.setLayout(new GridBagLayout());
+		
+		c = new GridBagConstraints();
+		c.gridx = 0;
+		c.weightx = 1;
+		c.fill = GridBagConstraints.BOTH;
+		c.gridy = 1;
+		c.anchor = GridBagConstraints.CENTER;
+		dayArea.add(new JLabel("Sunday"), c);
+		
+		c = new GridBagConstraints();
+		c.gridx = 1;
+		c.fill = GridBagConstraints.BOTH;
+		c.weightx = 1;
+		c.gridy = 1;
+		c.anchor = GridBagConstraints.CENTER;
+		dayArea.add(new JLabel("Monday"), c);
+		
+		c = new GridBagConstraints();
+		c.gridx = 2;
+		c.weightx = 1;
+		c.fill = GridBagConstraints.BOTH;
+		c.gridy = 1;
+		c.anchor = GridBagConstraints.CENTER;
+		dayArea.add(new JLabel("Tuesday"), c);
+		
+		c = new GridBagConstraints();
+		c.gridx = 3;
+		c.weightx = 1;
+		c.fill = GridBagConstraints.BOTH;
+		c.gridy = 1;
+		c.anchor = GridBagConstraints.CENTER;
+		dayArea.add(new JLabel("Wednesday"), c);
+		
+		c = new GridBagConstraints();
+		c.gridx = 4;
+		c.weightx = 1;
+		c.fill = GridBagConstraints.BOTH;
+		c.gridy = 1;
+		c.anchor = GridBagConstraints.CENTER;
+		dayArea.add(new JLabel("Thursday"), c);
+		
+		c = new GridBagConstraints();
+		c.gridx = 5;
+		c.weightx = 1;
+		c.fill = GridBagConstraints.BOTH;
+		c.gridy = 1;
+		c.anchor = GridBagConstraints.CENTER;
+		dayArea.add(new JLabel("Friday"), c);
+		
+		c = new GridBagConstraints();
+		c.gridx = 6;
+		c.weightx = 1;
+		c.fill = GridBagConstraints.BOTH;
+		c.gridy = 1;
+		c.anchor = GridBagConstraints.CENTER;
+		dayArea.add(new JLabel("Saturday"), c);
+		
+		c = new GridBagConstraints();
+		c.gridx = 0;
+		c.weightx = 1;
+		c.fill = GridBagConstraints.BOTH;
+		c.anchor = GridBagConstraints.CENTER;
+		c.gridwidth = 4;
+		c.gridy = 1;
+		topArea.add(dayArea, c);
+		
 		
 	}
 	
@@ -127,6 +194,7 @@ public class CalendarUI extends JPanel {
 			bottomArea = new JPanel();
 		}
 		GregorianCalendar test = (GregorianCalendar) displayCalendar.clone();
+		
 		bottomArea.setLayout(new GridBagLayout());
 		int dayNumber = handleFirstWeek(bottomArea);
 		GridBagConstraints c = new GridBagConstraints();
