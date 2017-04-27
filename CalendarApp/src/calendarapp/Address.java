@@ -130,6 +130,10 @@ public class Address extends Location implements Serializable {
     public String getCountry() {
         return country;
     }
+    
+    public String getCity(){
+        return city;
+    }
 
     /**
 	 * Sets the first line of the Address
