@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.io.PrintWriter;
 import calendarapp.Contact;
 import calendarapp.Event;
+import java.awt.CardLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -62,13 +63,17 @@ public class NavigationUI extends JFrame {
 	private JPanel topArea;
 	private JPanel rightArea;
 	private JPanel leftArea;
-        private User user;
-        private Contact contact;
+    private User user;
+    private Contact contact;
 	private JTable eventTable;
 	private JScrollPane tablePane;
 	private EventTableModel eventModel;
 	private JTable contactTable;
 	private ContactTableModel contactModel;
+	private JPanel cards;
+	
+	private static final String CONTACTLIST_VIEW = "Contact VIEW";
+	private static final String LOCATIONLIST_VIEW = "Location VIEW";
 	
         //changed to also accept User
 	public NavigationUI(NavigationController parentController, User user) {
@@ -323,9 +328,46 @@ public class NavigationUI extends JFrame {
 	
 	private void buildLeftArea(JPanel leftArea) {
 		System.out.println("Building leftArea.");
-		buildContactTable();
-		leftArea.setLayout(new BorderLayout());
-		leftArea.add(new JScrollPane(contactTable), BorderLayout.CENTER);
+		leftArea.setLayout(new GridBagLayout());
+		JPanel leftBtnArea = new JPanel();
+		leftBtnArea.setBackground(Color.RED);
+		GridBagConstraints c = new GridBagConstraints();
+		JButton contactBtn = new JButton("Contact");
+		contactBtn.addActionListener((ActionEvent ActionEvent) -> { 
+			System.out.println("ContactBtn Triggered.");
+			((CardLayout)cards.getLayout()).show(cards, CONTACTLIST_VIEW);
+		});
+		JButton locationBtn = new JButton("Location");
+		locationBtn.addActionListener((ActionEvent ActionEvent) -> { 
+			System.out.println("LocationBtn triggered.");
+			((CardLayout)cards.getLayout()).show(cards, LOCATIONLIST_VIEW);
+		});
+		leftBtnArea.add(contactBtn);
+		leftBtnArea.add(locationBtn);	
+		c = new GridBagConstraints();
+		c.gridx =0;
+		c.weightx =1;
+		c.gridy =0;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.anchor = GridBagConstraints.NORTH;
+		leftArea.add(leftBtnArea, c);
+		
+		cards = new JPanel();
+		CardLayout cardsLayout = new CardLayout();
+		cardsLayout.addLayoutComponent(new ContactListUI(), CONTACTLIST_VIEW);
+		cardsLayout.addLayoutComponent(new LocationListUI(), LOCATIONLIST_VIEW);
+		cards.setBackground(Color.BLUE);
+		cards.setLayout(cardsLayout);
+		cards.add(new ContactListUI(), CONTACTLIST_VIEW);
+		cards.add(new LocationListUI(), LOCATIONLIST_VIEW);
+		c = new GridBagConstraints();
+		c.gridx  = 0;
+		c.gridy =1;
+		c.weightx = 1;
+		c.weighty = 1;
+		c.fill = GridBagConstraints.BOTH;
+		c.anchor = GridBagConstraints.CENTER;
+		leftArea.add(cards, c);
 	}
 	
 	private void buildEventTable() {
