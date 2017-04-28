@@ -12,7 +12,7 @@ import java.io.Serializable;
  *
  * @author Michael Kramer <mpk5206@psu.edu>
  */
-class ColorPalette implements Serializable {
+public class ColorPalette implements Serializable {
 	private Color backgroundColor = Color.WHITE;
 	private Color defaultFontColor = Color.BLACK;
 	private Color alertFontColor = Color.RED;
