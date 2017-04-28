@@ -2,12 +2,15 @@ package calendarapp.backend;
 
 import java.io.FileInputStream;
 import calendarapp.Name;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import org.jasypt.util.binary.BasicBinaryEncryptor;
 
 /**
  * This class will control the SerializedData. 
@@ -20,8 +23,11 @@ import java.util.ArrayList;
 public class SerializedDataController {
 	private static SerializedData theSerializedData;
 	private String filepath = "Data.ser";
+	private BasicBinaryEncryptor encryptor;
 
 	private SerializedDataController () {
+		encryptor = new BasicBinaryEncryptor();
+		encryptor.setPassword("Tet");		
 		getTheSerializedData();
 	}
 
@@ -49,7 +55,8 @@ public class SerializedDataController {
 			ObjectInputStream in = null;
 			fis = new FileInputStream(filepath);
 			in = new ObjectInputStream(fis);
-			theSerializedData = (SerializedData) in.readObject();
+			byte[] encryptedArray = (byte[])in.readObject();
+			theSerializedData = (SerializedData) deserialize(encryptor.decrypt(encryptedArray));
 			in.close();
 		} catch (FileNotFoundException e) {
 			errorType = "FileNotFoundException";
@@ -80,7 +87,7 @@ public class SerializedDataController {
 		try {
 			fos = new FileOutputStream(filepath);
 			out = new ObjectOutputStream(fos);
-			out.writeObject(theSerializedData);
+			out.writeObject(encryptor.encrypt(serialize()));
 			out.flush();
 			out.close();
 		} catch(IOException ex) {
@@ -100,7 +107,24 @@ public class SerializedDataController {
 	public SerializedData getSerializedData() {
 		return theSerializedData;
 	}
-
+	
+	private byte[] serialize() throws IOException {
+		try(ByteArrayOutputStream bos = new ByteArrayOutputStream()){
+            try(ObjectOutputStream oos = new ObjectOutputStream(bos)){
+                oos.writeObject(theSerializedData);
+            }
+            return bos.toByteArray();
+        }
+	}
+	
+	private Object deserialize(byte[] bytes) throws IOException, 
+			ClassNotFoundException {
+        try(ByteArrayInputStream bos = new ByteArrayInputStream(bytes)){
+            try(ObjectInputStream oos = new ObjectInputStream(bos)){
+                return oos.readObject();
+            }
+        }
+    }
 	/**
 	 *
 	 * This method returns the single SerializedDataController.
