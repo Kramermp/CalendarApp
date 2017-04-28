@@ -301,5 +301,8 @@ public class NavigationController {
        this.activeUser.getLocationList().remove(sourceLocation);
     }
     
+	public ArrayList<Contact> getContactList() {
+		return activeUser.getContactList();
+	}
 
 }
