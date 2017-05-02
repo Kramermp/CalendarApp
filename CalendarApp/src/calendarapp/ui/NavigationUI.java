@@ -71,18 +71,26 @@ public class NavigationUI extends JFrame {
 	private JTable contactTable;
 	private ContactTableModel contactModel;
 	private JPanel cards;
+	private CalendarUI calendarUI;
 	
 	private static final String CONTACTLIST_VIEW = "Contact VIEW";
 	private static final String LOCATIONLIST_VIEW = "Location VIEW";
 	
         //changed to also accept User
 	public NavigationUI(NavigationController parentController, User user) {
-                this.user = user;
+        this.user = user;
+		printEventList(user);
 		System.out.println("Creating NavigationUI.");
 		this.parentController = parentController;
 		createWindow();
 		addComponents();
 		System.out.println("Finished creating NavigationUI.");
+	}
+	
+	private void printEventList(User user) {
+		for(int i = 0; i < user.getEventList().size(); i++) {
+			System.out.println(user.getEventList().get(i).getEventStartDate().getTime().toString());
+		}
 	}
 	
 	private void createWindow() {	
@@ -323,7 +331,8 @@ public class NavigationUI extends JFrame {
 		rightArea.setLayout(new BorderLayout());
 		GregorianCalendar sourceCalendar = new GregorianCalendar();
 		sourceCalendar.setTimeInMillis(System.currentTimeMillis());
-		rightArea.add(new CalendarUI(sourceCalendar), BorderLayout.CENTER);
+		calendarUI = new CalendarUI(sourceCalendar, parentController.getEventList());
+		rightArea.add(calendarUI, BorderLayout.CENTER);
 	}
 	
 	private void buildLeftArea(JPanel leftArea) {
@@ -381,8 +390,7 @@ public class NavigationUI extends JFrame {
 	}
 
 	public void updateEventTable() {
-		eventModel.setData();
-		eventModel.fireTableDataChanged();
+		calendarUI.updateCalendar();
 	}
 	
 	public void updateContactTable() {
