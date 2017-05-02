@@ -7,6 +7,7 @@ package calendarapp;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -57,6 +58,8 @@ public class Contact extends Person implements Comparable, Serializable {
 		this.emails = emailList;
 		this.phoneNumbers = phoneNumberList;
 	}
+
+
         
         public ArrayList<String> getEmailList(){
             return emails;

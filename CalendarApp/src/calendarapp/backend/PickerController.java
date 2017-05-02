@@ -14,6 +14,7 @@ import calendarapp.ui.LocationPicker;
 import calendarapp.ui.GsonPicker;
 import calendarapp.ui.PickerUI;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JFrame;
 
 /**
@@ -63,7 +64,7 @@ public class PickerController {
 				break;
                         case GSON:
                                 pickerUI = new PickerUI(this, editCode,
-                                        new GsonPicker());
+                                        new GsonPicker(this));
 				break;
 			default:
 				
@@ -193,4 +194,13 @@ public class PickerController {
 		pickerUI.toFront();
 		pickerUI.repaint();
 	}
+
+    public void importContacts(List<Contact> readContactArray) {
+        System.out.println("importing " + readContactArray.size() + " contacts.");
+        for(int i = 0; i < readContactArray.size(); i++) {
+            this.activeUser.addContact(readContactArray.get(i));
+        }
+        parentController.updateContactTable();
+        parentController.writeData();
+    }
 }
