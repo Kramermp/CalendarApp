@@ -424,18 +424,18 @@ public class NavigationUI extends JFrame {
 	}
 	
 	public void updateContactTable() {
-		System.out.println("updating contactTable");
-		leftArea.removeAll();
-		leftArea.updateUI();
-		buildLeftArea(leftArea);
+		contactListUI.update();
+		((CardLayout)cards.getLayout()).show(cards, CONTACTLIST_VIEW);
 	}       
 	
 	public void sortContacts(String sortField) {
-		contactListUI.update();
+		parentController.sortContacts(sortField);
+		updateContactTable();
 	}
 
 	public void updateLocationTable() {
 		System.out.println("Updating Location Table");
 		locationListUI.update();
+		((CardLayout)cards.getLayout()).show(cards, LOCATIONLIST_VIEW);
 	}
 }
