@@ -50,7 +50,7 @@ public class DayPanel extends JPanel {
 	}
 
 	private void addComponents(int date) {
-		setBorder(new LineBorder(borderColor));
+		setBorder(new MatteBorder(2, 1, 1, 2, borderColor));
 		setLayout(new GridBagLayout());
 		setPreferredSize(new Dimension (50, 50)); 
 		GridBagConstraints c = new GridBagConstraints();
@@ -64,7 +64,10 @@ public class DayPanel extends JPanel {
 		MatteBorder datePanelBorder = new MatteBorder(0, 0, 2, 2, borderColor);
 		datePanel.setBorder(datePanelBorder);
 		datePanel.setLayout(new BorderLayout());
-		datePanel.add(new JLabel(String.valueOf(date)), BorderLayout.CENTER);
+		JLabel dateLabel = new JLabel(String.valueOf(date));
+		dateLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		dateLabel.setPreferredSize(new Dimension(20, 15));
+		datePanel.add(dateLabel, BorderLayout.CENTER);
 		add(datePanel, c);
 
 		eventPanel = new JPanel();
