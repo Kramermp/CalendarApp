@@ -45,7 +45,7 @@ public class CalendarUI extends JPanel {
 		this.calendar = calendar;
 		this.eventList = eventList;
 		System.out.println("This User has " + this.eventList.size() + " events.");
-		this.displayCalendar = calendar;
+		this.displayCalendar = (GregorianCalendar) calendar.clone();
 		this.selectedMonth = calendar.get(Calendar.MONTH);
 		addComponents();
 		System.out.println("Finished building the calendarUI.");
@@ -74,13 +74,19 @@ public class CalendarUI extends JPanel {
 			System.out.println("Previous month Button was triggered.");
 			int currentMonth = displayCalendar.get(Calendar.MONTH);
 			if(currentMonth == 0) {
+				System.out.println("Detected Year Change");
 				displayCalendar.set(Calendar.YEAR, displayCalendar.get(Calendar.YEAR) - 1);
 				displayCalendar.set(Calendar.MONTH, Calendar.DECEMBER);
+				System.out.println("Display calendar is year is now " + displayCalendar.get(Calendar.YEAR));
 			} else {
 				displayCalendar.set(Calendar.MONTH, displayCalendar.get(Calendar.MONTH) - 1);
 			}
 			System.out.println("Navigating to " + getMonthName(displayCalendar.get(Calendar.MONTH)));
-			monthLabel.setText(getMonthName(displayCalendar.get(Calendar.MONTH)));
+			if(displayCalendar.get(Calendar.YEAR) != calendar.get(Calendar.YEAR)) {
+				monthLabel.setText(getMonthName(displayCalendar.get(Calendar.MONTH)) + " - " + displayCalendar.get(Calendar.YEAR));
+			} else {
+				monthLabel.setText(getMonthName(displayCalendar.get(Calendar.MONTH)));
+			}
 			bottomArea.removeAll();
 			buildBottomArea(bottomArea);
 		});
@@ -93,7 +99,6 @@ public class CalendarUI extends JPanel {
 		c.fill = GridBagConstraints.HORIZONTAL;
 		previousMonthBtn.setPreferredSize(new Dimension(1, 25));
 		topArea.add(previousMonthBtn, c);
-		
 		monthLabel = new JLabel(getMonthName(displayCalendar.get(Calendar.MONTH)));
 		JPanel labelArea = new JPanel();
 		labelArea.setLayout(new GridBagLayout());
@@ -112,13 +117,18 @@ public class CalendarUI extends JPanel {
 			System.out.println("Next month Button was triggered.");
 			int currentMonth = displayCalendar.get(Calendar.MONTH);
 			if(currentMonth == 11) {
+				System.out.println("Detected Year Change.");
 				displayCalendar.set(Calendar.YEAR, displayCalendar.get(Calendar.YEAR) + 1);
 				displayCalendar.set(Calendar.MONTH, Calendar.JANUARY);
 			} else {
 				displayCalendar.set(Calendar.MONTH, displayCalendar.get(Calendar.MONTH) + 1);
 			}
 			System.out.println("Navigating to " + getMonthName(displayCalendar.get(Calendar.MONTH)));
-			monthLabel.setText(getMonthName(displayCalendar.get(Calendar.MONTH)));
+			if(displayCalendar.get(Calendar.YEAR) != calendar.get(Calendar.YEAR)) {
+				monthLabel.setText(getMonthName(displayCalendar.get(Calendar.MONTH)) + " - " + displayCalendar.get(Calendar.YEAR));
+			} else {
+				monthLabel.setText(getMonthName(displayCalendar.get(Calendar.MONTH)));
+			}
 			bottomArea.removeAll();
 			buildBottomArea(bottomArea);
 		});
