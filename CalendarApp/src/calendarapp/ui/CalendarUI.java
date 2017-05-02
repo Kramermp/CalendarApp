@@ -20,6 +20,7 @@ import java.util.Random;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 /**
  *
@@ -133,7 +134,7 @@ public class CalendarUI extends JPanel {
 		c.fill = GridBagConstraints.BOTH;
 		c.gridy = 1;
 		c.anchor = GridBagConstraints.CENTER;
-		dayArea.add(new JLabel("Sunday"), c);
+		dayArea.add(new JLabel("Sunday", SwingConstants.CENTER), c);
 		
 		c = new GridBagConstraints();
 		c.gridx = 1;
@@ -141,7 +142,7 @@ public class CalendarUI extends JPanel {
 		c.weightx = 1;
 		c.gridy = 1;
 		c.anchor = GridBagConstraints.CENTER;
-		dayArea.add(new JLabel("Monday"), c);
+		dayArea.add(new JLabel("Monday", SwingConstants.CENTER), c);
 		
 		c = new GridBagConstraints();
 		c.gridx = 2;
@@ -149,7 +150,7 @@ public class CalendarUI extends JPanel {
 		c.fill = GridBagConstraints.BOTH;
 		c.gridy = 1;
 		c.anchor = GridBagConstraints.CENTER;
-		dayArea.add(new JLabel("Tuesday"), c);
+		dayArea.add(new JLabel("Tuesday", SwingConstants.CENTER), c);
 		
 		c = new GridBagConstraints();
 		c.gridx = 3;
@@ -157,7 +158,7 @@ public class CalendarUI extends JPanel {
 		c.fill = GridBagConstraints.BOTH;
 		c.gridy = 1;
 		c.anchor = GridBagConstraints.CENTER;
-		dayArea.add(new JLabel("Wednesday"), c);
+		dayArea.add(new JLabel("Wednesday", SwingConstants.CENTER), c);
 		
 		c = new GridBagConstraints();
 		c.gridx = 4;
@@ -165,7 +166,7 @@ public class CalendarUI extends JPanel {
 		c.fill = GridBagConstraints.BOTH;
 		c.gridy = 1;
 		c.anchor = GridBagConstraints.CENTER;
-		dayArea.add(new JLabel("Thursday"), c);
+		dayArea.add(new JLabel("Thursday", SwingConstants.CENTER), c);
 		
 		c = new GridBagConstraints();
 		c.gridx = 5;
@@ -173,7 +174,7 @@ public class CalendarUI extends JPanel {
 		c.fill = GridBagConstraints.BOTH;
 		c.gridy = 1;
 		c.anchor = GridBagConstraints.CENTER;
-		dayArea.add(new JLabel("Friday"), c);
+		dayArea.add(new JLabel("Friday", SwingConstants.CENTER), c);
 		
 		c = new GridBagConstraints();
 		c.gridx = 6;
@@ -181,7 +182,7 @@ public class CalendarUI extends JPanel {
 		c.fill = GridBagConstraints.BOTH;
 		c.gridy = 1;
 		c.anchor = GridBagConstraints.CENTER;
-		dayArea.add(new JLabel("Saturday"), c);
+		dayArea.add(new JLabel("Saturday", SwingConstants.CENTER), c);
 		
 		c = new GridBagConstraints();
 		c.gridx = 0;
