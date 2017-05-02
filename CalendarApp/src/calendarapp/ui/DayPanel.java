@@ -13,6 +13,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 
@@ -73,14 +74,20 @@ public class DayPanel extends JPanel {
 		c.weightx = 1;
 		c.weighty = 1;
 		c.fill = GridBagConstraints.BOTH;
-		c.anchor = GridBagConstraints.CENTER;
+		c.anchor = GridBagConstraints.NORTH;
 		add(eventPanel, c);
 	}	
 	public void addEvent(Event eventToAdd) {
 		//eventPanel.setBackground(Color.RED);
 		GridBagConstraints c = new GridBagConstraints();
 		c.gridy = eventCount;
-		eventPanel.add(new JLabel(eventToAdd.getEventName()), c);
+		c.anchor = GridBagConstraints.NORTH;
+		c.fill = GridBagConstraints.BOTH;
+		c.weightx = 1;
+		c.weighty = 1;
+		JLabel label =  new JLabel(eventToAdd.getEventName());
+		label.setHorizontalAlignment(SwingConstants.CENTER);
+		eventPanel.add(label, c);
 		eventCount++;
 	}
 	public int getDate() {
