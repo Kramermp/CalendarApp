@@ -305,4 +305,8 @@ public class NavigationController {
 		return activeUser.getContactList();
 	}
 
+	public ArrayList<Event> getEventList() {
+		return activeUser.getEventList();
+	}
+
 }

@@ -5,6 +5,7 @@
  */
 package calendarapp.ui;
 
+import calendarapp.Event;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -12,6 +13,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Random;
@@ -33,14 +35,18 @@ public class CalendarUI extends JPanel {
 	private JPanel bottomArea;
 	private JLabel monthLabel;
 	private int selectedMonth;
+	private ArrayList<Event> eventList;
 	
-	public CalendarUI(GregorianCalendar calendar) {
+	public CalendarUI(GregorianCalendar calendar, ArrayList<Event> eventList) {
+		System.out.println("Building the calendarUI.");
 		setLayout(new GridBagLayout());
-		System.out.println(calendar);
 		this.calendar = calendar;
+		this.eventList = eventList;
+		System.out.println("This User has " + this.eventList.size() + " events.");
 		this.displayCalendar = calendar;
 		this.selectedMonth = calendar.get(Calendar.MONTH);
 		addComponents();
+		System.out.println("Finished building the calendarUI.");
 	}
 
 	private void addComponents() {
@@ -212,14 +218,23 @@ public class CalendarUI extends JPanel {
 				c.gridx = j;
 				DayPanel dayPanel;
 				if(!nextMonth)
-					dayPanel = new DayPanel(dayNumber, DayPanel.ACTIVE);
+					dayPanel = new DayPanel(dayNumber, test.get(Calendar.MONTH),
+							test.get(Calendar.YEAR), DayPanel.ACTIVE);
 				else
-					dayPanel = new DayPanel(dayNumber, DayPanel.NOT_ACTIVE);
+					dayPanel = new DayPanel(dayNumber, test.get(Calendar.MONTH),
+						test.get(Calendar.YEAR), DayPanel.NOT_ACTIVE);
 				//dayPanel.setBackground(new Color(rng.nextInt(255), rng.nextInt(255), rng.nextInt(255)));
+				checkDay(dayPanel);
 				bottomArea.add(dayPanel, c);
 				dayNumber++;
 				if(dayNumber > dayCount) {
 					nextMonth = true;
+					if(test.get(Calendar.MONTH) == 11) {
+						test.set(Calendar.MONTH, 0);
+						test.set(Calendar.YEAR, (test.get(test.YEAR) + 1));
+					} else {
+						test.set(Calendar.MONTH, (test.get(Calendar.MONTH) + 1));
+					}
 					dayNumber = 1; //Wrapping into nextMonth Starts  dates back to 1
 				}
 			}
@@ -255,16 +270,18 @@ public class CalendarUI extends JPanel {
 		//This loop handles the end of the previous month
 		
 		for(int i = 0; i < test.get(Calendar.DAY_OF_WEEK) -1; i++) {
-			DayPanel dayPanel = new DayPanel(previousMonthDayCount - i, DayPanel.NOT_ACTIVE); 
+			DayPanel dayPanel = new DayPanel(previousMonthDayCount - i, test.get(Calendar.MONTH), test.get(Calendar.YEAR), DayPanel.NOT_ACTIVE); 
 			c.gridx = test.get(Calendar.DAY_OF_WEEK) - 2 - i;//I'm not entirly sure why it is a -2
 			c.gridy = 0;
+			checkDay(dayPanel);
 			bottomArea.add(dayPanel, c);
 		}
 		//This loop handles the start of the month
 		for(int i = test.get(Calendar.DAY_OF_WEEK); i < 8; i++) {
-			DayPanel dayPanel = new DayPanel(date, DayPanel.ACTIVE);
+			DayPanel dayPanel = new DayPanel(date, test.get(Calendar.MONTH), test.get(Calendar.YEAR), DayPanel.ACTIVE);
 			c.gridx = i - 1;
 			c.gridy= 0;
+			checkDay(dayPanel);
 			bottomArea.add(dayPanel, c);
 			date++;
 		}
@@ -329,5 +346,28 @@ public class CalendarUI extends JPanel {
 				}
 		}
 		return 0;
+	}
+	
+	private void checkDay(DayPanel dayPanel) {
+		System.out.println("Checking day " + dayPanel.getFull());
+		ArrayList<Event> tempEventList= new ArrayList<Event>();
+		for(int i = 0 ; i < eventList.size(); i++) {
+			Event testEvent = eventList.get(i);
+			Calendar testEventDate = testEvent.getEventStartDate();
+			if(testEventDate.get(Calendar.DATE) == dayPanel.getDate()) {
+				System.out.println("Found an event on the same day");
+				if(testEventDate.get(Calendar.MONTH)  == dayPanel.getMonth() - 1) { //dayPanel does not store it as index but as Jan = 1
+					System.out.println("found event on same month");
+					if(testEventDate.get(Calendar.YEAR) == dayPanel.getYear()) {
+						dayPanel.addEvent(testEvent);
+					}
+				}
+			}
+		}
+	}
+	
+	public void updateCalendar() {
+		System.out.println("Updating Calendar.");
+		clearBottomArea();
 	}
 }

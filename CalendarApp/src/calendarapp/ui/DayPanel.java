@@ -5,6 +5,7 @@
  */
 package calendarapp.ui;
 
+import calendarapp.Event;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
@@ -26,13 +27,24 @@ public class DayPanel extends JPanel {
 	
 	private static final Color GRAY = new Color (211, 211, 211);
 	private Color borderColor;
-	public DayPanel (int date, int activeState) {
+	private int eventCount = 0;
+	private int date;
+	private int month;
+	private int year;
+	private JPanel eventPanel;
+	
+	public DayPanel (int date, int month, int year, int activeState) {
 		if(activeState == NOT_ACTIVE) {
 			borderColor = GRAY;
 		} else {
 			borderColor = Color.BLACK;
 		}
 		addComponents(date);
+		this.date = date;
+		this.month = month;
+		this.year = year;
+		//System.out.println("Built date panel for " + month + "-" + date + "-" + 
+		//		year);
 	}
 
 	private void addComponents(int date) {
@@ -52,7 +64,8 @@ public class DayPanel extends JPanel {
 		datePanel.add(new JLabel(String.valueOf(date)), BorderLayout.CENTER);
 		add(datePanel, c);
 
-		JPanel eventPanel = new JPanel();
+		eventPanel = new JPanel();
+		eventPanel.setLayout(new GridBagLayout());
 		c.gridx = 0;
 		c.gridy = 1;
 		c.weightx = 1;
@@ -61,4 +74,25 @@ public class DayPanel extends JPanel {
 		c.anchor = GridBagConstraints.CENTER;
 		add(eventPanel, c);
 	}	
+	public void addEvent(Event eventToAdd) {
+		eventPanel.setBackground(Color.RED);
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridy = eventCount;
+		eventPanel.add(new JLabel(eventToAdd.getEventName()), c);
+		eventCount++;
+	}
+	public int getDate() {
+		return date;
+	}
+	
+	public int getMonth() {
+		return month;
+	}
+	public int getYear() {
+		return year;
+	}
+	
+	public String getFull() {
+		return month+ "-" + date + "-" + year;
+	}
 }
