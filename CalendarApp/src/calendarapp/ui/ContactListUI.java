@@ -36,7 +36,7 @@ public class ContactListUI extends JPanel {
 		this.contactArrayList = contactArrayList;
 		this.parentController = parentController;
 		addComponents();
-		setBackground(Color.RED);
+		//setBackground(Color.RED);
 	}
 	
 	public ContactListUI(ArrayList<Contact> contactArrayList, 
@@ -44,7 +44,7 @@ public class ContactListUI extends JPanel {
 		this.contactArrayList = contactArrayList;
 		this.parentController = parentController;
 		addComponents();	
-		setBackground(Color.RED);
+		//setBackground(Color.RED);
 	}
 
 	private void addComponents() {
@@ -71,7 +71,7 @@ public class ContactListUI extends JPanel {
 		});
 		//Fixme; this needs an action listener that will sort the list when triggered
 		topButtonArea.setLayout(new GridBagLayout());
-		topButtonArea.setBackground(Color.cyan);
+		//topButtonArea.setBackground(Color.cyan);
 		c.gridx = 0;
 		c.gridy = 1;
 		topButtonArea.add(sortComboBox);
@@ -89,7 +89,7 @@ public class ContactListUI extends JPanel {
 			contactStringArray[i] = contactArrayList.get(i).getName().getFullName(false);
 		}
 		contactList = new JList(contactStringArray);
-		contactList.setBackground(Color.yellow);
+		//contactList.setBackground(Color.yellow);
 		c = new GridBagConstraints();
 		c.gridx = 0;
 		c.weightx = 1;
@@ -97,7 +97,7 @@ public class ContactListUI extends JPanel {
 		c.weighty = 1;
 		c.fill = GridBagConstraints.BOTH;
 		JScrollPane scrollPane = new JScrollPane(contactList);
-		scrollPane.setBackground(Color.yellow);
+		//scrollPane.setBackground(Color.yellow);
 		add(scrollPane, c);
 	}
 }

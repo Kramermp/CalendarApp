@@ -339,20 +339,32 @@ public class NavigationUI extends JFrame {
 		System.out.println("Building leftArea.");
 		leftArea.setLayout(new GridBagLayout());
 		JPanel leftBtnArea = new JPanel();
-		leftBtnArea.setBackground(Color.RED);
-		GridBagConstraints c = new GridBagConstraints();
+		//leftBtnArea.setBackground(Color.RED);
+		
 		JButton contactBtn = new JButton("Contact");
 		contactBtn.addActionListener((ActionEvent ActionEvent) -> { 
 			System.out.println("ContactBtn Triggered.");
 			((CardLayout)cards.getLayout()).show(cards, CONTACTLIST_VIEW);
 		});
+		contactBtn.setSize(new Dimension (10, 10));
 		JButton locationBtn = new JButton("Location");
 		locationBtn.addActionListener((ActionEvent ActionEvent) -> { 
 			System.out.println("LocationBtn triggered.");
 			((CardLayout)cards.getLayout()).show(cards, LOCATIONLIST_VIEW);
 		});
-		leftBtnArea.add(contactBtn);
-		leftBtnArea.add(locationBtn);	
+		locationBtn.setSize(new Dimension(10, 10));
+		GridBagConstraints c = new GridBagConstraints();
+		c.fill = GridBagConstraints.BOTH;
+		c.weightx = 1;
+		c.weighty = 1;
+		c.gridx = 0;
+		leftBtnArea.add(contactBtn, c);
+		c = new GridBagConstraints();
+		c.fill = GridBagConstraints.BOTH;
+		c.weightx = 1;
+		c.weighty = 1;
+		c.gridx = 0;
+		leftBtnArea.add(locationBtn,c );	
 		c = new GridBagConstraints();
 		c.gridx =0;
 		c.weightx =1;
@@ -365,7 +377,7 @@ public class NavigationUI extends JFrame {
 		CardLayout cardsLayout = new CardLayout();
 		cardsLayout.addLayoutComponent(new ContactListUI(parentController.getContactList(), this), CONTACTLIST_VIEW);
 		cardsLayout.addLayoutComponent(new LocationListUI(), LOCATIONLIST_VIEW);
-		cards.setBackground(Color.BLUE);
+		//cards.setBackground(Color.BLUE);
 		cards.setLayout(cardsLayout);
 		cards.add(new ContactListUI(parentController.getContactList(), this), CONTACTLIST_VIEW);
 		cards.add(new LocationListUI(), LOCATIONLIST_VIEW);
