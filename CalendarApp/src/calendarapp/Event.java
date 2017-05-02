@@ -21,6 +21,7 @@ public class Event implements Serializable {
 	private Calendar eventEndDate = new GregorianCalendar();
 	private ArrayList<Contact> eventContactList = new ArrayList<Contact>();
 	private Location eventLocation;
+	private int eventPriority = 0;
 	
 	public Event () {
 		
@@ -122,10 +123,33 @@ public class Event implements Serializable {
 		this.eventLocation = eventLocation;
 	}
 	
+	public void setEventPriority(int eventPriority) {
+		this.eventPriority = eventPriority;
+	}
+	
+	public int getEventPriority() {
+		return this.eventPriority;
+	}
+	
 	public boolean equals(Object obj) {
 		Event otherEvent = (Event) obj;
 		return this.getEventName().equals(otherEvent.getEventName()) &&
 				this.eventStartDate.equals(otherEvent.getEventStartDate()) &&
 				this.eventEndDate.equals(otherEvent.getEventEndDate());
+	}
+
+	int compareBy(String fieldName, Event event) {
+		switch(fieldName) {
+			default:
+			case "eventName":
+				return this.eventName.compareToIgnoreCase(event.getEventName());
+			case "eventTag":
+				return this.eventTag.compareToIgnoreCase(event.getEventTag());
+			case "eventPriority":
+				System.out.println("Here");
+				return -((Integer)eventPriority).compareTo((Integer) event.eventPriority);
+			case "eventStartDate":
+				return this.eventStartDate.compareTo(event.getEventStartDate());
+		}
 	}
 }

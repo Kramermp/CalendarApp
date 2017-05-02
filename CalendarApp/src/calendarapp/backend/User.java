@@ -3,6 +3,7 @@ package calendarapp.backend;
 import calendarapp.Contact;
 import calendarapp.ContactList;
 import calendarapp.Event;
+import calendarapp.EventList;
 import calendarapp.Location;
 import calendarapp.Name;
 import calendarapp.Person;
@@ -26,7 +27,7 @@ public class User extends Person implements Serializable {
 			= new StrongPasswordEncryptor();
 	private String username;
 	private String password;
-	private ArrayList<Event> eventList = new ArrayList<>();
+	private EventList eventList;
 	private ArrayList<Location> locationList = new ArrayList<>();;
 	private ContactList contactList = new ContactList();
 	
@@ -42,7 +43,7 @@ public class User extends Person implements Serializable {
 		super(name);
 		this.username = username;
 		this.password = encryptor.encryptPassword(Arrays.toString(password));
-		this.eventList = new ArrayList<Event>();
+		this.eventList = new EventList();
 		this.locationList = new ArrayList<Location>();
 		this.contactList = new ContactList();
 	}
@@ -56,7 +57,7 @@ public class User extends Person implements Serializable {
 		super();
 		this.username = username;
 		this.password = encryptor.encryptPassword(Arrays.toString(password));
-		this.eventList = new ArrayList<Event>();
+		this.eventList = new EventList();
 		this.contactList = new ContactList();
 	}
 	
@@ -66,7 +67,7 @@ public class User extends Person implements Serializable {
 	public User(){
 		super();
 		this.username = "";
-		this.eventList = new ArrayList<Event>();
+		this.eventList = new EventList();
 		this.contactList = new ContactList();
 	}
 	
@@ -126,8 +127,18 @@ public class User extends Person implements Serializable {
 	 * @param event; the Event to be added
 	 */
 	public void addEvent(Event event) {
-		this.eventList.add(event);
+		this.eventList.addEvent(event);
 		System.out.println("This user now has " + eventList.size() + " events.");
+	}
+	
+	/**
+	 * Removes and event from the User's eventList
+	 * 
+	 * @param event; the event to be removed
+	 */
+	public void removeEvent(Event event) {
+		this.eventList.removeEvent(event);
+		
 	}
 	
 	/**
@@ -151,7 +162,7 @@ public class User extends Person implements Serializable {
 	 * @returns
 	 */
 	public ArrayList<Event> getEventList() {
-		return this.eventList;
+		return this.eventList.getListOfEvents();
 	}
 	
 	/**
@@ -224,5 +235,9 @@ public class User extends Person implements Serializable {
 	
 	public void sortContacts(String sortField) {
 		contactList.sortBy(sortField, "Down");
+	}
+	
+	public void sortEvents(String sortField) {
+		eventList.sortBy(sortField, "Down");
 	}
 }

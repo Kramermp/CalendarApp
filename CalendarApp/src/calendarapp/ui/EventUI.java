@@ -51,6 +51,7 @@ public class EventUI extends JFrame {
     private LocationPicker locationArea;
     private ArrayList<Location> listOfLocations;
     private ArrayList<Contact> listOfContacts;
+	private JComboBox priorityComboBox;
 
     public EventUI(EventController parentController, Event sourceEvent) {
         System.out.println("Creating EventUI.");
@@ -132,7 +133,7 @@ public class EventUI extends JFrame {
         c.weightx = .75;
         c.gridx = 0;
         c.gridwidth = 6;
-        c.gridy = 0;
+        c.gridy = -1;
         c.weighty = .1;
         this.add(eventNameTxtFld, c);
 
@@ -145,8 +146,22 @@ public class EventUI extends JFrame {
         c.weightx = 1;
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
-        c.gridy = 1;
+        c.gridy = 0;
         this.add(eventTagTxtFld, c);
+		Object[] priority = new Object[5];
+		for(int i =0; i < priority.length; i++) {
+			priority[i] = i;
+		}
+		priorityComboBox = new JComboBox(priority);
+        c = new GridBagConstraints();
+        c.anchor = GridBagConstraints.CENTER;
+        c.insets = new Insets(10, 10, 10, 10);
+        c.gridwidth = 6;
+        c.weightx = 1;
+        //c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 1;
+        this.add(priorityComboBox, c);
         
         // gridx = 2 will be empty and be the space between columns
         JPanel leftBlankSpace = new JPanel();
@@ -416,6 +431,7 @@ public class EventUI extends JFrame {
         this.eventTagTxtFld.setText(sourceEvent.getEventTag());
         startTimeArea.setDate(sourceEvent.getEventStartDate());
         endTimeArea.setDate(sourceEvent.getEventEndDate());
+		priorityComboBox.setSelectedIndex(sourceEvent.getEventPriority());
         if(sourceEvent.hasLocation())
             locationArea.setSelected(sourceEvent.getEventLocation().getName());
         if(sourceEvent.hasContacts())
@@ -468,4 +484,7 @@ public class EventUI extends JFrame {
     public ArrayList<Contact> getEventContacts() {
         return contactArea.getSelectedContacts();
     }
+	public int getEventPriority() {
+		return priorityComboBox.getSelectedIndex();
+	}
 }
