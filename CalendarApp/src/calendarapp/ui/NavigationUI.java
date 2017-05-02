@@ -339,6 +339,7 @@ public class NavigationUI extends JFrame {
 		System.out.println("Building leftArea.");
 		leftArea.setLayout(new GridBagLayout());
 		JPanel leftBtnArea = new JPanel();
+		leftBtnArea.setLayout(new GridBagLayout());
 		//leftBtnArea.setBackground(Color.RED);
 		
 		JButton contactBtn = new JButton("Contact");
@@ -358,13 +359,19 @@ public class NavigationUI extends JFrame {
 		c.weightx = 1;
 		c.weighty = 1;
 		c.gridx = 0;
+		c.insets = new Insets(0,10,0,10);
 		leftBtnArea.add(contactBtn, c);
+		
 		c = new GridBagConstraints();
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 1;
 		c.weighty = 1;
-		c.gridx = 0;
-		leftBtnArea.add(locationBtn,c );	
+		c.gridx = 1;
+		c.gridy =0;
+		c.insets = new Insets(0,10,0,10);
+		leftBtnArea.add(locationBtn, c);
+		//leftBtnArea.setBackground(Color.yellow);
+		
 		c = new GridBagConstraints();
 		c.gridx =0;
 		c.weightx =1;
