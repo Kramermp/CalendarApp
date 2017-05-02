@@ -10,6 +10,7 @@ import calendarapp.backend.ColorPalette;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import javax.swing.JComboBox;
@@ -74,7 +75,8 @@ public class ContactListUI extends JPanel {
 		//topButtonArea.setBackground(Color.cyan);
 		c.gridx = 0;
 		c.gridy = 1;
-		topButtonArea.add(sortComboBox);
+		c.insets = new Insets(5,5,10,5);
+		topButtonArea.add(sortComboBox, c);
 		
 		c = new GridBagConstraints();
 		c.gridx = 0;
@@ -85,7 +87,7 @@ public class ContactListUI extends JPanel {
 		
 		String[] contactStringArray = new String[contactArrayList.size()];
 		for(int i = 0; i < contactArrayList.size(); i++) {
-			System.out.println("Here");
+			//System.out.println("Here");
 			contactStringArray[i] = contactArrayList.get(i).getName().getFullName(false);
 		}
 		contactList = new JList(contactStringArray);

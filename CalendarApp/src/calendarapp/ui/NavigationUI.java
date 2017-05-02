@@ -124,7 +124,7 @@ public class NavigationUI extends JFrame {
 		this.add(topArea, c);
 		
 		leftArea = new JPanel();
-		leftArea.setBackground(Color.yellow);
+		//leftArea.setBackground(Color.yellow);
 		c = new GridBagConstraints();
 		c.gridx = 0;
 		c.weightx = .2;
@@ -136,7 +136,7 @@ public class NavigationUI extends JFrame {
 		
 		
 		rightArea = new JPanel();
-		rightArea.setBackground(Color.red);
+		//rightArea.setBackground(Color.red);
 		buildRightArea(rightArea);
 		c = new GridBagConstraints();
 		c.gridx = 1;
@@ -332,7 +332,13 @@ public class NavigationUI extends JFrame {
 		GregorianCalendar sourceCalendar = new GregorianCalendar();
 		sourceCalendar.setTimeInMillis(System.currentTimeMillis());
 		calendarUI = new CalendarUI(sourceCalendar, parentController.getEventList());
-		rightArea.add(calendarUI, BorderLayout.CENTER);
+		rightArea.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		c.fill = GridBagConstraints.BOTH;
+		c.insets = new Insets(10,10,10,10);
+		c.weightx = 1;
+		c.weighty = 1;
+		rightArea.add(calendarUI, c);
 	}
 	
 	private void buildLeftArea(JPanel leftArea) {
@@ -393,6 +399,7 @@ public class NavigationUI extends JFrame {
 		c.gridy =1;
 		c.weightx = 1;
 		c.weighty = 1;
+		c.insets = new Insets(10,10,10,10);
 		c.fill = GridBagConstraints.BOTH;
 		c.anchor = GridBagConstraints.CENTER;
 		leftArea.add(cards, c);

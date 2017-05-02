@@ -11,6 +11,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -87,6 +88,7 @@ public class CalendarUI extends JPanel {
 		c.gridx = 0;
 		c.weighty = 1;
 		c.weightx =0;
+		c.insets = new Insets(10,10,10,10);
 		c.anchor = GridBagConstraints.WEST;
 		topArea.add(previousMonthBtn, c);
 		
@@ -123,6 +125,7 @@ public class CalendarUI extends JPanel {
 		c.gridx = 2;
 		c.weighty = 1;
 		c.weightx =0;
+		c.insets = new Insets(10,10,10,10);
 		c.anchor = GridBagConstraints.EAST;
 		topArea.add(nextMonthBtn, c);
 		JPanel dayArea = new JPanel();
@@ -350,15 +353,15 @@ public class CalendarUI extends JPanel {
 	}
 	
 	private void checkDay(DayPanel dayPanel) {
-		System.out.println("Checking day " + dayPanel.getFull());
+		//System.out.println("Checking day " + dayPanel.getFull());
 		ArrayList<Event> tempEventList= new ArrayList<Event>();
 		for(int i = 0 ; i < eventList.size(); i++) {
 			Event testEvent = eventList.get(i);
 			Calendar testEventDate = testEvent.getEventStartDate();
 			if(testEventDate.get(Calendar.DATE) == dayPanel.getDate()) {
-				System.out.println("Found an event on the same day");
+				//System.out.println("Found an event on the same day");
 				if(testEventDate.get(Calendar.MONTH)  == dayPanel.getMonth()) {
-					System.out.println("found event on same month");
+					//System.out.println("found event on same month");
 					if(testEventDate.get(Calendar.YEAR) == dayPanel.getYear()) {
 						dayPanel.addEvent(testEvent);
 					}
