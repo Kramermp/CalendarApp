@@ -27,20 +27,23 @@ public class DayPanel extends JPanel {
 	public static final int NOT_ACTIVE = 0;
 	public static final int ACTIVE = 1;
 	
-	private static final Color GRAY = new Color (211, 211, 211);
+	private static final Color GRAY = new Color (224, 224, 224);
 	private Color borderColor;
 	private int eventCount = 0;
 	private int date;
 	private int month;
 	private int year;
 	private JPanel eventPanel;
+	private Color backgroundColor;
 	
 	public DayPanel (int date, int month, int year, int activeState) {
+		borderColor = Color.BLACK;
 		if(activeState == NOT_ACTIVE) {
-			borderColor = GRAY;
+			backgroundColor = GRAY;
 		} else {
-			borderColor = Color.BLACK;
+			backgroundColor = Color.WHITE;
 		}
+		setBackground(backgroundColor);
 		addComponents(date);
 		this.date = date;
 		this.month = month;
@@ -68,6 +71,7 @@ public class DayPanel extends JPanel {
 		dateLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		dateLabel.setPreferredSize(new Dimension(20, 15));
 		datePanel.add(dateLabel, BorderLayout.CENTER);
+		datePanel.setBackground(backgroundColor);
 		add(datePanel, c);
 
 		eventPanel = new JPanel();
@@ -78,6 +82,7 @@ public class DayPanel extends JPanel {
 		c.weighty = 1;
 		c.fill = GridBagConstraints.BOTH;
 		c.anchor = GridBagConstraints.NORTH;
+		eventPanel.setBackground(backgroundColor);
 		add(eventPanel, c);
 	}	
 	public void addEvent(Event eventToAdd) {
