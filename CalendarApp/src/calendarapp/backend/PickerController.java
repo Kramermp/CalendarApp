@@ -77,6 +77,13 @@ public class PickerController {
 		if(pickerUI != null) {
 			pickerUI.dispose();
 			pickerUI = null;
+			if(pickerCode == PickerController.CONTACT) {
+				parentController.updateContactTable();
+			} else if (pickerCode == PickerController.EVENT) {
+				parentController.updateEventTable();
+			} else if(pickerCode == PickerController.LOCATION) {
+				parentController.updateLocationTable();
+			}
 			parentController.disposePickerController();
 		} else {
 			System.out.println("The PickerController received a request to"

@@ -309,4 +309,11 @@ public class NavigationController {
 		return activeUser.getEventList();
 	}
 
+	public void sortContacts(String sortField) {
+		this.activeUser.sortContacts(sortField);
+	}
+
+	void updateLocationTable() {
+		System.err.println("Updating Location Table is not supported.");
+	}
 }

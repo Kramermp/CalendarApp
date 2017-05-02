@@ -363,11 +363,11 @@ public class NavigationUI extends JFrame {
 		
 		cards = new JPanel();
 		CardLayout cardsLayout = new CardLayout();
-		cardsLayout.addLayoutComponent(new ContactListUI(parentController.getContactList()), CONTACTLIST_VIEW);
+		cardsLayout.addLayoutComponent(new ContactListUI(parentController.getContactList(), this), CONTACTLIST_VIEW);
 		cardsLayout.addLayoutComponent(new LocationListUI(), LOCATIONLIST_VIEW);
 		cards.setBackground(Color.BLUE);
 		cards.setLayout(cardsLayout);
-		cards.add(new ContactListUI(parentController.getContactList()), CONTACTLIST_VIEW);
+		cards.add(new ContactListUI(parentController.getContactList(), this), CONTACTLIST_VIEW);
 		cards.add(new LocationListUI(), LOCATIONLIST_VIEW);
 		c = new GridBagConstraints();
 		c.gridx  = 0;
@@ -394,7 +394,14 @@ public class NavigationUI extends JFrame {
 	}
 	
 	public void updateContactTable() {
-//		contactModel.setData();
-//		eventModel.fireTableDataChanged();
-	}        
+		System.out.println("updating contactTable");
+		leftArea.removeAll();
+		leftArea.updateUI();
+		buildLeftArea(leftArea);
+	}       
+	
+	public void sortContacts(String sortField) {
+		parentController.sortContacts(sortField);
+		updateContactTable();
+	}
 }

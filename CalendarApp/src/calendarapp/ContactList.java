@@ -43,21 +43,33 @@ public class ContactList implements Sortable, Serializable {
 
     @Override
     public void sortBy(String fieldName, String direction) {
-	switch(fieldName)  {
-	    case "firstName":
 		Contact[] array = getArray();
-		Contact[] aux = array.clone(); 
-		mergeSort(fieldName, aux, array, 0, array.length, 0);
+		Contact[] aux = array.clone();
 		ListIterator<Contact> i = listOfContacts.listIterator();
-		for (int j=0; j<array.length; j++) {
-		    i.next();
-		    i.set((Contact) array[j]);
+		for(int j = 0; j < listOfContacts.size(); j++) {
+			System.out.println(listOfContacts.get(j).getName().getFullName(false));
 		}
-		return;
-	    default: 
-		Collections.sort(listOfContacts);
-		return;
-	}
+		switch(fieldName)  {
+			case "firstName":
+				System.out.println("sorting by firstName");
+				mergeSort(fieldName, aux, array, 0, array.length, 0);
+				for (int j=0; j<array.length; j++) {
+					i.next();
+					i.set((Contact) array[j]);
+				}
+				return;
+			case "lastName":
+				System.out.println("Sorting by lastName");
+				mergeSort(fieldName, aux, array, 0, array.length, 0);
+				for (int j=0; j<array.length; j++) {
+					i.next();
+					i.set((Contact) array[j]);
+				}
+				return;
+			default: 
+				Collections.sort(listOfContacts);
+			return;
+		}	
     }
     private Contact[] getArray() {
 	Contact[] array = new Contact[this.listOfContacts.size()];
@@ -70,6 +82,7 @@ public class ContactList implements Sortable, Serializable {
     private static void mergeSort(String fieldName, Contact[] src, 
 	    Contact[] dest, int low, int high, int off) {
 	int length = high - low;
+	System.out.println("Here");
 
 	// Insertion sort on smallest arrays
 	if (length < INSERTIONSORT_THRESHOLD) {
@@ -114,5 +127,13 @@ public class ContactList implements Sortable, Serializable {
 	x[a] = x[b];
 	x[b] = t;
     }
+
+	public void removeContact(Contact sourceContact) {
+		this.listOfContacts.remove(sourceContact);
+	}
+
+	public ArrayList<Contact> getListOfContacts() {
+		return this.listOfContacts;
+	}
 }
     

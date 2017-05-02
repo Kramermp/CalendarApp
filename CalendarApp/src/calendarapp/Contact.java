@@ -108,9 +108,11 @@ public class Contact extends Person implements Comparable, Serializable {
 	public int compareBy(String fieldName, Contact contact) {
 		switch (fieldName) {
 			case "firstName":
-				return this.getName().getFullName(false).compareTo(contact.getName().getFullName(false));
+				return this.getName().getFirstName().compareToIgnoreCase(contact.getName().getFirstName());
+			case "lastName":
+				return this.getName().toString().compareToIgnoreCase(contact.getName().toString());
 			default:
-				return this.getName().getFirstName().compareTo(contact.getName().getFirstName());
+				return this.getName().getFirstName().compareToIgnoreCase(contact.getName().getFirstName());
 		}
     }
 }

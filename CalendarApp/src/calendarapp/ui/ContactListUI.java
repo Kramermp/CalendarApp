@@ -10,6 +10,7 @@ import calendarapp.backend.ColorPalette;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import javax.swing.JComboBox;
 import javax.swing.JList;
@@ -24,20 +25,24 @@ public class ContactListUI extends JPanel {
 	private ColorPalette palette;
 	private JList contactList = new JList();
 	private ArrayList<Contact> contactArrayList;
+	private NavigationUI parentController;
 	
 	private static final String SORT_BY = "Sort By";
 	private static final String FIRST_NAME = "First Name";
 	private static final String LAST_NAME = "Last Name";
 	
-	public ContactListUI(ArrayList<Contact> contactArrayList) {
+	public ContactListUI(ArrayList<Contact> contactArrayList, NavigationUI
+			parentController) {
 		this.contactArrayList = contactArrayList;
+		this.parentController = parentController;
 		addComponents();
 		setBackground(Color.RED);
 	}
 	
 	public ContactListUI(ArrayList<Contact> contactArrayList, 
-			ColorPalette colorPalatte) {
+			ColorPalette colorPalatte, NavigationUI parentController) {
 		this.contactArrayList = contactArrayList;
+		this.parentController = parentController;
 		addComponents();	
 		setBackground(Color.RED);
 	}
@@ -48,6 +53,22 @@ public class ContactListUI extends JPanel {
 		JPanel topButtonArea = new JPanel();
 		String[] options = {SORT_BY, FIRST_NAME, LAST_NAME};
 		JComboBox sortComboBox = new JComboBox(options);
+		sortComboBox.addActionListener((ActionEvent ae) -> { 
+			int selectedIndex = sortComboBox.getSelectedIndex();
+			switch(selectedIndex) {
+				case 0:
+					//Do Nothing
+					break;
+				case 1:
+					System.out.println("Sorting by first name");
+					parentController.sortContacts("firstName");
+					break;
+				case 2:
+					System.out.println("Sortinh by last naem.");
+					parentController.sortContacts("lastName");
+					break;				
+			}
+		});
 		//Fixme; this needs an action listener that will sort the list when triggered
 		topButtonArea.setLayout(new GridBagLayout());
 		topButtonArea.setBackground(Color.cyan);

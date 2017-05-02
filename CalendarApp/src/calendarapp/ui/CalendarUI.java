@@ -368,7 +368,8 @@ public class CalendarUI extends JPanel {
 	}
 	
 	public void updateCalendar() {
-		System.out.println("Updating Calendar.");
-		clearBottomArea();
+		bottomArea.removeAll();
+		bottomArea.updateUI();
+		buildBottomArea(bottomArea);
 	}
 }

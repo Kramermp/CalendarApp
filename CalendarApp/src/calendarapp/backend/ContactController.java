@@ -71,6 +71,7 @@ public class ContactController {
 	void disposeUI() {
 		contactUI.dispose();
 		contactUI = null;
+		parentController.updateContactTable();
 	}
 
 	void getFocus() {

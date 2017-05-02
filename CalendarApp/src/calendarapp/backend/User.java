@@ -1,6 +1,7 @@
 package calendarapp.backend;
 
 import calendarapp.Contact;
+import calendarapp.ContactList;
 import calendarapp.Event;
 import calendarapp.Location;
 import calendarapp.Name;
@@ -27,7 +28,7 @@ public class User extends Person implements Serializable {
 	private String password;
 	private ArrayList<Event> eventList = new ArrayList<>();
 	private ArrayList<Location> locationList = new ArrayList<>();;
-	private ArrayList<Contact> contactList = new ArrayList<>();;
+	private ContactList contactList = new ContactList();
 	
 	/**
 	 * This constructor takes a name object and uses it to build the super
@@ -43,7 +44,7 @@ public class User extends Person implements Serializable {
 		this.password = encryptor.encryptPassword(Arrays.toString(password));
 		this.eventList = new ArrayList<Event>();
 		this.locationList = new ArrayList<Location>();
-		this.contactList = new ArrayList<Contact>();
+		this.contactList = new ContactList();
 	}
 	
 	/**
@@ -56,7 +57,7 @@ public class User extends Person implements Serializable {
 		this.username = username;
 		this.password = encryptor.encryptPassword(Arrays.toString(password));
 		this.eventList = new ArrayList<Event>();
-		this.contactList = new ArrayList<Contact>();
+		this.contactList = new ContactList();
 	}
 	
 	/**
@@ -66,7 +67,7 @@ public class User extends Person implements Serializable {
 		super();
 		this.username = "";
 		this.eventList = new ArrayList<Event>();
-		this.contactList = new ArrayList<Contact>();
+		this.contactList = new ContactList();
 	}
 	
 	/**
@@ -178,7 +179,7 @@ public class User extends Person implements Serializable {
 	 * Adds the Contact to the User's contactList 
 	 */
 	public void addContact (Contact contact) {
-		contactList.add(contact);
+		contactList.addContact(contact);
 		System.out.println("This user now has " + contactList.size() + " contacts.");
 	}
 	
@@ -194,7 +195,7 @@ public class User extends Person implements Serializable {
 	 * @return 
 	 */
 	public ArrayList<Contact> getContactList() {
-		return this.contactList;
+		return this.contactList.getListOfContacts();
 	}
 	
 	public ArrayList<String> getLocationStringList(){
@@ -218,6 +219,10 @@ public class User extends Person implements Serializable {
 		locationList.remove(sourceLocation);
 	}
 	public void removeContact(Contact sourceContact){
-		contactList.remove(sourceContact);
+		contactList.removeContact(sourceContact);
+	}
+	
+	public void sortContacts(String sortField) {
+		contactList.sortBy(sortField, "Down");
 	}
 }

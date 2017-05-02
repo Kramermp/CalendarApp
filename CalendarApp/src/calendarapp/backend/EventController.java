@@ -67,7 +67,6 @@ public class EventController {
 			sourceEvent.setEventLocation(eventUI.getEventLocation());
 		}
 		dataController.writeTheSerializedData();
-		parentController.updateEventTable();
 		dispose();
 	}
 	
@@ -75,6 +74,7 @@ public class EventController {
 		if(hasUI()) {
 			eventUI.dispose();
 			eventUI = null;
+			parentController.updateEventTable();
 			parentController.disposeEventController();
 		} else {
 			System.out.println("The EventController recieved a request to"
