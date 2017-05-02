@@ -44,14 +44,14 @@ public class DateTimePicker extends JPanel {
     String ampm = null;
 
     public DateTimePicker(long milleTime) {
-        this.selectedDate = new Date(milleTime);
+        //this.selectedDate = new Date(milleTime);
         this.calendar.setTimeInMillis(milleTime);
         addComponents();
     }
 
     public Calendar getDate() {
         ArrayList<String> errorMessages = new ArrayList<String>();
-        month = monthComboBox.getSelectedIndex() - 1;
+        month = monthComboBox.getSelectedIndex();
         day = dayComboBox.getSelectedIndex() + 1;
         if (this.yearTxtField.getText() == null){
             errorMessages.add("Invalid year");
@@ -59,7 +59,19 @@ public class DateTimePicker extends JPanel {
         else{
             year = Integer.parseInt(this.yearTxtField.getText());
         }
-
+		if(radAMField.isSelected()){
+            System.out.println("AM is selected for this save");
+            ampm = "AM";
+            calendar.set(Calendar.AM_PM, 0);
+        }
+        else if(radPMField.isSelected()){
+            System.out.println("PM is selected for this save");
+            ampm = "PM";      
+            calendar.set(Calendar.AM_PM, 1);
+        }
+        else{
+            errorMessages.add("Choose AM or PM");
+        }
         if (this.hoursTxtField.getText() == null){
             errorMessages.add("Invalid hours value");
         }
@@ -73,24 +85,13 @@ public class DateTimePicker extends JPanel {
         else{
             min = Integer.parseInt(this.minTxtField.getText());
         }
-        if(radAMField.isSelected()){
-            System.out.println("AM is selected for this save");
-            ampm = "AM";
-            calendar.set(Calendar.AM_PM, 0);
-        }
-        else if(radPMField.isSelected()){
-            System.out.println("PM is selected for this save");
-            ampm = "PM";      
-            calendar.set(Calendar.AM_PM, 1);
-        }
-        else{
-            errorMessages.add("Choose AM or PM");
-        }
+        
         calendar.set(Calendar.YEAR, year);
+		calendar.set(Calendar.MONTH, month);
         calendar.set(Calendar.DAY_OF_MONTH, day);
         calendar.set(Calendar.HOUR, hours);
         calendar.set(Calendar.MINUTE, min);
-        calendar.set(Calendar.MONTH, month);
+        
 
         return calendar;
     }
@@ -120,18 +121,20 @@ public class DateTimePicker extends JPanel {
         c.weightx = .75;
         c.weighty = .1;
         this.add(monthComboBox, c);
-                    c = new GridBagConstraints();
+		c = new GridBagConstraints();
+		
+		
 
-                    //DayComboBox
-                    String[] days = new String[31];
+		//DayComboBox
+		String[] days = new String[31];
 
-                    for(int i = 1; i <= 31; i++) {
-                            days[i - 1] = String.valueOf(i);
-                    }
-                    dayComboBox = new JComboBox(days);
-                    dayComboBox.addActionListener((ActionEvent ae) -> { 
-                            DateTimePicker.this.dayUpdated();
-                    });
+		for(int i = 1; i <= 31; i++) {
+			days[i - 1] = String.valueOf(i);
+		}
+		dayComboBox = new JComboBox(days);
+		dayComboBox.addActionListener((ActionEvent ae) -> { 
+				DateTimePicker.this.dayUpdated();
+		});
         c.gridx = 1;
         c.gridwidth = 1;
         c.anchor = GridBagConstraints.EAST;
@@ -221,8 +224,8 @@ public class DateTimePicker extends JPanel {
     }
     
     public void setDate(Calendar c){
-        monthComboBox.setSelectedIndex(c.get(Calendar.MONTH) + 1);
-        dayComboBox.setSelectedIndex(c.get(Calendar.DAY_OF_MONTH) - 1);
+        monthComboBox.setSelectedIndex(c.get(Calendar.MONTH));
+        dayComboBox.setSelectedIndex(c.get(Calendar.DAY_OF_MONTH));
         yearTxtField.setText(Integer.toString(c.get(Calendar.YEAR)));
         hoursTxtField.setText(Integer.toString(c.get(Calendar.HOUR)));
         minTxtField.setText(Integer.toString(c.get(Calendar.MINUTE)));
