@@ -271,6 +271,7 @@ public class NavigationController {
 				locationController.disposeUI();
 			}
 			locationController = null;
+			updateLocationTable();
 			System.out.println("The NavigationController disposed of the"
 					+ " LocationController.");
 		} else {
@@ -314,6 +315,10 @@ public class NavigationController {
 	}
 
 	void updateLocationTable() {
-		System.err.println("Updating Location Table is not supported.");
+		navigationUI.updateLocationTable();
+	}
+
+	public ArrayList<Location> getLocationList() {
+		return activeUser.getLocationList();
 	}
 }

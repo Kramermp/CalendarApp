@@ -72,6 +72,8 @@ public class NavigationUI extends JFrame {
 	private ContactTableModel contactModel;
 	private JPanel cards;
 	private CalendarUI calendarUI;
+	private ContactListUI contactListUI;
+	private LocationListUI locationListUI;
 	
 	private static final String CONTACTLIST_VIEW = "Contact VIEW";
 	private static final String LOCATIONLIST_VIEW = "Location VIEW";
@@ -388,12 +390,14 @@ public class NavigationUI extends JFrame {
 		
 		cards = new JPanel();
 		CardLayout cardsLayout = new CardLayout();
-		cardsLayout.addLayoutComponent(new ContactListUI(parentController.getContactList(), this), CONTACTLIST_VIEW);
-		cardsLayout.addLayoutComponent(new LocationListUI(), LOCATIONLIST_VIEW);
+		contactListUI = new ContactListUI(parentController.getContactList(), this);
+		cardsLayout.addLayoutComponent(contactListUI, CONTACTLIST_VIEW);
+		locationListUI = new LocationListUI( parentController.getLocationList());
+		cardsLayout.addLayoutComponent(locationListUI, LOCATIONLIST_VIEW);
 		//cards.setBackground(Color.BLUE);
 		cards.setLayout(cardsLayout);
-		cards.add(new ContactListUI(parentController.getContactList(), this), CONTACTLIST_VIEW);
-		cards.add(new LocationListUI(), LOCATIONLIST_VIEW);
+		cards.add(contactListUI, CONTACTLIST_VIEW);
+		cards.add(locationListUI, LOCATIONLIST_VIEW);
 		c = new GridBagConstraints();
 		c.gridx  = 0;
 		c.gridy =1;
@@ -427,7 +431,11 @@ public class NavigationUI extends JFrame {
 	}       
 	
 	public void sortContacts(String sortField) {
-		parentController.sortContacts(sortField);
-		updateContactTable();
+		contactListUI.update();
+	}
+
+	public void updateLocationTable() {
+		System.out.println("Updating Location Table");
+		locationListUI.update();
 	}
 }

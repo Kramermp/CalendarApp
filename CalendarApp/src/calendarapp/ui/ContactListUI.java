@@ -7,6 +7,7 @@ package calendarapp.ui;
 
 import calendarapp.Contact;
 import calendarapp.backend.ColorPalette;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -61,11 +62,9 @@ public class ContactListUI extends JPanel {
 					//Do Nothing
 					break;
 				case 1:
-					System.out.println("Sorting by first name");
 					parentController.sortContacts("firstName");
 					break;
 				case 2:
-					System.out.println("Sortinh by last naem.");
 					parentController.sortContacts("lastName");
 					break;				
 			}
@@ -102,4 +101,11 @@ public class ContactListUI extends JPanel {
 		//scrollPane.setBackground(Color.yellow);
 		add(scrollPane, c);
 	}
+	
+	public void update() {
+		removeAll();
+		addComponents();
+		revalidate();
+	}
+
 }
