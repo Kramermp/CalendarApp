@@ -8,6 +8,7 @@ package calendarapp.ui;
 import calendarapp.Event;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
@@ -50,6 +51,7 @@ public class DayPanel extends JPanel {
 	private void addComponents(int date) {
 		setBorder(new LineBorder(borderColor));
 		setLayout(new GridBagLayout());
+		setPreferredSize(new Dimension (50, 50)); 
 		GridBagConstraints c = new GridBagConstraints();
 		c.gridx = 0;
 		c.gridy = 0;
@@ -75,7 +77,7 @@ public class DayPanel extends JPanel {
 		add(eventPanel, c);
 	}	
 	public void addEvent(Event eventToAdd) {
-		eventPanel.setBackground(Color.RED);
+		//eventPanel.setBackground(Color.RED);
 		GridBagConstraints c = new GridBagConstraints();
 		c.gridy = eventCount;
 		eventPanel.add(new JLabel(eventToAdd.getEventName()), c);
