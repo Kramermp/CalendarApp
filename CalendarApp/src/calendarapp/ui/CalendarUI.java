@@ -87,9 +87,11 @@ public class CalendarUI extends JPanel {
 		c.fill = GridBagConstraints.VERTICAL;
 		c.gridx = 0;
 		c.weighty = 1;
-		c.weightx =0;
-		c.insets = new Insets(10,10,10,10);
+		c.weightx = .3;
+		c.insets = new Insets(10,0,10,0);
 		c.anchor = GridBagConstraints.WEST;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		previousMonthBtn.setPreferredSize(new Dimension(1, 25));
 		topArea.add(previousMonthBtn, c);
 		
 		monthLabel = new JLabel(getMonthName(displayCalendar.get(Calendar.MONTH)));
@@ -105,7 +107,7 @@ public class CalendarUI extends JPanel {
 		c.weightx = 1;
 		topArea.add(labelArea, c);
 			
-		JButton nextMonthBtn = new JButton("NextMonth");
+		JButton nextMonthBtn = new JButton("Next Month");
 		nextMonthBtn.addActionListener((ActionEvent ae) -> {
 			System.out.println("Next month Button was triggered.");
 			int currentMonth = displayCalendar.get(Calendar.MONTH);
@@ -124,9 +126,11 @@ public class CalendarUI extends JPanel {
 		c.fill = GridBagConstraints.VERTICAL;
 		c.gridx = 2;
 		c.weighty = 1;
-		c.weightx =0;
-		c.insets = new Insets(10,10,10,10);
+		c.weightx = .3;
+		c.insets = new Insets(10,0,10,0);
+		c.fill = GridBagConstraints.HORIZONTAL;
 		c.anchor = GridBagConstraints.EAST;
+		nextMonthBtn.setPreferredSize(new Dimension(1, 25));
 		topArea.add(nextMonthBtn, c);
 		JPanel dayArea = new JPanel();
 		dayArea.setLayout(new GridBagLayout());
