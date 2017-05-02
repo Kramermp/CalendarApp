@@ -270,7 +270,7 @@ public class CalendarUI extends JPanel {
 		//This loop handles the end of the previous month
 		
 		for(int i = 0; i < test.get(Calendar.DAY_OF_WEEK) -1; i++) {
-			DayPanel dayPanel = new DayPanel(previousMonthDayCount - i, test.get(Calendar.MONTH), test.get(Calendar.YEAR), DayPanel.NOT_ACTIVE); 
+			DayPanel dayPanel = new DayPanel(previousMonthDayCount - i, test.get(Calendar.MONTH) - 1, test.get(Calendar.YEAR), DayPanel.NOT_ACTIVE); 
 			c.gridx = test.get(Calendar.DAY_OF_WEEK) - 2 - i;//I'm not entirly sure why it is a -2
 			c.gridy = 0;
 			checkDay(dayPanel);
@@ -356,7 +356,7 @@ public class CalendarUI extends JPanel {
 			Calendar testEventDate = testEvent.getEventStartDate();
 			if(testEventDate.get(Calendar.DATE) == dayPanel.getDate()) {
 				System.out.println("Found an event on the same day");
-				if(testEventDate.get(Calendar.MONTH)  == dayPanel.getMonth() - 1) { //dayPanel does not store it as index but as Jan = 1
+				if(testEventDate.get(Calendar.MONTH)  == dayPanel.getMonth()) {
 					System.out.println("found event on same month");
 					if(testEventDate.get(Calendar.YEAR) == dayPanel.getYear()) {
 						dayPanel.addEvent(testEvent);
