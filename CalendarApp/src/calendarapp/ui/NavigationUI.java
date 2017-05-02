@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.io.PrintWriter;
 import calendarapp.Contact;
 import calendarapp.Event;
+import com.google.gson.Gson;
 import java.awt.CardLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -266,7 +267,8 @@ public class NavigationUI extends JFrame {
                     PrintWriter writer = new PrintWriter(file);
                     for(int i = 0; i < contactsToExport.size(); i++ ){
                         contact = contactsToExport.get(i);
-                        writer.println(user.getContactList() + ", " + contact.returnEmail(i) + ", " + contact.phoneNumber(i));
+                        Gson gson = new Gson();
+                        writer.println(gson.toJson(contactsToExport));
                     }
                     writer.close();
                 }catch (IOException e){
