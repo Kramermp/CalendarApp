@@ -6,8 +6,10 @@
 package calendarapp.ui;
 
 import calendarapp.Contact;
+import calendarapp.Event;
 import calendarapp.backend.PickerController;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.sun.corba.se.impl.protocol.giopmsgheaders.Message;
@@ -20,6 +22,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -67,11 +70,11 @@ public class GsonPicker extends Picker implements ActionListener {
                     InputStreamReader in = new InputStreamReader(fis);
                     Gson gson = new Gson();
                     System.out.println("Input stream created");
-                    if(parentController == null)
-                        System.out.println("Parent null");
-                    this.parentController.importContacts(readContactArray(gson.newJsonReader(in)));
-                    
-                    //(user.getContactList() + ", " + contact.returnEmail(i) + ", " + contact.phoneNumber(i))
+                    //this.parentController.importContacts(readContactArray(gson.newJsonReader(in)));
+					ArrayList<Contact> contactsToImport = new ArrayList<Contact>();
+					contactsToImport = gson.fromJson(gson.newJsonReader(in), new TypeToken<List<Contact>>(){}.getType());
+					System.out.println("import has " + contactsToImport.size() + " contacts");
+					parentController.importContacts(contactsToImport);
                 } catch (FileNotFoundException ex) {
                     System.out.println("Failed to import file data");
                 } catch (IOException ex) {
@@ -85,8 +88,12 @@ public class GsonPicker extends Picker implements ActionListener {
                     FileInputStream fis = new FileInputStream(fileToImport);
                     InputStreamReader in = new InputStreamReader(fis);
                     Gson gson = new Gson();
-                    gson.newJsonReader(in);
-//                    Event event = gson.fromJson(new FileReader(fileToImport), Event.class);
+                    System.out.println("Input stream created");
+                    //this.parentController.importContacts(readContactArray(gson.newJsonReader(in)));
+					ArrayList<Event> eventsToImport = new ArrayList<Event>();
+					eventsToImport = gson.fromJson(gson.newJsonReader(in), new TypeToken<List<Event>>(){}.getType());
+					System.out.println("import has " + eventsToImport.size() + " events");
+					parentController.importEvents(eventsToImport);
                 } catch (FileNotFoundException ex) {
                     System.out.println("Failed to import file data");
                 }

@@ -203,4 +203,13 @@ public class PickerController {
         parentController.updateContactTable();
         parentController.writeData();
     }
+
+	public void importEvents(ArrayList<Event> eventsToImport) {
+		System.out.println("importing " + eventsToImport.size() + " contacts.");
+        for(int i = 0; i < eventsToImport.size(); i++) {
+            this.activeUser.addEvent(eventsToImport.get(i));
+        }
+        parentController.updateEventTable();
+        parentController.writeData();
+	}
 }
