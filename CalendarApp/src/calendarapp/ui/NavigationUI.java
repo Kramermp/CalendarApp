@@ -74,9 +74,11 @@ public class NavigationUI extends JFrame {
 	private CalendarUI calendarUI;
 	private ContactListUI contactListUI;
 	private LocationListUI locationListUI;
+	private EventListUI eventListUI;
 	
 	private static final String CONTACTLIST_VIEW = "Contact VIEW";
 	private static final String LOCATIONLIST_VIEW = "Location VIEW";
+	private static final String EVENTLIST_VIEW = "Event View";
 	
         //changed to also accept User
 	public NavigationUI(NavigationController parentController, User user) {
@@ -285,7 +287,8 @@ public class NavigationUI extends JFrame {
             gsonMenu.add(importGson);
             gsonMenu.add(exportGson);
             parentMenu.add(gsonMenu);
-        }	
+        }
+	
 	private void buildLocationMenu(JMenu parentMenu) {
 		//TODO: Build Functionality
 		JMenu locationMenu= new JMenu("Locations");
@@ -362,6 +365,12 @@ public class NavigationUI extends JFrame {
 			((CardLayout)cards.getLayout()).show(cards, LOCATIONLIST_VIEW);
 		});
 		locationBtn.setSize(new Dimension(10, 10));
+		
+		JButton eventBtn = new JButton("Event");
+		eventBtn.addActionListener((ActionEvent ae) -> { 
+			System.out.println("EventBtn triggered.");
+			((CardLayout)cards.getLayout()).show(cards, EVENTLIST_VIEW);
+		});
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 1;
@@ -381,6 +390,15 @@ public class NavigationUI extends JFrame {
 		//leftBtnArea.setBackground(Color.yellow);
 		
 		c = new GridBagConstraints();
+		c.fill = GridBagConstraints.BOTH;
+		c.weightx = 1;
+		c.weighty = 1;
+		c.gridx = 2;
+		c.gridy =0;
+		c.insets = new Insets(0,10,0,10);
+		leftBtnArea.add(eventBtn, c);
+		
+		c = new GridBagConstraints();
 		c.gridx =0;
 		c.weightx =1;
 		c.gridy =0;
@@ -394,10 +412,13 @@ public class NavigationUI extends JFrame {
 		cardsLayout.addLayoutComponent(contactListUI, CONTACTLIST_VIEW);
 		locationListUI = new LocationListUI( parentController.getLocationList());
 		cardsLayout.addLayoutComponent(locationListUI, LOCATIONLIST_VIEW);
+		eventListUI = new EventListUI(this, parentController.getEventList());
+		cardsLayout.addLayoutComponent(eventListUI, EVENTLIST_VIEW);
 		//cards.setBackground(Color.BLUE);
 		cards.setLayout(cardsLayout);
 		cards.add(contactListUI, CONTACTLIST_VIEW);
 		cards.add(locationListUI, LOCATIONLIST_VIEW);
+		cards.add(eventListUI, EVENTLIST_VIEW);
 		c = new GridBagConstraints();
 		c.gridx  = 0;
 		c.gridy =1;
@@ -421,6 +442,7 @@ public class NavigationUI extends JFrame {
 
 	public void updateEventTable() {
 		calendarUI.updateCalendar();
+		eventListUI.update();
 	}
 	
 	public void updateContactTable() {
@@ -437,5 +459,12 @@ public class NavigationUI extends JFrame {
 		System.out.println("Updating Location Table");
 		locationListUI.update();
 		((CardLayout)cards.getLayout()).show(cards, LOCATIONLIST_VIEW);
+	}
+
+	void sortEvents(String fieldName) {
+		System.out.println("Sorint events by " + fieldName);
+		parentController.sortEvents(fieldName);
+		updateEventTable();
+		((CardLayout)cards.getLayout()).show(cards, EVENTLIST_VIEW);
 	}
 }

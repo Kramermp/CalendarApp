@@ -57,6 +57,7 @@ public class EventController {
 			newEvent.setEventStartDate(eventUI.getEventStartDate());
 			newEvent.setEventEndDate(eventUI.getEventEndDate());
 			newEvent.setEventLocation(eventUI.getEventLocation());
+			newEvent.setEventPriority(eventUI.getEventPriority());
 			activeUser.addEvent(newEvent);
 		} else {
 			sourceEvent.setEventName(eventUI.getEventName());
@@ -65,6 +66,7 @@ public class EventController {
 			sourceEvent.setEventStartDate(eventUI.getEventStartDate());
 			sourceEvent.setEventEndDate(eventUI.getEventEndDate());
 			sourceEvent.setEventLocation(eventUI.getEventLocation());
+			sourceEvent.setEventPriority(eventUI.getEventPriority());
 		}
 		dataController.writeTheSerializedData();
 		dispose();

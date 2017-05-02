@@ -89,8 +89,8 @@ public class DateTimePicker extends JPanel {
         calendar.set(Calendar.YEAR, year);
 		calendar.set(Calendar.MONTH, month);
         calendar.set(Calendar.DAY_OF_MONTH, day);
-        calendar.set(Calendar.HOUR, hours);
-        calendar.set(Calendar.MINUTE, min);
+        //calendar.set(Calendar.HOUR, hours);
+        //calendar.set(Calendar.MINUTE, min);
         
 
         return calendar;

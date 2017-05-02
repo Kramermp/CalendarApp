@@ -321,4 +321,8 @@ public class NavigationController {
 	public ArrayList<Location> getLocationList() {
 		return activeUser.getLocationList();
 	}
+	
+	public void sortEvents(String fieldName) {
+		activeUser.sortEvents(fieldName);
+	}
 }
