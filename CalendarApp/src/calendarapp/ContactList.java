@@ -82,7 +82,7 @@ public class ContactList implements Sortable, Serializable {
     private static void mergeSort(String fieldName, Contact[] src, 
 	    Contact[] dest, int low, int high, int off) {
 	int length = high - low;
-	System.out.println("Here");
+	//System.out.println("Here)";
 
 	// Insertion sort on smallest arrays
 	if (length < INSERTIONSORT_THRESHOLD) {
@@ -90,9 +90,9 @@ public class ContactList implements Sortable, Serializable {
 		for (int j=i; j>low &&
 			(dest[j-1]).compareBy(fieldName, dest[j])>0; j--) {
 		    swap(dest, j, j-1);
-		    System.out.print(dest[j].getName().getFirstName());
-		    System.out.print(" swapped with ");
-		    System.out.println(dest[j-1].getName().getFirstName());
+//		    System.out.print(dest[j].getName().getFirstName());
+//		    System.out.print(" swapped with ");
+//		    System.out.println(dest[j-1].getName().getFirstName());
 		}	    
 	    return;
 	}
